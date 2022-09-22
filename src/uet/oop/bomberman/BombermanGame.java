@@ -21,7 +21,7 @@ public class BombermanGame extends Application {
      * tri.
      */
     /**
-     *
+     * abcd
      */
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
