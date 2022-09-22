@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
+    // day la file cua quach
     
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
