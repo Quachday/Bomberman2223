@@ -1,5 +1,6 @@
 package uet.oop.bomberman;
 
+import com.sun.javafx.font.directwrite.RECT;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -9,7 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
@@ -29,6 +32,8 @@ import java.util.Scanner;
 
 public class BombermanGame extends Application {
     // day la file cua quach
+
+
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
@@ -85,15 +90,13 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 100000.0;
-                int posX = (int)bomberman.getX()/32;
-                int posY = (int)bomberman.getY()/32;
+                int posXtop = (int)(bomberman.getX())/32;
+                int posYtop = (int)(bomberman.getY())/32;
                 if(input.contains("LEFT")) {
-                    if(arr[posY][posX-1] == 0
-                    || arr[posY][posX-1] == 1 && bomberman.getX()-1 >= posX*32)  bomberman.setX(bomberman.getX()-1);
+                      bomberman.setX(bomberman.getX()-1);
                 }
                 if(input.contains("RIGHT")) {
-                    if(arr[posY][posX+1] == 0
-                            || arr[posY][posX+1] == 1 && bomberman.getX()+1 <= (posX+1)*32)  bomberman.setX(bomberman.getX()+1);
+                      bomberman.setX(bomberman.getX()+1);
                 }
                 if(input.contains("UP")) {
                     bomberman.setY(bomberman.getY()-1);
