@@ -39,9 +39,9 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
 
-    private ArrayList<String> input = new ArrayList<String>();
+    public static ArrayList<String> input = new ArrayList<String>();
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -83,24 +83,12 @@ public class BombermanGame extends Application {
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
+        root.getChildren().add(bomberman.rect);
         final long startNanoTime = System.nanoTime();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 100000.0;
-                // Hàm di chuyển ở dưới => Cần xử lý xa chạm
-                if(input.contains("LEFT")) {
-                      bomberman.setX(bomberman.getX()-1);
-                }
-                if(input.contains("RIGHT")) {
-                      bomberman.setX(bomberman.getX()+1);
-                }
-                if(input.contains("UP")) {
-                    bomberman.setY(bomberman.getY()-1);
-                }
-                if(input.contains("DOWN")) {
-                    bomberman.setY(bomberman.getY()+1);
-                }
                 update();
                 render();
             }
@@ -108,7 +96,13 @@ public class BombermanGame extends Application {
         timer.start();
 
         createMap();
-        for (int i = 1; i < (Sprite.SCALED_SIZE * WIDTH)/32; i++) {
+
+        for (int i = 0; i < stillObjects.size(); i++) {
+            if (stillObjects.get(i) instanceof Grass) {
+                i = i;
+            } else root.getChildren().add(stillObjects.get(i).rect);
+        }
+        /* for (int i = 1; i < (Sprite.SCALED_SIZE * WIDTH)/32; i++) {
             Line line = new Line();
             line.setStartX(32*i);
             line.setStartY(0);
@@ -122,7 +116,7 @@ public class BombermanGame extends Application {
             line.setEndX(Sprite.SCALED_SIZE*WIDTH);
             line.setEndY(32*i);
             root.getChildren().add(line); }
-
+            */
 
     }
 
