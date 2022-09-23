@@ -27,6 +27,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>15</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>11.8</version>
+        </dependency>
     </dependencies>
 
     <build>
