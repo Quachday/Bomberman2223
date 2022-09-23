@@ -36,8 +36,6 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-
-    private  double[][] arr = new double[13][31];
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
@@ -90,8 +88,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 100000.0;
-                int posXtop = (int)(bomberman.getX())/32;
-                int posYtop = (int)(bomberman.getY())/32;
+                // Hàm di chuyển ở dưới => Cần xử lý xa chạm
                 if(input.contains("LEFT")) {
                       bomberman.setX(bomberman.getX()-1);
                 }
@@ -146,19 +143,15 @@ public class BombermanGame extends Application {
                     switch (s.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
-                            arr[i][j] = 1;
                             break;
                         case '*':
                             object = new Wall(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
-                            arr[i][j] = 1;
                             break;
                         case '1':
                             object = new Wall(j, i, Sprite.balloom_left1.getFxImage()); // Can tao lop Balloom
-                            arr[i][j] = 1;
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
-                            arr[i][j] = 0;
                             break;
                     }
                      stillObjects.add(object);
