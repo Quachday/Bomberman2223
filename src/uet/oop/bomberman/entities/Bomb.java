@@ -5,12 +5,20 @@ import javafx.scene.image.Image;
 import static uet.oop.bomberman.BombermanGame.bomb;
 import static uet.oop.bomberman.BombermanGame.input;
 
-public class Bomb extends Entity {
+public class Bomb extends AnimatedEntity {
     public Bomb(double x,double y, Image img) {
-        super(x, y, img);
+        this.x = x;
+        this.y = y;
+        this.img = img;
+
     }
     public int t = 0;
     public void update() {
-        }
+    }
+
+    @Override
+    public boolean collide(Entity e) {
+        return true;
+    }
 
 }

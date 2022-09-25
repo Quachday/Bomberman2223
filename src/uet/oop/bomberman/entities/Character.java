@@ -13,7 +13,7 @@ public abstract class Character extends AnimatedEntity{
     public Character(double x, double y, Image image) {
         this.x = x * Sprite.SCALED_SIZE;
         this.y = y * Sprite.SCALED_SIZE;
-        this.img = img;
+        this.img = image;
         rect = new Rectangle(x,y,32,32);
         rect.setVisible(false);
     }
