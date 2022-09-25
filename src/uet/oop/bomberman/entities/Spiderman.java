@@ -17,47 +17,44 @@ import java.util.ArrayList;
 import static uet.oop.bomberman.BombermanGame.*;
 
 
-public class Bomber extends Entity {
-    public Bomber(double x, double y, Image img) {
+public class Spiderman extends Bomber {
+    public Spiderman(double x, double y, Image img) {
 
         super( x, y, img);
     }
 
-    char s;
 
-    int state = 1;
 
     public void update() {
         move();
     }
-
-
+    @Override
     public void move() {
-        if(input.contains("LEFT")) {
+        if(input.contains("A")) {
             x-=2;
             state++;
-            img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, 15+state, 3 + state).getFxImage();
+            img = Sprite.movingSprite(Sprite.spider_left_1, Sprite.spider_left_2, 15+state, 3 + state).getFxImage();
             if (state == 20) state = 1;
             s = 'L';
         }
-        if(input.contains("RIGHT")) {
+        if(input.contains("D")) {
             x+=2;
             state++;
             if (state == 20) state = 1;
-            img = Sprite.movingSprite(Sprite.player_right_1,Sprite.player_right_2,15+state,3+state).getFxImage();
+            img = Sprite.movingSprite(Sprite.spider_right_1,Sprite.spider_right_2,15+state,3+state).getFxImage();
             s = 'R';
         }
-        if(input.contains("UP")) {
+        if(input.contains("W")) {
             y-=2;
             state++;
             if (state == 15) state = 1;
-            img = Sprite.movingSprite(Sprite.player_up_1,Sprite.player_up_2,15+state,3+state).getFxImage();
+            img = Sprite.movingSprite(Sprite.spider_up_1,Sprite.spider_up_2,15+state,3+state).getFxImage();
             s = 'U';
         }
-        if(input.contains("DOWN")) {
+        if(input.contains("S")) {
             y+=2;
             state++;
-            img = Sprite.movingSprite(Sprite.player_down_1,Sprite.player_down_2,15+state,3+state).getFxImage();
+            img = Sprite.movingSprite(Sprite.spider_down_1,Sprite.spider_down_2,15+state,3+state).getFxImage();
             if (state == 15) state = 1;
             s = 'D';
         }
@@ -66,19 +63,19 @@ public class Bomber extends Entity {
         if (input.isEmpty()) {
             switch (s) {
                 case 'L':
-                    img = Sprite.player_left.getFxImage();
+                    img = Sprite.spider_left.getFxImage();
                     state = 1;
                     break;
                 case 'R':
-                    img = Sprite.player_right.getFxImage();
+                    img = Sprite.spider_right.getFxImage();
                     state = 1;
                     break;
                 case 'U':
-                    img = Sprite.player_up.getFxImage();
+                    img = Sprite.spider_up.getFxImage();
                     state = 1;
                     break;
                 case 'D':
-                    img = Sprite.player_down.getFxImage();
+                    img = Sprite.spider_down.getFxImage();
                     state = 1;
                     break;
             }

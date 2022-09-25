@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.arr;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas

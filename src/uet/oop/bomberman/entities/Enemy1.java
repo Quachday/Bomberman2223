@@ -11,12 +11,12 @@ public class Enemy1 extends Entity {
         super( x, y, img);
     }
     Random rand = new Random();
-    int ranNum = rand.nextInt(2)+1;
+    int ranNum = rand.nextInt(4)+1;
 
     public void update() {
-        if(ranNum==1) x--;
-        else if (ranNum == 2) x++;
-       // else if (ranNum == 3) y++;
-       // else if (ranNum == 4) y--;
+        if(ranNum == 1) x -= 0.2;
+        else if (ranNum == 2) x += 0.5;
+        else if (ranNum == 3) y += 0.5;
+        else if (ranNum == 4) y -= 0.5;
     }
 }

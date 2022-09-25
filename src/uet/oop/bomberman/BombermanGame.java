@@ -21,10 +21,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.Delayed;
+import java.util.*;
+
+import static uet.oop.bomberman.entities.Bomb.bomb;
 
 
 public class BombermanGame extends Application {
@@ -35,11 +34,9 @@ public class BombermanGame extends Application {
     public static final int HEIGHT = 13;
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    public static int[][] arr = new int[13][31];
+    public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
-    public static List<Rectangle> rectangles = new ArrayList<>();
-    public static List<Entity> bomb = new ArrayList<>();
+
 
     public static ArrayList<String> input = new ArrayList<String>();
     public static void main(String[] args) {
@@ -81,21 +78,15 @@ public class BombermanGame extends Application {
                     }
                 });
 
+
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-        root.getChildren().add(bomberman.rect);
-        final long startNanoTime = System.nanoTime();
-
+        Entity spiderman = new Spiderman(1, 11, Sprite.spider_right.getFxImage());
+        entities.add(spiderman);
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long t) {
-                t = 1;
-                if(input.contains("SPACE")) {
-                    Entity object = new Bomb((int)bomberman.getX()/32,(int)bomberman.getY()/32,Sprite.bomb.getFxImage());
-                    bomb.add(object);
-                    update();
-                    render();
-                }
+            public void handle(long currentNanoTime ) {
+
                 update();
                 render();
 
@@ -104,23 +95,6 @@ public class BombermanGame extends Application {
         timer.start();
 
         createMap();
-
-        /* for (int i = 1; i < (Sprite.SCALED_SIZE * WIDTH)/32; i++) {
-            Line line = new Line();
-            line.setStartX(32*i);
-            line.setStartY(0);
-            line.setEndX(32*i);
-            line.setEndY(Sprite.SCALED_SIZE*HEIGHT);
-            root.getChildren().add(line); }
-        for (int i = 1; i < (Sprite.SCALED_SIZE * HEIGHT)/32; i++) {
-            Line line = new Line();
-            line.setStartX(0);
-            line.setStartY(32*i);
-            line.setEndX(Sprite.SCALED_SIZE*WIDTH);
-            line.setEndY(32*i);
-            root.getChildren().add(line); }
-            */
-
     }
 
 
@@ -140,20 +114,28 @@ public class BombermanGame extends Application {
                     switch (s.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
-                            arr[i][j] = 0;
                             break;
                         case '*':
                             object = new Wall(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
-                            arr[i][j] = 0;
                             break;
                         case '1':
                             Entity enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
                             entities.add(enemy1);
                             object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
                             break;
+                        case '2' :
+                            Entity moveGate = new Wall(j,i,Sprite.portal.getFxImage());
+                            entities.add(moveGate);
+                            object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
+                            break;
+                        case '3' :
+                            object = new Grass(j, i, Sprite.sign1.getFxImage());
+                            break;
+                        case '4' :
+                            object = new Grass(j, i, Sprite.sign2.getFxImage());
+                            break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
-                            arr[i][j] = 1;
                             break;
                     }
                     stillObjects.add(object);
@@ -172,6 +154,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        bomb.forEach(Entity::update);
     }
 
     public void render() {
