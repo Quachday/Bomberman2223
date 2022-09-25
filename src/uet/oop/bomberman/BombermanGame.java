@@ -8,7 +8,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -17,12 +20,15 @@ import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.List;
 
+import javafx.scene.paint.Color;
 import static uet.oop.bomberman.entities.Bomb.bomb;
 
 
@@ -56,10 +62,33 @@ public class BombermanGame extends Application {
         // Tao scene
         Scene scene = new Scene(root);
 
+
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setTitle("BOMBERMAN GAME");
         stage.show();
+        welcomeGame(scene);
+    }
 
+    public void welcomeGame(Scene scene) {
+
+        Image background = new Image("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\background.jpg"); // luc chay thi doi dia chi nay
+        gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        scene.setOnMouseClicked(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
+                            startGame(scene,2);
+                        if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
+                          startGame(scene,1);
+                        if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
+                            System.exit(0);
+                    }
+                });
+
+    }
+    public void startGame(Scene scene,int numOfPlayers) {
         scene.setOnKeyPressed(
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
@@ -81,12 +110,12 @@ public class BombermanGame extends Application {
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-        Entity spiderman = new Spiderman(1, 11, Sprite.spider_right.getFxImage());
-        entities.add(spiderman);
+        if(numOfPlayers == 2)
+        {Entity spiderman = new Spiderman(1, 11, Sprite.spider_right.getFxImage());
+        entities.add(spiderman);}
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime ) {
-
                 update();
                 render();
 
