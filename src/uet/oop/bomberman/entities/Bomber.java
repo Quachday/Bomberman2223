@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import static uet.oop.bomberman.BombermanGame.*;
 
 
-public class Bomber extends Entity {
+public class Bomber extends Character {
 
 
     public Bomber(double x, double y, Image img) {
@@ -42,6 +42,24 @@ public class Bomber extends Entity {
         }
 
     }
+
+    @Override
+    public void kill() {
+        if (!_alive) return;
+        _alive = false;
+    }
+
+    @Override
+    public boolean collide(Entity e) {
+
+        //  xử lý va chạm với Enemy
+        if (e instanceof Enemy1)
+        {
+            kill();
+        }
+        return true;
+    }
+
 
 
 }

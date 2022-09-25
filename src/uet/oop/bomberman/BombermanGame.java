@@ -126,7 +126,7 @@ public class BombermanGame extends Application {
 
     public void createMap() {
         try {
-            FileReader map = new FileReader("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\levels\\Level1.txt");
+            FileReader map = new FileReader("C:\\Users\\user\\OneDrive\\Desktop\\Bomberman2223\\res\\levels\\Level1.txt");
             Scanner sc = new Scanner(map);
             int level = sc.nextInt();
             int rows = sc.nextInt();

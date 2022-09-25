@@ -21,7 +21,9 @@ public abstract class Entity {
 
     public Rectangle rect;
 
+
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
+    public Entity(){}
     public Entity( double xUnit, double yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
@@ -50,5 +52,6 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
 
     }
+    public abstract boolean collide(Entity e);
     public abstract void update();
 }
