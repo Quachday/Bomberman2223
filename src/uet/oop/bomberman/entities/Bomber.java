@@ -20,7 +20,6 @@ import static uet.oop.bomberman.BombermanGame.*;
 public class Bomber extends Entity {
     private int speed = Sprite.SCALED_SIZE / 5;
     public Bomber(int x, int y, Image img) {
-
         super( x, y, img);
     }
 
@@ -31,7 +30,7 @@ public class Bomber extends Entity {
 
 
     public void update() {
-        move();
+      move();
     }
 
     public void supportRow() {

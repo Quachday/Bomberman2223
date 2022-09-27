@@ -123,7 +123,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         Management.bombers.forEach(Entity::update);
-        Management.ballom.forEach(Enemy1::update);
+        Management.ballom.forEach(Entity::update);
 
     }
 
