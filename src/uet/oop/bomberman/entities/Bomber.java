@@ -10,56 +10,214 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 
 import static uet.oop.bomberman.BombermanGame.*;
 
 
-public class Bomber extends Character {
-
-
-    public Bomber(double x, double y, Image img) {
+public class Bomber extends Entity {
+    private int speed = Sprite.SCALED_SIZE / 5;
+    public Bomber(int x, int y, Image img) {
 
         super( x, y, img);
     }
 
+    //char s;
+
+  //  int state = 1;
+
 
 
     public void update() {
+        this.animate += Sprite.DEFAULT_SIZE / 10;
 
+    }
+
+    public void supportRow() {
+        if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.y % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE);
+        }
+    }
+
+    public void supportColumn() {
+        if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
+        }
+    }
+    public void goLeft() {
+        for (int i = 1; i <= this.speed; ++i) {
+            this.x -= 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if(checkWall()) {
+                this.x += 1;
+                supportRow();
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1,
+                Sprite.player_left_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goRight() {
+        for (int i = 1; i <= this.speed; ++i) {
+            this.x += 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if(checkWall()) {
+                this.x -= 1;
+                supportRow();
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1,
+                Sprite.player_right_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goUp() {
+        for (int i = 1; i <= this.speed; ++i) {
+            this.y -= 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if(checkWall()) {
+                this.y += 1;
+                supportColumn();
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1,
+                Sprite.player_up_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goDown() {
+        for (int i = 1; i <= this.speed; ++i) {
+            this.y += 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if(checkWall()) {
+                this.y -= 1;
+                supportColumn();
+                break;
+            }
+        }
+        setImg(Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1,
+                Sprite.player_down_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    /*public void goLeft() {
+       // for (int i = 1; i <= this.speed; ++i) {
+            this.x -= 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if (checkWall()) {
+                this.x += 1;
+                supportRow();
+             //   break;
+            }
+       // }
+       // setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1,
+         //       Sprite.player_left_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goRight() {
+       // for (int i = 1; i <= this.speed; ++i) {
+            this.x += 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if (checkWall()) {
+                this.x -= 1;
+                supportRow();
+               // break;
+            }
+       // }
+        //setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1,
+         //       Sprite.player_right_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goUp() {
+        //for (int i = 1; i <= this.speed; ++i) {
+            this.y -= 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if (checkWall()) {
+                this.y += 1;
+                supportColumn();
+            //    break;
+            }
+      //  }
+       // setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1,
+         //       Sprite.player_up_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+    public void goDown() {
+       // for (int i = 1; i <= this.speed; ++i) {
+            this.y += 1;
+            //if (checkBrick() || checkWall() || checkBomb()) {
+            if (checkWall()) {
+                this.y -= 1;
+                supportColumn();
+              //  break;
+            }
+       // }
+        //setImg(Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1,
+          //      Sprite.player_down_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+    }
+
+
+    /*public void move() {
         if(input.contains("LEFT")) {
-            x--;
+           // x-=1;
+            goLeft();
+            state++;
+            img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, 15+state, 3 + state).getFxImage();
+            if (state == 20) state = 1;
+            s = 'L';
         }
         if(input.contains("RIGHT")) {
-            x++;
+            //x+=1;
+            goRight();
+            state++;
+            if (state == 20) state = 1;
+            img = Sprite.movingSprite(Sprite.player_right_1,Sprite.player_right_2,15+state,3+state).getFxImage();
+            s = 'R';
         }
         if(input.contains("UP")) {
-            y--;
+            //y-=1;
+            goUp();
+            state++;
+            if (state == 15) state = 1;
+            img = Sprite.movingSprite(Sprite.player_up_1,Sprite.player_up_2,15+state,3+state).getFxImage();
+            s = 'U';
         }
         if(input.contains("DOWN")) {
-            y++;
+            //y+=1;
+            goDown();
+            state++;
+            img = Sprite.movingSprite(Sprite.player_down_1,Sprite.player_down_2,15+state,3+state).getFxImage();
+            if (state == 15) state = 1;
+            s = 'D';
         }
-
-    }
-
-    @Override
-    public void kill() {
-        if (!_alive) return;
-        _alive = false;
-    }
-
-    @Override
-    public boolean collide(Entity e) {
-
-        //  xử lý va chạm với Enemy
-        if (e instanceof Enemy1)
-        {
-            kill();
+        if ( x <= 80 && x >=64 && y >= 96 && y <= 112) { x = 850; y = 352; }
+        if ( x <= 848 && x >= 832 && y >= 352 && y <= 368) { x = 62 ; y = 96;}
+        if (input.isEmpty()) {
+            switch (s) {
+                case 'L':
+                    img = Sprite.player_left.getFxImage();
+                    state = 1;
+                    break;
+                case 'R':
+                    img = Sprite.player_right.getFxImage();
+                    state = 1;
+                    break;
+                case 'U':
+                    img = Sprite.player_up.getFxImage();
+                    state = 1;
+                    break;
+                case 'D':
+                    img = Sprite.player_down.getFxImage();
+                    state = 1;
+                    break;
+            }
         }
-        return true;
-    }
-
-
+    }*/
 
 }

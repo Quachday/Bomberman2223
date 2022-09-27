@@ -8,7 +8,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -17,29 +21,29 @@ import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.Delayed;
+
+import javafx.scene.paint.Color;
+import static uet.oop.bomberman.entities.Bomb.bomb;
 
 
 public class BombermanGame extends Application {
     // day la file cua quach
 
 
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
+    public static int WIDTH = 20;
+    public static int HEIGHT = 15;
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    public static int[][] arr = new int[13][31];
-    public static List<Entity> stillObjects = new ArrayList<>();
-    public static List<Rectangle> rectangles = new ArrayList<>();
-    public static List<Entity> bomb = new ArrayList<>();
+    //public static List<Entity> entities = new ArrayList<>();
+    // public static List<Entity> stillObjects = new ArrayList<>();
+
 
     public static ArrayList<String> input = new ArrayList<String>();
     public static void main(String[] args) {
@@ -48,6 +52,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        CreateMap.createMapByLevel(1);
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -58,126 +63,55 @@ public class BombermanGame extends Application {
 
         // Tao scene
         Scene scene = new Scene(root);
-
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setTitle("BOMBERMAN GAME");
         stage.show();
-
-        scene.setOnKeyPressed(
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-
-                        // only add once... prevent duplicates
-                        if (!input.contains(code))
-                            input.add(code);
-                    }
-                });
-        scene.setOnKeyReleased(
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-                        input.remove(code);
-                    }
-                });
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        root.getChildren().add(bomberman.rect);
-        final long startNanoTime = System.nanoTime();
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long t) {
-                t = 1;
-                if(input.contains("SPACE")) {
-                    Entity object = new Bomb((int)bomberman.getX()/32,(int)bomberman.getY()/32,Sprite.bomb.getFxImage());
-                    bomb.add(object);
-                    update();
-                    render();
-                }
-                update();
+            public void handle(long l) {
                 render();
-
+                update();
             }
         };
         timer.start();
 
-        createMap();
-
-        /* for (int i = 1; i < (Sprite.SCALED_SIZE * WIDTH)/32; i++) {
-            Line line = new Line();
-            line.setStartX(32*i);
-            line.setStartY(0);
-            line.setEndX(32*i);
-            line.setEndY(Sprite.SCALED_SIZE*HEIGHT);
-            root.getChildren().add(line); }
-        for (int i = 1; i < (Sprite.SCALED_SIZE * HEIGHT)/32; i++) {
-            Line line = new Line();
-            line.setStartX(0);
-            line.setStartY(32*i);
-            line.setEndX(Sprite.SCALED_SIZE*WIDTH);
-            line.setEndY(32*i);
-            root.getChildren().add(line); }
-            */
+        /**
+         * dieu khien di chuyen bomber.
+         */
+        scene.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().toString().equals("LEFT")) {
+                Management.bomberman.goLeft();
+            }
+            if (keyEvent.getCode().toString().equals("DOWN")) {
+                Management.bomberman.goDown();
+            }
+            if (keyEvent.getCode().toString().equals("UP")) {
+                Management.bomberman.goUp();
+            }
+            if (keyEvent.getCode().toString().equals("RIGHT")) {
+                Management.bomberman.goRight();
+            }
+        });
 
     }
-
-
-    public void createMap() {
-        try {
-            FileReader map = new FileReader("C:\\Users\\user\\OneDrive\\Desktop\\Bomberman2223\\res\\levels\\Level1.txt");
-            Scanner sc = new Scanner(map);
-            int level = sc.nextInt();
-            int rows = sc.nextInt();
-            int columns = sc.nextInt();
-            String first = sc.nextLine();
-
-            for (int i = 0; i < rows; i++) {
-                String s = sc.nextLine();
-                for (int j = 0; j < columns; j++) {
-                    Entity object;
-                    switch (s.charAt(j)) {
-                        case '#':
-                            object = new Wall(j, i, Sprite.wall.getFxImage());
-                            arr[i][j] = 0;
-                            break;
-                        case '*':
-                            object = new Wall(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
-                            arr[i][j] = 0;
-                            break;
-                        case '1':
-                            Entity enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
-                            entities.add(enemy1);
-                            object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
-                            break;
-                        default:
-                            object = new Grass(j, i, Sprite.grass.getFxImage());
-                            arr[i][j] = 1;
-                            break;
-                    }
-                    stillObjects.add(object);
-
-
-                }
-            }
-        }
-        catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
-
-        } // create map xong.- chua day du
 
 
 
     public void update() {
-        entities.forEach(Entity::update);
+        Management.bomberman.update();
+        bomb.forEach(Entity::update);
+
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
-        bomb.forEach(g -> g.render(gc));
+        Management.grasses.forEach(grass -> grass.render(gc));
+        Management.portals.forEach(portal -> portal.render(gc));
+        Management.walls.forEach(wall -> wall.render(gc));
+        Management.bombers.forEach(bomber -> bomber.render(gc));
+
+
     }
 }
