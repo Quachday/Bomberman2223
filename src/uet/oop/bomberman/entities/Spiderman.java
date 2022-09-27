@@ -18,7 +18,7 @@ import static uet.oop.bomberman.BombermanGame.*;
 
 
 public class Spiderman extends Bomber {
-    public Spiderman(double x, double y, Image img) {
+    public Spiderman(int x, int y, Image img) {
 
         super( x, y, img);
     }
@@ -26,9 +26,9 @@ public class Spiderman extends Bomber {
 
 
     public void update() {
-        move();
+
     }
-    @Override
+    /*@Override
     public void move() {
         if(input.contains("A")) {
             x-=2;
@@ -80,6 +80,6 @@ public class Spiderman extends Bomber {
                     break;
             }
         }
-    }
+    }*/
 
 }

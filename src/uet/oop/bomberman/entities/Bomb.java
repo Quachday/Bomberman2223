@@ -15,7 +15,7 @@ public class Bomb extends Entity {
 
     private int countBomb = 5;
 
-    public Bomb(double x, double y, Image img) {
+    public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
 

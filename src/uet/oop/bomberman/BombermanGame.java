@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -36,12 +37,12 @@ public class BombermanGame extends Application {
     // day la file cua quach
 
 
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
+    public static int WIDTH = 20;
+    public static int HEIGHT = 15;
     private GraphicsContext gc;
     private Canvas canvas;
-    public static List<Entity> entities = new ArrayList<>();
-    public static List<Entity> stillObjects = new ArrayList<>();
+    //public static List<Entity> entities = new ArrayList<>();
+    // public static List<Entity> stillObjects = new ArrayList<>();
 
 
     public static ArrayList<String> input = new ArrayList<String>();
@@ -51,6 +52,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        CreateMap.createMapByLevel(1);
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -61,135 +63,55 @@ public class BombermanGame extends Application {
 
         // Tao scene
         Scene scene = new Scene(root);
-
-
         // Them scene vao stage
         stage.setScene(scene);
         stage.setTitle("BOMBERMAN GAME");
         stage.show();
-        welcomeGame(scene);
-    }
 
-    public void welcomeGame(Scene scene) {
-
-        Image background = new Image("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\background.jpg"); // luc chay thi doi dia chi nay
-        gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        scene.setOnMouseClicked(
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
-                            startGame(scene,2);
-                        if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
-                          startGame(scene,1);
-                        if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
-                            System.exit(0);
-                    }
-                });
-
-    }
-    public void startGame(Scene scene,int numOfPlayers) {
-        scene.setOnKeyPressed(
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-
-                        // only add once... prevent duplicates
-                        if (!input.contains(code))
-                            input.add(code);
-                    }
-                });
-        scene.setOnKeyReleased(
-                new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-                        input.remove(code);
-                    }
-                });
-
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        if(numOfPlayers == 2)
-        {Entity spiderman = new Spiderman(1, 11, Sprite.spider_right.getFxImage());
-        entities.add(spiderman);}
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long currentNanoTime ) {
-                update();
+            public void handle(long l) {
                 render();
-
+                update();
             }
         };
         timer.start();
 
-        createMap();
-    }
-
-
-    public void createMap() {
-        try {
-            FileReader map = new FileReader("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\levels\\Level1.txt");
-            Scanner sc = new Scanner(map);
-            int level = sc.nextInt();
-            int rows = sc.nextInt();
-            int columns = sc.nextInt();
-            String first = sc.nextLine();
-
-            for (int i = 0; i < rows; i++) {
-                String s = sc.nextLine();
-                for (int j = 0; j < columns; j++) {
-                    Entity object;
-                    switch (s.charAt(j)) {
-                        case '#':
-                            object = new Wall(j, i, Sprite.wall.getFxImage());
-                            break;
-                        case '*':
-                            object = new Wall(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
-                            break;
-                        case '1':
-                            Entity enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
-                            entities.add(enemy1);
-                            object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
-                            break;
-                        case '2' :
-                            Entity moveGate = new Wall(j,i,Sprite.portal.getFxImage());
-                            entities.add(moveGate);
-                            object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
-                            break;
-                        case '3' :
-                            object = new Grass(j, i, Sprite.sign1.getFxImage());
-                            break;
-                        case '4' :
-                            object = new Grass(j, i, Sprite.sign2.getFxImage());
-                            break;
-                        default:
-                            object = new Grass(j, i, Sprite.grass.getFxImage());
-                            break;
-                    }
-                    stillObjects.add(object);
-
-
-                }
+        /**
+         * dieu khien di chuyen bomber.
+         */
+        scene.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().toString().equals("LEFT")) {
+                Management.bomberman.goLeft();
             }
-        }
-        catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
+            if (keyEvent.getCode().toString().equals("DOWN")) {
+                Management.bomberman.goDown();
+            }
+            if (keyEvent.getCode().toString().equals("UP")) {
+                Management.bomberman.goUp();
+            }
+            if (keyEvent.getCode().toString().equals("RIGHT")) {
+                Management.bomberman.goRight();
+            }
+        });
 
-        } // create map xong.- chua day du
+    }
 
 
 
     public void update() {
-        entities.forEach(Entity::update);
+        Management.bomberman.update();
         bomb.forEach(Entity::update);
+
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
-        bomb.forEach(g -> g.render(gc));
+        Management.grasses.forEach(grass -> grass.render(gc));
+        Management.portals.forEach(portal -> portal.render(gc));
+        Management.walls.forEach(wall -> wall.render(gc));
+        Management.bombers.forEach(bomber -> bomber.render(gc));
+
+
     }
 }
