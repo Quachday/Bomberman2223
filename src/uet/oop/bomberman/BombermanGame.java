@@ -123,7 +123,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         Management.bombers.forEach(Entity::update);
-        Management.ballom.forEach(Entity::update);
+        Management.enemy.forEach(Entity::update);
 
     }
 
@@ -139,7 +139,7 @@ public class BombermanGame extends Application {
         stillObjects.forEach(g -> g.render(gc));
         Management.bombers.forEach(bomber -> bomber.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
-        Management.ballom.forEach(g -> g.render(gc));
+        Management.enemy.forEach(g -> g.render(gc));
 
     }
 }

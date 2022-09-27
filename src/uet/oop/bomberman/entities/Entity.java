@@ -28,9 +28,6 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
-        rect = new Rectangle(x,y,32,32);
-        rect.setVisible(false);
-        this.animate =  this.x;
     }
 
     public void setX(int x) {

@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import static uet.oop.bomberman.BombermanGame.entities;
 import static uet.oop.bomberman.BombermanGame.stillObjects;
+import static uet.oop.bomberman.entities.Management.bombergirl;
 
 public class CreateMap {
     /**
@@ -22,7 +23,7 @@ public class CreateMap {
         Management.bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         Management.bombers.add(Management.bomberman);
         if (numOfPlayer == 2) {
-            Bombergirl bombergirl = new Bombergirl(1, 11, Sprite.spider_right.getFxImage());
+            bombergirl = new Bombergirl(1, 11, Sprite.spider_right.getFxImage());
             Management.bombers.add(bombergirl);
         }
         try {
@@ -49,7 +50,7 @@ public class CreateMap {
                                 break;
                             case '1':
                                 Enemy1 enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
-                                Management.ballom.add(enemy1);
+                                Management.enemy.add(enemy1);
                                 object = new Grass(j, i, Sprite.grass.getFxImage()); // Can tao lop Balloom
                                 break;
                             case '2' :
@@ -66,14 +67,22 @@ public class CreateMap {
                                 object = new Grass(j, i, Sprite.sign2.getFxImage());
                                 Management.grasses.add(object);
                                 break;
+                            case '5' :
+                                Enemy2 enemy2 = new Enemy2(j,i,Sprite.oneal_right1.getFxImage());
+                                Management.enemy.add(enemy2);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
+                            case '6' :
+                                Enemy3 enemy3 = new Enemy3(j,i,Sprite.kondoria_left1.getFxImage());
+                                Management.enemy.add(enemy3);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
                             default:
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 Management.grasses.add(object);
                                 break;
                         }
                         stillObjects.add(object);
-
-
                     }
                 }
             }

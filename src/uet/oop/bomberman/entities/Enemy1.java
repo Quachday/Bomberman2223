@@ -14,12 +14,36 @@ public class Enemy1 extends Entity {
     }
     Random rand = new Random();
     int ranNum = rand.nextInt(2) + 1;
+    int state = 1;
 
     public void update() {
-        if (getDirect()==1 ) x -=1;
-        if (getDirect()==2 ) x +=1;
-        if (getDirect()==3 ) y +=1;
-        if (getDirect()==4 ) y -=1;
+        move();
+    }
+    void move() {
+        if (getDirect()==1 ) {
+            x -= 1;
+            state++;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
+            if (state == 30) state = 1;
+        }
+        if (getDirect()==2 ) {
+            x +=1;
+            state++;
+            img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2,Sprite.balloom_right3, 10+state, 3 + state).getFxImage();
+            if (state == 30) state = 1;
+        }
+        if (getDirect()==3 ) {
+            y +=1;
+            state++;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
+            if (state == 30) state = 1;
+        }
+        if (getDirect()== 4 ) {
+            y -=1;
+            state++;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
+            if (state == 30) state = 1;
+        }
     }
     int getDirect() {
                 if (this.checkWall())
