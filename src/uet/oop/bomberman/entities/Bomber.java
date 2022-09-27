@@ -24,15 +24,14 @@ public class Bomber extends Entity {
         super( x, y, img);
     }
 
-    //char s;
+    char s;
 
-  //  int state = 1;
+    int state = 1;
 
 
 
     public void update() {
-        this.animate += Sprite.DEFAULT_SIZE / 10;
-
+        move();
     }
 
     public void supportRow() {
@@ -51,121 +50,43 @@ public class Bomber extends Entity {
         }
     }
     public void goLeft() {
-        for (int i = 1; i <= this.speed; ++i) {
-            this.x -= 1;
+            this.x -= 2;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.x += 1;
+                this.x += 2;
                 supportRow();
-                break;
-            }
-        }
-        setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1,
-                Sprite.player_left_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+             }
     }
 
     public void goRight() {
-        for (int i = 1; i <= this.speed; ++i) {
-            this.x += 1;
+            this.x += 2;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.x -= 1;
+                this.x -= 2;
                 supportRow();
-                break;
             }
-        }
-        setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1,
-                Sprite.player_right_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
     }
 
     public void goUp() {
-        for (int i = 1; i <= this.speed; ++i) {
-            this.y -= 1;
+            this.y -= 2;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.y += 1;
+                this.y += 2;
                 supportColumn();
-                break;
-            }
-        }
-        setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1,
-                Sprite.player_up_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
+             }
     }
 
     public void goDown() {
-        for (int i = 1; i <= this.speed; ++i) {
-            this.y += 1;
+            this.y += 2;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.y -= 1;
+                this.y -= 2;
                 supportColumn();
-                break;
             }
-        }
-        setImg(Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1,
-                Sprite.player_down_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
     }
-
-    /*public void goLeft() {
-       // for (int i = 1; i <= this.speed; ++i) {
-            this.x -= 1;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if (checkWall()) {
-                this.x += 1;
-                supportRow();
-             //   break;
-            }
-       // }
-       // setImg(Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1,
-         //       Sprite.player_left_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
-    }
-
-    public void goRight() {
-       // for (int i = 1; i <= this.speed; ++i) {
-            this.x += 1;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if (checkWall()) {
-                this.x -= 1;
-                supportRow();
-               // break;
-            }
-       // }
-        //setImg(Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1,
-         //       Sprite.player_right_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
-    }
-
-    public void goUp() {
-        //for (int i = 1; i <= this.speed; ++i) {
-            this.y -= 1;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if (checkWall()) {
-                this.y += 1;
-                supportColumn();
-            //    break;
-            }
-      //  }
-       // setImg(Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1,
-         //       Sprite.player_up_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
-    }
-
-    public void goDown() {
-       // for (int i = 1; i <= this.speed; ++i) {
-            this.y += 1;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if (checkWall()) {
-                this.y -= 1;
-                supportColumn();
-              //  break;
-            }
-       // }
-        //setImg(Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1,
-          //      Sprite.player_down_2, this.animate, Sprite.DEFAULT_SIZE).getFxImage());
-    }
-
-
-    /*public void move() {
+    public void move() {
         if(input.contains("LEFT")) {
-           // x-=1;
+            //x-=1;
             goLeft();
             state++;
             img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, 15+state, 3 + state).getFxImage();
@@ -218,6 +139,6 @@ public class Bomber extends Entity {
                     break;
             }
         }
-    }*/
+    }
 
 }

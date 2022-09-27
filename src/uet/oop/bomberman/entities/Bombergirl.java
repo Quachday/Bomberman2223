@@ -1,58 +1,55 @@
 package uet.oop.bomberman.entities;
 
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.ArrayList;
-
-import static uet.oop.bomberman.BombermanGame.*;
+import static uet.oop.bomberman.BombermanGame.input;
 
 
-public class Spiderman extends Bomber {
-    public Spiderman(int x, int y, Image img) {
+public class Bombergirl extends Bomber {
+    private int speed = Sprite.SCALED_SIZE / 5;
+    public Bombergirl(int x, int y, Image img) {
 
         super( x, y, img);
     }
 
+    char s;
+
+    int state = 1;
+
 
 
     public void update() {
-
+        move();
     }
-    /*@Override
     public void move() {
         if(input.contains("A")) {
-            x-=2;
+            //x-=1;
+            goLeft();
             state++;
             img = Sprite.movingSprite(Sprite.spider_left_1, Sprite.spider_left_2, 15+state, 3 + state).getFxImage();
             if (state == 20) state = 1;
             s = 'L';
         }
         if(input.contains("D")) {
-            x+=2;
+            //x+=1;
+            goRight();
             state++;
             if (state == 20) state = 1;
             img = Sprite.movingSprite(Sprite.spider_right_1,Sprite.spider_right_2,15+state,3+state).getFxImage();
             s = 'R';
         }
         if(input.contains("W")) {
-            y-=2;
+            //y-=1;
+            goUp();
             state++;
             if (state == 15) state = 1;
             img = Sprite.movingSprite(Sprite.spider_up_1,Sprite.spider_up_2,15+state,3+state).getFxImage();
             s = 'U';
         }
         if(input.contains("S")) {
-            y+=2;
+            //y+=1;
+            goDown();
             state++;
             img = Sprite.movingSprite(Sprite.spider_down_1,Sprite.spider_down_2,15+state,3+state).getFxImage();
             if (state == 15) state = 1;
@@ -80,6 +77,6 @@ public class Spiderman extends Bomber {
                     break;
             }
         }
-    }*/
+    }
 
 }

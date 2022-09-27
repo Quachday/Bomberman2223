@@ -4,16 +4,14 @@ import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 
-public abstract class Character extends AnimatedEntity{
+public abstract class Character extends Entity{
     protected boolean _alive = true;
 
     public abstract void kill();
     @Override
     public abstract void update();
-    public Character(double x, double y, Image image) {
-        this.x = x * Sprite.SCALED_SIZE;
-        this.y = y * Sprite.SCALED_SIZE;
-        this.img = image;
+    public Character(int x, int y, Image image) {
+        super(x,y,image);
         rect = new Rectangle(x,y,32,32);
         rect.setVisible(false);
     }

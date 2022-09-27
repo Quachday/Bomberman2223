@@ -9,14 +9,17 @@ import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class UnmovingEntity extends Entity {
-
-    public UnmovingEntity(int x, int y, Image img) {
-        this.x = x;
-        this.y = y;
-        this.img = img;
+    public UnmovingEntity(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
     }
 
-    @Override
+    //public UnmovingEntity(int x, int y, Image img) {
+      //  this.x = x;
+      //  this.y = y;
+     //   this.img = img;
+   // }
+
+
     public boolean collide(Entity e) {
         return false;
     }

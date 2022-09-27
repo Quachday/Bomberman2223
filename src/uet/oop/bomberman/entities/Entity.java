@@ -96,6 +96,9 @@ public abstract class Entity {
         for (Entity e : Management.walls) {
             if (this.intersects(e)) return true;
         }
+        for (Entity e : Management.bricks) {
+            if (this.intersects(e)) return true;
+        }
         return false;
     }
 
