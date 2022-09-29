@@ -1,11 +1,12 @@
 package uet.oop.bomberman.entities;
 
-import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
-import javafx.util.Duration;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
+
+import static uet.oop.bomberman.entities.Management.bombergirl;
+import static uet.oop.bomberman.entities.Management.bomberman;
 
 public class Enemy1 extends Entity {
 
@@ -13,8 +14,8 @@ public class Enemy1 extends Entity {
         super( x, y, img);
     }
     Random rand = new Random();
-    int ranNum = rand.nextInt(2) + 1;
-    int state = 1;
+    protected int ranNum = rand.nextInt(2) + 1;
+    protected int state = 1;
 
     public void update() {
         move();
@@ -44,15 +45,32 @@ public class Enemy1 extends Entity {
             img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
             if (state == 30) state = 1;
         }
+        if (this.intersects(bomberman)) bomberman.statusman = "die";
+        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
     }
-    int getDirect() {
+    public void supportRow() {
+        if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.y % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE);
+        }
+    }
+
+    public void supportColumn() {
+        if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
+        }
+    }
+    protected int getDirect() {
                 if (this.checkWall())
                 {
                     switch (ranNum) {
-                    case 1 : x += 1; break;
-                    case 2 : x -=1 ; break;
-                    case 3 : y -= 1; break;
-                    case 4 : y += 1; break;
+                    case 1 : x += 1; supportRow(); break;
+                    case 2 : x -=1 ; supportRow(); break;
+                    case 3 : y -= 1;supportColumn(); break;
+                    case 4 : y += 1;supportColumn(); break;
                 }
                 ranNum = rand.nextInt(4)+1;}
                return ranNum;

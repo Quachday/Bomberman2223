@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.BombermanGame;
+
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
@@ -75,6 +76,11 @@ public class CreateMap {
                             case '6' :
                                 Enemy3 enemy3 = new Enemy3(j,i,Sprite.kondoria_left1.getFxImage());
                                 Management.enemy.add(enemy3);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
+                            case '7' :
+                                Enemy4 enemy4 = new Enemy4(j,i,Sprite.minvo_left1.getFxImage());
+                                Management.enemy.add(enemy4);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:

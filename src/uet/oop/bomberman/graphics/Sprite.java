@@ -77,6 +77,9 @@ public class Sprite {
 	public static Sprite spider_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles1, 11, 16);
 	public static Sprite spider_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles1, 12, 16);
 
+	public static Sprite spider_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles1, 14, 16);
+	public static Sprite spider_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles1, 13, 15);
+	public static Sprite spider_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles1, 16, 16);
 	/*
 	|--------------------------------------------------------------------------
 	| Character

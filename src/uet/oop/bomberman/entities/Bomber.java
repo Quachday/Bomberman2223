@@ -13,11 +13,19 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static uet.oop.bomberman.BombermanGame.*;
+import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.Management.bombers;
 
 
 public class Bomber extends Entity {
+
+    public static String statusman = "alive";
+    private static int numOfLives = 3;
+    private static int count = 0;
     private int speed = Sprite.SCALED_SIZE / 5;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
@@ -30,9 +38,29 @@ public class Bomber extends Entity {
 
 
     public void update() {
-      move();
+        if (statusman.equals("alive"))
+        move();
+        else if (statusman.equals("die") && x < 1000) { ondie(); }
+
     }
 
+    public void ondie() {
+                state++;
+                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, 15 + state, 3 + state).getFxImage();
+                count++;
+                if(count == 40) {
+                    numOfLives--;
+                    if (numOfLives > 0) {
+                        img = Sprite.player_right.getFxImage();
+                    this.x = 32;
+                    this.y = 32;
+                    statusman = "alive";
+                    count = 0; }
+                    else {
+                        this.x = 10000;
+                    }
+                }
+    }
     public void supportRow() {
         if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
             this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;

@@ -4,9 +4,14 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.input;
+import static uet.oop.bomberman.entities.Management.bombergirl;
+import static uet.oop.bomberman.entities.Management.bombers;
 
 
 public class Bombergirl extends Bomber {
+    public static String statusgirl = "alive";
+    private static int count = 0;
+    private static int numOfLives = 3;
     private int speed = Sprite.SCALED_SIZE / 5;
     public Bombergirl(int x, int y, Image img) {
 
@@ -20,7 +25,9 @@ public class Bombergirl extends Bomber {
 
 
     public void update() {
-        move();
+        if (statusgirl.equals("alive"))
+            move();
+        else if (statusgirl.equals("die") && x < 1000) {  ondie(); }
     }
     public void move() {
         if(input.contains("A")) {
@@ -75,6 +82,24 @@ public class Bombergirl extends Bomber {
                     img = Sprite.spider_down.getFxImage();
                     state = 1;
                     break;
+            }
+        }
+    }
+    public void ondie() {
+        state++;
+        img = Sprite.movingSprite(Sprite.spider_dead1, Sprite.spider_dead2, Sprite.spider_dead3, 15 + state, 3 + state).getFxImage();
+        count++;
+        if(count == 40) {
+            numOfLives--;
+            if (numOfLives > 0)
+            {img = Sprite.spider_right.getFxImage();
+            this.x = 32;
+            this.y = 32 * 11;
+            statusgirl = "alive";
+            this.count = 0;}
+            else {
+                this.x = 1000000;
+                this.y = 1000000;
             }
         }
     }

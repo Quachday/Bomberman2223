@@ -137,7 +137,7 @@ public class BombermanGame extends Application {
 
         entities.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
-        Management.bombers.forEach(bomber -> bomber.render(gc));
+        Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
 
