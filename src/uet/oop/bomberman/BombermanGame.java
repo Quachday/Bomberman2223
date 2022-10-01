@@ -103,7 +103,7 @@ public class BombermanGame extends Application {
     }
     public void welcomeGame(Scene scene) {
 
-        Image background = new Image("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\background.jpg"); // luc chay thi doi dia chi nay
+        Image background = new Image("C:\\Users\\user\\OneDrive\\Desktop\\Bomberman2223\\res\\background.jpg"); // luc chay thi doi dia chi nay
         gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         scene.setOnMouseClicked(Mouseevent);
     }
@@ -138,6 +138,7 @@ public class BombermanGame extends Application {
         entities.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
+        Management.bomberman.bombs.forEach(g->g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
 

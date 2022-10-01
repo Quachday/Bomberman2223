@@ -4,7 +4,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 
-public class Brick extends Wall{
+public class Brick extends Entity{
     public Brick(int x, int y, Image img) {
         super(x, y, img);
     }

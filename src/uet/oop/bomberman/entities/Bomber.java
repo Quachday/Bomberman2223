@@ -13,6 +13,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +27,12 @@ public class Bomber extends Entity {
     public static String statusman = "alive";
     private static int numOfLives = 3;
     private static int count = 0;
+
     private int speed = Sprite.SCALED_SIZE / 5;
+
+    public List<Bomb> bombs = new ArrayList<>();
+
+    private int numBombs = 1;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
@@ -78,8 +84,8 @@ public class Bomber extends Entity {
     }
     public void goLeft() {
             this.x -= 2;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() || checkBomb()) {
+            //if(checkWall()) {
                 this.x += 2;
                 supportRow();
              }
@@ -87,8 +93,8 @@ public class Bomber extends Entity {
 
     public void goRight() {
             this.x += 2;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() || checkBomb()) {
+            //if(checkWall()) {
                 this.x -= 2;
                 supportRow();
             }
@@ -96,8 +102,8 @@ public class Bomber extends Entity {
 
     public void goUp() {
             this.y -= 2;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() || checkBomb()) {
+            //if(checkWall()) {
                 this.y += 2;
                 supportColumn();
              }
@@ -105,8 +111,8 @@ public class Bomber extends Entity {
 
     public void goDown() {
             this.y += 2;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() || checkBomb()) {
+            //if(checkWall()) {
                 this.y -= 2;
                 supportColumn();
             }
@@ -167,5 +173,61 @@ public class Bomber extends Entity {
             }
         }
     }
+
+    private int getNumBombs() {
+        return numBombs;
+    }
+
+    private void setNumBombs(int numBombs) {
+        this.numBombs = numBombs;
+    }
+
+    private boolean duplicateBomb(Bomb bomb) {
+        for (Bomb b : this.bombs) {
+            if (b.getX() == bomb.getX() && b.getY() == bomb.getY()) {
+                return true;
+            }
+        }
+        for (Entity b : Management.bricks) {
+            if (b.getX() == bomb.getX() && b.getY() == bomb.getY()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void putBomb() {
+        int xBomb, yBomb;
+        if (getX() % Sprite.SCALED_SIZE > Sprite.SCALED_SIZE / 3) {
+            xBomb = (int) ((getX() / Sprite.SCALED_SIZE) + 1);
+        } else {
+            xBomb = (int) (getX() / Sprite.SCALED_SIZE);
+        }
+        if (getY() % Sprite.SCALED_SIZE > Sprite.SCALED_SIZE / 3) {
+            yBomb = (int) ((getY() / Sprite.SCALED_SIZE) + 1);
+        } else {
+            yBomb = (int) (getY() / Sprite.SCALED_SIZE);
+        }
+        Bomb bomb = new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage());
+
+        if (!this.duplicateBomb(bomb)
+                && getNumBombs() >= this.bombs.size() + 1) {
+            this.bombs.add(bomb);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
