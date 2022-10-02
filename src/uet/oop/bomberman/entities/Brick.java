@@ -9,6 +9,19 @@ public class Brick extends Entity{
         super(x, y, img);
     }
     Bounds bound = new BoundingBox(x,y,32,32);
+
+    private boolean isBroken = false;
+
+
     @Override
     public void update() {}
+
+    public boolean isBroken() {
+        return isBroken;
+    }
+
+    public void setBroken(boolean broken) {
+        isBroken = broken;
+    }
+
 }
