@@ -99,7 +99,6 @@ public class Bombergirl extends Bomber {
             this.count = 0;}
             else {
                 this.x = 1000000;
-                this.y = 1000000;
             }
         }
     }

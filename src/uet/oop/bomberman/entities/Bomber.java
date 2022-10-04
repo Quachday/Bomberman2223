@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,8 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.Management.bomberman;
-import static uet.oop.bomberman.entities.Management.bombers;
+import static uet.oop.bomberman.entities.Management.*;
 
 
 public class Bomber extends Entity {
@@ -38,6 +38,7 @@ public class Bomber extends Entity {
 
 
     public void update() {
+
         if (statusman.equals("alive"))
         move();
         else if (statusman.equals("die") && x < 1000) { ondie(); }
@@ -60,6 +61,10 @@ public class Bomber extends Entity {
                         this.x = 10000;
                     }
                 }
+    }
+    @Override
+    public Rectangle2D getBoundary() {
+        return new Rectangle2D(x, y, Sprite.SCALED_SIZE-10, Sprite.SCALED_SIZE);
     }
     public void supportRow() {
         if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
@@ -112,6 +117,11 @@ public class Bomber extends Entity {
             }
     }
     public void move() {
+        if(input.contains("SPACE"))
+        {
+            Bomb newbomb = new Bomb((int)x/32,(int)y/32,Sprite.bomb.getFxImage());
+            Management.bombs.add(newbomb);
+        }
         if(input.contains("LEFT")) {
             //x-=1;
             goLeft();

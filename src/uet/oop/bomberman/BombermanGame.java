@@ -30,7 +30,9 @@ import java.util.*;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import static uet.oop.bomberman.entities.Bomb.bomb;
+
+import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.Management.bombs;
 
 
 public class BombermanGame extends Application {
@@ -73,6 +75,7 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+
                 render();
                 update();
             }
@@ -124,7 +127,7 @@ public class BombermanGame extends Application {
     public void update() {
         Management.bombers.forEach(Entity::update);
         Management.enemy.forEach(Entity::update);
-
+        Management.bombs.forEach(Entity::update);
     }
 
     public void render() {
@@ -134,12 +137,12 @@ public class BombermanGame extends Application {
         Management.grasses.forEach(grass -> grass.render(gc));
         Management.walls.forEach(wall -> wall.render(gc));
         Management.bricks.forEach(g -> g.render(gc));*/
-
-        entities.forEach(g -> g.render(gc));
+        //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        //entities.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
-
+        Management.bombs.forEach(g -> g.render(gc));
     }
 }

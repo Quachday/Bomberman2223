@@ -46,7 +46,8 @@ public class Enemy3 extends Enemy2 {
                 if (x != bomberman.getX())x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
                 if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
             if(intersectsPlayer(bombergirl) == true )
-            { if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
+            {   if (x < bomberman.getX() ) ranNum = 1;
+                if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
                 if (y != bombergirl.getY()) y += (this.y - bombergirl.getY())/Math.abs(this.y - bombergirl.getY()); }
             x +=1;
             state++;
