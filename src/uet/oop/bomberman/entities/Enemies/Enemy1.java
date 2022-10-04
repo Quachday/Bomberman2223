@@ -1,6 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
@@ -23,29 +24,25 @@ public class Enemy1 extends Entity {
     void move() {
         if (getDirect()==1 ) {
             x -= 1;
-            state++;
-            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==2 ) {
             x +=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2,Sprite.balloom_right3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+           animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2,Sprite.balloom_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==3 ) {
             y +=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()== 4 ) {
             y -=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.statusman = "die";
+        //if (this.intersects(bomberman)) bomberman.statusman = "die";
         if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
     }
     public void supportRow() {

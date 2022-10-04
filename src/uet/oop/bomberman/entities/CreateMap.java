@@ -1,17 +1,18 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.BombermanGame;
-
-import uet.oop.bomberman.entities.Enemy.Item;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
+import uet.oop.bomberman.entities.Enemies.Enemy2;
+import uet.oop.bomberman.entities.Enemies.Enemy3;
+import uet.oop.bomberman.entities.Enemies.Enemy4;
+import uet.oop.bomberman.entities.Items.MoreBomb;
+import uet.oop.bomberman.entities.Items.MoreLives;
+import uet.oop.bomberman.entities.Items.Speedup;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-import static uet.oop.bomberman.BombermanGame.entities;
 import static uet.oop.bomberman.BombermanGame.stillObjects;
 import static uet.oop.bomberman.entities.Management.bombergirl;
 import static uet.oop.bomberman.entities.Management.bombs;
@@ -86,8 +87,18 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             case 's' :
-                                Entity speedup = new Item(j,i,Sprite.powerup_speed.getFxImage());
+                                Speedup speedup = new Speedup(j,i,Sprite.powerup_speed.getFxImage());
                                 Management.items.add(speedup);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
+                            case 'b' :
+                                MoreBomb morebomb = new MoreBomb(j,i,Sprite.powerup_bombs.getFxImage());
+                                Management.items.add(morebomb);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
+                            case 'h' :
+                                MoreLives moreLives = new MoreLives(j,i,Sprite.powerup_detonator.getFxImage());
+                                Management.items.add(moreLives);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:

@@ -1,11 +1,10 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.entities.Enemy.Item;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
+import uet.oop.bomberman.entities.Items.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Management {

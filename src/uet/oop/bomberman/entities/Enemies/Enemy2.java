@@ -1,8 +1,9 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemies;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Enemy1;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -72,29 +73,25 @@ public class Enemy2 extends Enemy1 {
 
         if (getDirect()==1) {
             x -= speed;
-            state++;
-            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==2 ) {
             x += speed;
-            state++;
-            img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2,Sprite.oneal_right3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==3 ) {
             y += speed;
-            state++;
-            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()== 4 ) {
             y -= speed;
-            state++;
-            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.statusman = "die";
+        //if (this.intersects(bomberman)) bomberman.statusman = "die";
         if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
     }
 }

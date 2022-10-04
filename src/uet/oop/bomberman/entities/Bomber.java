@@ -24,9 +24,8 @@ import static uet.oop.bomberman.entities.Management.*;
 public class Bomber extends Entity {
 
     public static String statusman = "alive";
-    private static int numOfLives = 3;
+    public static int numOfLives = 3;
     private static int count = 0;
-
 
     public int speed = 2;
     public Bomber(int x, int y, Image img) {
@@ -44,6 +43,7 @@ public class Bomber extends Entity {
         if(bombs.get(indexOfBombs).settled)
         {if (bomberman.indexOfBombs == bombs.size()-1) bomberman.indexOfBombs = 0;
         else bomberman.indexOfBombs++;}
+        if (indexOfBombs >= bombs.size()) indexOfBombs = 0;
         if (statusman.equals("alive"))
         move();
         else if (statusman.equals("die") && x < 1000) { ondie(); }
@@ -89,8 +89,7 @@ public class Bomber extends Entity {
     }
     public void goLeft() {
             this.x -= speed;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() ) {
                 this.x += speed;
                 supportRow();
              }
@@ -98,8 +97,7 @@ public class Bomber extends Entity {
 
     public void goRight() {
             this.x += speed;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() ) {
                 this.x -= speed;
                 supportRow();
             }
@@ -107,8 +105,7 @@ public class Bomber extends Entity {
 
     public void goUp() {
             this.y -= speed;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() ) {
                 this.y += speed;
                 supportColumn();
              }
@@ -116,8 +113,7 @@ public class Bomber extends Entity {
 
     public void goDown() {
             this.y += speed;
-            //if (checkBrick() || checkWall() || checkBomb()) {
-            if(checkWall()) {
+            if (checkBrick() || checkWall() ) {
                 this.y -= speed;
                 supportColumn();
             }
@@ -129,37 +125,34 @@ public class Bomber extends Entity {
             bombs.get(indexOfBombs).setX((int) (x+5)/32*32);
             bombs.get(indexOfBombs).setY((int) (y+15)/32*32);
             bombs.get(indexOfBombs).settled = true;
+            //Manage.putBomb
         }
         if(input.contains("LEFT")) {
             //x-=1;
             goLeft();
-            state++;
-            img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, 15+state, 3 + state).getFxImage();
-            if (state == 20) state = 1;
+            animate += Sprite.DEFAULT_SIZE / 10;
+            img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'L';
         }
         if(input.contains("RIGHT")) {
             //x+=1;
             goRight();
-            state++;
-            if (state == 20) state = 1;
-            img = Sprite.movingSprite(Sprite.player_right_1,Sprite.player_right_2,15+state,3+state).getFxImage();
+            animate += Sprite.DEFAULT_SIZE / 10;
+            img = Sprite.movingSprite(Sprite.player_right_1,Sprite.player_right_2,animate,Sprite.DEFAULT_SIZE).getFxImage();
             s = 'R';
         }
         if(input.contains("UP")) {
             //y-=1;
             goUp();
-            state++;
-            if (state == 15) state = 1;
-            img = Sprite.movingSprite(Sprite.player_up_1,Sprite.player_up_2,15+state,3+state).getFxImage();
+            animate += Sprite.DEFAULT_SIZE / 10;
+            img = Sprite.movingSprite(Sprite.player_up_1,Sprite.player_up_2,animate,Sprite.DEFAULT_SIZE).getFxImage();
             s = 'U';
         }
         if(input.contains("DOWN")) {
             //y+=1;
             goDown();
-            state++;
-            img = Sprite.movingSprite(Sprite.player_down_1,Sprite.player_down_2,15+state,3+state).getFxImage();
-            if (state == 15) state = 1;
+            animate += Sprite.DEFAULT_SIZE / 10;
+            img = Sprite.movingSprite(Sprite.player_down_1,Sprite.player_down_2,animate,Sprite.DEFAULT_SIZE).getFxImage();
             s = 'D';
         }
         if ( x <= 80 && x >=64 && y >= 96 && y <= 112) { x = 850; y = 352; }

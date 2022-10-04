@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -28,18 +29,16 @@ public class Bomb extends Wall {
         return countBOMB;
     }
 
+
     public void update() {
         if (settled) {
             if (countBOMB > 20) {
-                state++;
-                img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, 15 + state, 3 + state).getFxImage();
-                if (state == 50) state = 1;
+                animate += Sprite.DEFAULT_SIZE / 10;
+                img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             }
             if (countBOMB > 0 && countBOMB <= 20) {
-                state = 1;
-                state++;
-                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, 15 + state, 3 + state).getFxImage();
-                if (state == 50) state = 1;
+                animate += Sprite.DEFAULT_SIZE / 10;
+                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate, Sprite.SCALED_SIZE).getFxImage();
             }
             if (countBOMB == 0) {
                 x = 1000 + index;

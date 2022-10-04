@@ -60,8 +60,8 @@ public abstract class Entity {
         return s.getBoundary().intersects(this.getBoundary());
     }
 
-    public boolean checkBounds() {
-        for (Entity e : Management.walls) {
+    public boolean checkBrick() {
+        for (Entity e : Management.bricks) {
             if (this.intersects(e)) return true;
         }
 
@@ -79,12 +79,12 @@ public abstract class Entity {
     /**
      * check va cham voi bom.
      */
-    /*public boolean checkBomb() {
-        for (Entity e : Management.bomberman.bombs) {
+    public boolean checkBomb() {
+        for (Entity e : Management.bombs) {
             if (this.intersects(e)) return true;
         }
         return false;
-    }*/
+    }
 
     /**
      * check va cham voi tuong.

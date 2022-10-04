@@ -1,8 +1,8 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemies;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Enemy2;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.entities.Management.bombergirl;
@@ -15,8 +15,6 @@ public class Enemy3 extends Enemy2 {
     public void update() {
         move();
     }
-
-
 
     public Rectangle2D getBoundaryBIG() {
         return new Rectangle2D(x-48 , y-48 , Sprite.SCALED_SIZE + 96 , Sprite.SCALED_SIZE +96);

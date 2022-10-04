@@ -31,8 +31,7 @@ import java.util.List;
 
 import javafx.scene.paint.Color;
 
-import static uet.oop.bomberman.entities.Management.bomberman;
-import static uet.oop.bomberman.entities.Management.bombs;
+import static uet.oop.bomberman.entities.Management.*;
 
 
 public class BombermanGame extends Application {
@@ -46,7 +45,7 @@ public class BombermanGame extends Application {
     public static List<Entity> entities = new ArrayList<>();
      public static List<Entity> stillObjects = new ArrayList<>();
 
-
+    public static Scene scene;
     public static ArrayList<String> input = new ArrayList<String>();
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -63,7 +62,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
 
         // Tao scene
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
         stage.setTitle("BOMBERMAN GAME");
@@ -89,9 +88,15 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-
+                        if (e.getCode().toString().equals("SPACE") && !bombs.get(bomberman.indexOfBombs).settled ) { // HAM DAT BOM
+                            bombs.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
+                            bombs.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
+                            bombs.get(bomberman.indexOfBombs).settled = true;
+                            bombs.get(bomberman.indexOfBombs).setImg(Sprite.bomb.getFxImage());
+                            System.out.println("datbom");
+                        }
                         // only add once... prevent duplicates
-                        if (!input.contains(code))
+                        if (!input.contains(code) && !code.equals("SPACE"))
                             input.add(code);
                     }
                 });
@@ -128,6 +133,7 @@ public class BombermanGame extends Application {
         Management.bombers.forEach(Entity::update);
         Management.enemy.forEach(Entity::update);
         Management.bombs.forEach(Entity::update);
+        if (items.size()!= 0) Management.items.forEach(Entity::update);
     }
 
     public void render() {
@@ -140,10 +146,11 @@ public class BombermanGame extends Application {
         //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        //entities.forEach(g -> g.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
         Management.bombs.forEach(g -> g.render(gc));
+        if (items.size() != 0) Management.items.forEach(g->g.render(gc));
     }
 }
