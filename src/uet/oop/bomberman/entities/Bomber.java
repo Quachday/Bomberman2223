@@ -26,7 +26,9 @@ public class Bomber extends Entity {
     public static String statusman = "alive";
     private static int numOfLives = 3;
     private static int count = 0;
-    private int speed = Sprite.SCALED_SIZE / 5;
+
+
+    public int speed = 2;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
@@ -34,15 +36,18 @@ public class Bomber extends Entity {
     char s;
 
     int state = 1;
-    int index_bomb = 0;
+
 
 
 
     public void update() {
-
+        if(bombs.get(indexOfBombs).settled)
+        {if (bomberman.indexOfBombs == bombs.size()-1) bomberman.indexOfBombs = 0;
+        else bomberman.indexOfBombs++;}
         if (statusman.equals("alive"))
         move();
         else if (statusman.equals("die") && x < 1000) { ondie(); }
+
 
     }
 
@@ -83,47 +88,47 @@ public class Bomber extends Entity {
         }
     }
     public void goLeft() {
-            this.x -= 2;
+            this.x -= speed;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.x += 2;
+                this.x += speed;
                 supportRow();
              }
     }
 
     public void goRight() {
-            this.x += 2;
+            this.x += speed;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.x -= 2;
+                this.x -= speed;
                 supportRow();
             }
     }
 
     public void goUp() {
-            this.y -= 2;
+            this.y -= speed;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.y += 2;
+                this.y += speed;
                 supportColumn();
              }
     }
 
     public void goDown() {
-            this.y += 2;
+            this.y += speed;
             //if (checkBrick() || checkWall() || checkBomb()) {
             if(checkWall()) {
-                this.y -= 2;
+                this.y -= speed;
                 supportColumn();
             }
     }
+
+    public int indexOfBombs = 0;
     public void move() {
-        if(input.contains("SPACE") && index_bomb < bombs.size() )
-        {
-            bombs.get(index_bomb).setX((int) x) ;
-            bombs.get(index_bomb).setY((int) y) ;
-            bombs.get(index_bomb).countBOMB = 75;
-            index_bomb++;
+        if(input.contains("SPACE") && !bombs.get(indexOfBombs).settled ) {
+            bombs.get(indexOfBombs).setX((int) (x+5)/32*32);
+            bombs.get(indexOfBombs).setY((int) (y+15)/32*32);
+            bombs.get(indexOfBombs).settled = true;
         }
         if(input.contains("LEFT")) {
             //x-=1;

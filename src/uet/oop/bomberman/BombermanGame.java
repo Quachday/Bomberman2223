@@ -138,8 +138,9 @@ public class BombermanGame extends Application {
         Management.walls.forEach(wall -> wall.render(gc));
         Management.bricks.forEach(g -> g.render(gc));*/
         //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        //entities.forEach(g -> g.render(gc));
+
         stillObjects.forEach(g -> g.render(gc));
+        entities.forEach(g -> g.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));

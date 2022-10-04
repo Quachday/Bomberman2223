@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.BombermanGame;
 
+import uet.oop.bomberman.entities.Enemy.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
@@ -84,6 +85,11 @@ public class CreateMap {
                                 Management.enemy.add(enemy4);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
+                            case 's' :
+                                Entity speedup = new Item(j,i,Sprite.powerup_speed.getFxImage());
+                                Management.items.add(speedup);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
                             default:
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 Management.grasses.add(object);
@@ -96,7 +102,10 @@ public class CreateMap {
             catch (FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
             }
-        Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage());
+
+        Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
         bombs.add(firstBomb);
+        Bomb secBomb = new Bomb(1001,1000,Sprite.bomb.getFxImage(),1);
+        bombs.add(secBomb);
     }
 }
