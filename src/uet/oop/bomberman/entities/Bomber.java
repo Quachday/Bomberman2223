@@ -34,6 +34,7 @@ public class Bomber extends Entity {
     char s;
 
     int state = 1;
+    int index_bomb = 0;
 
 
 
@@ -117,10 +118,12 @@ public class Bomber extends Entity {
             }
     }
     public void move() {
-        if(input.contains("SPACE"))
+        if(input.contains("SPACE") && index_bomb < bombs.size() )
         {
-            Bomb newbomb = new Bomb((int)x/32,(int)y/32,Sprite.bomb.getFxImage());
-            Management.bombs.add(newbomb);
+            bombs.get(index_bomb).setX((int) x) ;
+            bombs.get(index_bomb).setY((int) y) ;
+            bombs.get(index_bomb).countBOMB = 75;
+            index_bomb++;
         }
         if(input.contains("LEFT")) {
             //x-=1;

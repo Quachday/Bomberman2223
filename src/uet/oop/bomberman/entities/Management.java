@@ -15,8 +15,6 @@ public class Management {
     public static List<Entity> bricks = new ArrayList<>();
     public static List<Enemy1> enemy = new ArrayList<>();
     public static List<Bomb> bombs = new ArrayList<>();
-
-
     public static Bomber bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
     public static Bombergirl bombergirl = new Bombergirl(1, 11, Sprite.player_right.getFxImage());
 

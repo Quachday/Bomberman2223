@@ -13,6 +13,7 @@ import java.util.Scanner;
 import static uet.oop.bomberman.BombermanGame.entities;
 import static uet.oop.bomberman.BombermanGame.stillObjects;
 import static uet.oop.bomberman.entities.Management.bombergirl;
+import static uet.oop.bomberman.entities.Management.bombs;
 
 public class CreateMap {
     /**
@@ -95,5 +96,7 @@ public class CreateMap {
             catch (FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
             }
+        Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage());
+        bombs.add(firstBomb);
     }
 }

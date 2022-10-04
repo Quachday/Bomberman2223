@@ -15,7 +15,7 @@ import static uet.oop.bomberman.entities.Management.*;
 
 public class Bomb extends Wall {
 
-    int countBOMB = 75;
+    public int countBOMB = 75;
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
@@ -30,19 +30,11 @@ public class Bomb extends Wall {
             img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1,Sprite.bomb_exploded2, 15+state, 3 + state).getFxImage();
             if (state == 20) state = 1;
         }
-        if (countBOMB==0) {
-            Iterator<Bomb> bombIterator = bombs.iterator();
-            while (bombIterator.hasNext()) {
-                Bomb x = bombIterator.next();
-                if (x.equals(this)) {
-                    try{bombIterator.remove();}
-                    catch (ConcurrentModificationException fnfe) {
-                        System.out.println("Khong co bom");
-                    }
-                    System.out.println("\nThe element Orange is removed");
-                    break;
-                }
+        if (countBOMB == 0) {
+            x = 1000;
+            y = 1000;
+        }
             }
         }
-    }
-}
+
+
