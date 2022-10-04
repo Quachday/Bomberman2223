@@ -29,7 +29,9 @@ public class Sprite {
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
-	
+	public static Sprite sign1 = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.tiles1, 16, 16);
+
+	public static Sprite sign2= new Sprite(DEFAULT_SIZE, 6, 1, SpriteSheet.tiles1, 16, 16);
 	/*
 	|--------------------------------------------------------------------------
 	| Bomber Sprites
@@ -55,7 +57,29 @@ public class Sprite {
 	public static Sprite player_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 16);
 	public static Sprite player_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 15);
 	public static Sprite player_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 16);
-	
+
+
+	// Spider
+	public static Sprite spider_up = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles1, 12, 16);
+	public static Sprite spider_down = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles1, 12, 15);
+	public static Sprite spider_left = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles1, 10, 15);
+	public static Sprite spider_right = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.tiles1, 12, 16);
+
+	public static Sprite spider_up_1 = new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.tiles1, 12, 16);
+	public static Sprite spider_up_2 = new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.tiles1, 12, 15);
+
+	public static Sprite spider_down_1 = new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.tiles1, 12, 15);
+	public static Sprite spider_down_2 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles1, 12, 16);
+
+	public static Sprite spider_left_1 = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles1, 11, 16);
+	public static Sprite spider_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles1, 12 ,16);
+
+	public static Sprite spider_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles1, 11, 16);
+	public static Sprite spider_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles1, 12, 16);
+
+	public static Sprite spider_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles1, 14, 16);
+	public static Sprite spider_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles1, 13, 15);
+	public static Sprite spider_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles1, 16, 16);
 	/*
 	|--------------------------------------------------------------------------
 	| Character
@@ -184,6 +208,7 @@ public class Sprite {
 	public static Sprite powerup_detonator = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
+
 	
 	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
 		SIZE = size;
@@ -230,7 +255,8 @@ public class Sprite {
 			
 		return x2;
 	}
-	
+
+
 	public static Sprite movingSprite(Sprite x1, Sprite x2, int animate, int time) {
 		int diff = time / 2;
 		return (animate % time > diff) ? x1 : x2; 
