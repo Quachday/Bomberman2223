@@ -37,7 +37,6 @@ import static uet.oop.bomberman.entities.Management.*;
 public class BombermanGame extends Application {
     // day la file cua quach
 
-
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
     private GraphicsContext gc;
@@ -133,7 +132,8 @@ public class BombermanGame extends Application {
         Management.bombers.forEach(Entity::update);
         Management.enemy.forEach(Entity::update);
         Management.bombs.forEach(Entity::update);
-        if (items.size()!= 0) Management.items.forEach(Entity::update);
+        Management.items.forEach(Entity::update);
+        flamesvisual.forEach(Entity::update);
     }
 
     public void render() {
@@ -145,12 +145,17 @@ public class BombermanGame extends Application {
         Management.bricks.forEach(g -> g.render(gc));*/
         //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        stillObjects.forEach(g -> g.render(gc));
+        //stillObjects.forEach(g -> g.render(gc));
         //entities.forEach(g -> g.render(gc));
+        Management.grasses.forEach(grass -> grass.render(gc));
+        Management.items.forEach(g->g.render(gc));
+        Management.bricks.forEach(g -> g.render(gc));
+        Management.walls.forEach(wall -> wall.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
         Management.bombs.forEach(g -> g.render(gc));
-        if (items.size() != 0) Management.items.forEach(g->g.render(gc));
+
+         flamesvisual.forEach(g->g.render(gc));
     }
 }

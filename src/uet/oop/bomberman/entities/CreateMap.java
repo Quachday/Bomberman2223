@@ -4,18 +4,16 @@ import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Enemies.Enemy2;
 import uet.oop.bomberman.entities.Enemies.Enemy3;
 import uet.oop.bomberman.entities.Enemies.Enemy4;
-import uet.oop.bomberman.entities.Items.MoreBomb;
-import uet.oop.bomberman.entities.Items.MoreLives;
-import uet.oop.bomberman.entities.Items.Speedup;
+import uet.oop.bomberman.entities.Items.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+import static uet.oop.bomberman.BombermanGame.entities;
 import static uet.oop.bomberman.BombermanGame.stillObjects;
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bombs;
+import static uet.oop.bomberman.entities.Management.*;
 
 public class CreateMap {
     /**
@@ -51,6 +49,8 @@ public class CreateMap {
                             case '*':
                                 object = new Brick(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
                                 Management.bricks.add(object);
+                                object = new Grass(j, i, Sprite.grass.getFxImage());
+                                Management.grasses.add(object);
                                 break;
                             case '1':
                                 Enemy1 enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
@@ -89,24 +89,32 @@ public class CreateMap {
                             case 's' :
                                 Speedup speedup = new Speedup(j,i,Sprite.powerup_speed.getFxImage());
                                 Management.items.add(speedup);
+                                object = new Brick(j,i,Sprite.brick.getFxImage());
+                                Management.bricks.add(object);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             case 'b' :
                                 MoreBomb morebomb = new MoreBomb(j,i,Sprite.powerup_bombs.getFxImage());
                                 Management.items.add(morebomb);
+                                object = new Brick(j,i,Sprite.brick.getFxImage());
+                                Management.bricks.add(object);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             case 'h' :
                                 MoreLives moreLives = new MoreLives(j,i,Sprite.powerup_detonator.getFxImage());
                                 Management.items.add(moreLives);
+                                object = new Brick(j,i,Sprite.brick.getFxImage());
+                                Management.bricks.add(object);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:
+                                /*if (j % 5 == 0 )
+                                {Item coins = new Coins(j,i,Sprite.coin.getFxImage());
+                                items.add(coins);}*/
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
-                                Management.grasses.add(object);
                                 break;
                         }
-                        stillObjects.add(object);
+                        Management.grasses.add(object);
                     }
                 }
             }
