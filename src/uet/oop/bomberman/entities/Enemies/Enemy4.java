@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
 import static uet.oop.bomberman.entities.Management.*;
 
 public class Enemy4 extends Enemy1 {
@@ -24,10 +25,11 @@ public class Enemy4 extends Enemy1 {
         img = Sprite.movingSprite(Sprite.mob_dead1,Sprite.mob_dead2,Sprite.mob_dead3,animate,
                 Sprite.DEFAULT_SIZE).getFxImage();
         count_die--;}
-        if (count_die == 0 && status.equals("die")) {
+        if (count_die == 0) {
             lives_remain--;
             if (lives_remain > 0) {status = "alive"; count_die = 75; speed++;}
-            else x = 1000;
+            else if (lives_remain == 0)  {x = 1000; numOfEnemy--;
+                 status = "stop";}
         }
     }
     void move() {
