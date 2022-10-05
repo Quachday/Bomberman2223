@@ -8,12 +8,13 @@ import uet.oop.bomberman.graphics.Sprite;
 import static uet.oop.bomberman.entities.Management.bombergirl;
 import static uet.oop.bomberman.entities.Management.bomberman;
 
-public class Enemy3 extends Enemy2 {
+public class Enemy3 extends Enemy1 {
     public Enemy3(int x, int y, Image img) {
         super( x, y, img);
     }
     public void update() {
-        move();
+       if (this.status.equals("alive")) move();
+        else if (this.status.equals("die")) onDie();
     }
 
     public Rectangle2D getBoundaryBIG() {
@@ -21,6 +22,11 @@ public class Enemy3 extends Enemy2 {
     }
     public boolean intersectsPlayer(Entity s) {
         return this.getBoundaryBIG().intersects(s.getBoundary());
+    }
+    @Override
+    public void onDie() {
+        if (this.count_die > 50) { img = Sprite.kondoria_dead.getFxImage(); count_die--; }
+        else if (this.count_die > 0 )    super.onDie();
     }
     void move() {
         if (getDirect()==1 ) {
@@ -52,8 +58,8 @@ public class Enemy3 extends Enemy2 {
             img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2,Sprite.kondoria_right3, 10+state, 3 + state).getFxImage();
             if (state == 30) state = 1;
         }
-        if (this.intersects(bomberman)) bomberman.statusman = "die";
-        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
+        if (this.intersects(bomberman)) bomberman.status = "die";
+        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 
     @Override

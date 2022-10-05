@@ -17,10 +17,13 @@ public class Coins extends  Item {
             animate += Sprite.DEFAULT_SIZE / 11;
             this.img = Sprite.movingSprite(Sprite.coin_left1, Sprite.coin_left2, Sprite.coin_left3, animate / 2, Sprite.DEFAULT_SIZE).getFxImage();
             if (animate == 200) animate = 1;
-            //System.out.println(animate);}
             if (this.intersects(bomberman)) {
+                x = 10000;
+            }
+            if (this.intersects(bombergirl)) {
                 x = 10000;
             }
         }
     }
 }
+

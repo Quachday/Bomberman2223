@@ -4,43 +4,54 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.Management.*;
 
 public class Enemy4 extends Enemy1 {
+    int lives_remain = 2;
+    int speed = 1;
     public Enemy4(int x, int y, Image img) {
         super( x, y, img);
     }
     public void update() {
-        move();
+        if (this.status.equals("alive")) move();
+        else
+            if (this.status.equals("die")) { onDie(); }
     }
-
+    @Override
+    public void onDie() {
+        if (this.count_die > 50) { img = Sprite.minvo_dead.getFxImage(); count_die--; }
+        else if (this.count_die > 0 )   { animate += Sprite.DEFAULT_SIZE/16;
+        img = Sprite.movingSprite(Sprite.mob_dead1,Sprite.mob_dead2,Sprite.mob_dead3,animate,
+                Sprite.DEFAULT_SIZE).getFxImage();
+        count_die--;}
+        if (count_die == 0 && status.equals("die")) {
+            lives_remain--;
+            if (lives_remain > 0) {status = "alive"; count_die = 75; speed++;}
+            else x = 1000;
+        }
+    }
     void move() {
         if (getDirect()==1 ) {
-            x -= 1;
-            state++;
-            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            x -= speed;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==2 ) {
-            x +=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2,Sprite.minvo_right3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            x += speed;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2,Sprite.minvo_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==3 ) {
-            y +=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            y += speed;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()== 4 ) {
-            y -=1;
-            state++;
-            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, 10+state, 3 + state).getFxImage();
-            if (state == 30) state = 1;
+            y -= speed;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.statusman = "die";
-        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
+        if (this.intersects(bomberman)) bomberman.status = "die";
+        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 }

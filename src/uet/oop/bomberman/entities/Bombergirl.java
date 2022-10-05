@@ -4,15 +4,19 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.input;
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bombers;
+import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.Management.bomberman;
 
 
 public class Bombergirl extends Bomber {
-    public static String statusgirl = "alive";
+    public static String status = "alive";
+
+    public static void setStatus(String status) {
+        Bombergirl.status = status;
+    }
+
     private static int count = 0;
-    private static int numOfLives = 3;
-    private int speed = Sprite.SCALED_SIZE / 5;
+    public static int numOfLives = 3;
     public Bombergirl(int x, int y, Image img) {
 
         super( x, y, img);
@@ -25,12 +29,15 @@ public class Bombergirl extends Bomber {
 
 
     public void update() {
-        if (statusgirl.equals("alive"))
+        if(bombsofgirl.get(indexOfBombs).settled)
+        {if (bombergirl.indexOfBombs == bombsofgirl.size()-1) bombergirl.indexOfBombs = 0;
+        else bombergirl.indexOfBombs++;}
+       // if (status.equals("alive"))
             move();
-        else if (statusgirl.equals("die") && x < 1000) {  ondie(); }
+       // else if (status.equals("die") && x < 1000) {  ondie(); }
     }
     public void move() {
-        if(input.contains("A")) {
+        if(input.contains("LEFT")) {
             //x-=1;
             goLeft();
             state++;
@@ -38,7 +45,7 @@ public class Bombergirl extends Bomber {
             if (state == 20) state = 1;
             s = 'L';
         }
-        if(input.contains("D")) {
+        if(input.contains("RIGHT")) {
             //x+=1;
             goRight();
             state++;
@@ -46,7 +53,7 @@ public class Bombergirl extends Bomber {
             img = Sprite.movingSprite(Sprite.spider_right_1,Sprite.spider_right_2,15+state,3+state).getFxImage();
             s = 'R';
         }
-        if(input.contains("W")) {
+        if(input.contains("UP")) {
             //y-=1;
             goUp();
             state++;
@@ -54,7 +61,7 @@ public class Bombergirl extends Bomber {
             img = Sprite.movingSprite(Sprite.spider_up_1,Sprite.spider_up_2,15+state,3+state).getFxImage();
             s = 'U';
         }
-        if(input.contains("S")) {
+        if(input.contains("DOWN")) {
             //y+=1;
             goDown();
             state++;
@@ -95,7 +102,7 @@ public class Bombergirl extends Bomber {
             {img = Sprite.spider_right.getFxImage();
             this.x = 32;
             this.y = 32 * 11;
-            statusgirl = "alive";
+            status = "alive";
             this.count = 0;}
             else {
                 this.x = 1000000;

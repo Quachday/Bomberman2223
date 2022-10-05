@@ -80,7 +80,10 @@ public abstract class Entity {
      * check va cham voi bom.
      */
     public boolean checkBomb() {
-        for (Entity e : Management.bombs) {
+        for (Entity e : Management.bombsofman) {
+            if (this.intersects(e)) return true;
+        }
+        for (Entity e : Management.bombsofgirl) {
             if (this.intersects(e)) return true;
         }
         return false;
@@ -91,9 +94,6 @@ public abstract class Entity {
      */
     public boolean checkWall() {
         for (Entity e : Management.walls) {
-            if (this.intersects(e)) return true;
-        }
-        for (Entity e : Management.bricks) {
             if (this.intersects(e)) return true;
         }
         return false;

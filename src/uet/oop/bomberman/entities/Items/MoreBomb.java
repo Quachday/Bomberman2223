@@ -13,7 +13,12 @@ public class MoreBomb extends Item{
     public void update() {
         if(this.intersects(bomberman)) {
             Bomb newBomb = new Bomb(1000,1000, Sprite.bomb.getFxImage(),1);
-            bombs.add(newBomb);
+            bombsofman.add(newBomb);
+            x = 1000;
+        }
+        if(this.intersects(bombergirl)) {
+            Bomb newBomb = new Bomb(1000,1000, Sprite.bomb.getFxImage(),1);
+            bombsofgirl.add(newBomb);
             x = 1000;
         }
     }

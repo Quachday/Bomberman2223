@@ -19,7 +19,8 @@ public class Enemy2 extends Enemy1 {
 
 
     public void update() {
-    move();
+        if (this.status.equals("alive")) move();
+        else if (this.status.equals("die")) onDie();
     }
 
 
@@ -42,33 +43,24 @@ public class Enemy2 extends Enemy1 {
         return this.getBoundarybyColumn().intersects(s.getBoundary());
     }
 
+    @Override
+    public void onDie() {
+        if (this.count_die > 20) { img = Sprite.oneal_dead.getFxImage(); count_die--; }
+        else if (this.count_die > 0 )    super.onDie();
+    }
 
     void move() {
         if(intersectsPlayerbyRow(bomberman)) {
             if (bomberman.getX() < this.x) {
                 ranNum = 1;
-                speed = 2;
             } else {
                 ranNum = 2;
-                speed = 2;
-
             }
         }
             else if (intersectsPlayerbyRow(bombergirl)) {
                 if (bombergirl.getX() < this.x) { ranNum = 1;  }
                 else { ranNum = 2;  }
             }
-        /*else if(intersectsPlayerbyColumn(bomberman)) {
-            if (bomberman.getY() < this.y) {
-                ranNum = 4;
-            } else {
-                ranNum = 3;
-            }
-        }
-        else if (intersectsPlayerbyColumn(bombergirl)) {
-            if (bombergirl.getY() < this.y) { ranNum = 4;  }
-            else { ranNum = 3;  }
-        }*/
         else speed = 1;
 
         if (getDirect()==1) {
@@ -79,7 +71,7 @@ public class Enemy2 extends Enemy1 {
         if (getDirect()==2 ) {
             x += speed;
             animate += Sprite.DEFAULT_SIZE/10;
-            img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
+            img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2,Sprite.oneal_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
         if (getDirect()==3 ) {
             y += speed;
@@ -91,7 +83,7 @@ public class Enemy2 extends Enemy1 {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        //if (this.intersects(bomberman)) bomberman.statusman = "die";
-        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
+        if (this.intersects(bomberman)) bomberman.status = "die";
+        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 }

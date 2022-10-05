@@ -16,11 +16,13 @@ import static uet.oop.bomberman.BombermanGame.stillObjects;
 import static uet.oop.bomberman.entities.Management.*;
 
 public class CreateMap {
+    public static int numOfEnemy = 1;
     /**
      * tao map theo cac level bang cach doc file txt.
      * @param level
      */
     public static void createMapByLevel(int level, int numOfPlayer) {
+
         //Management.clear();
         Management.bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         Management.bombers.add(Management.bomberman);
@@ -30,7 +32,7 @@ public class CreateMap {
         }
         try {
             String path = "res/levels/Level" + level + ".txt";
-            FileReader file = new FileReader ("res/levels/Level1.txt");
+            FileReader file = new FileReader ("res/levels/Level2.txt");
                 Scanner sc = new Scanner(file);
                 level = sc.nextInt();
                 int rows = sc.nextInt();
@@ -50,7 +52,6 @@ public class CreateMap {
                                 object = new Brick(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
                                 Management.bricks.add(object);
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
-                                Management.grasses.add(object);
                                 break;
                             case '1':
                                 Enemy1 enemy1 = new Enemy1(j,i,Sprite.balloom_left1.getFxImage());
@@ -60,7 +61,6 @@ public class CreateMap {
                             case '2' :
                                 Entity moveGate = new Grass(j,i,Sprite.portal.getFxImage());
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
-                                Management.grasses.add(moveGate);
                                 Management.portals.add(moveGate);
                                 break;
                             case '3' :
@@ -107,10 +107,17 @@ public class CreateMap {
                                 Management.bricks.add(object);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
+                            case 'p' :
+                                Power_up flamesup = new Power_up(j,i,Sprite.powerup_flames.getFxImage());
+                                Management.items.add(flamesup);
+                                object = new Brick(j,i,Sprite.brick.getFxImage());
+                                Management.bricks.add(object);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
                             default:
-                                /*if (j % 5 == 0 )
-                                {Item coins = new Coins(j,i,Sprite.coin.getFxImage());
-                                items.add(coins);}*/
+                               // if (j % 5 == 0 || i % 3 == 0 )
+                                //{Item coins = new Coins(j,i,Sprite.coin.getFxImage());
+                               // items.add(coins);}
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 break;
                         }
@@ -121,10 +128,15 @@ public class CreateMap {
             catch (FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
             }
-
+        numOfEnemy = enemy.size() ;
+        System.out.println(numOfEnemy);
         Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
-        bombs.add(firstBomb);
+        bombsofman.add(firstBomb);
         Bomb secBomb = new Bomb(1001,1000,Sprite.bomb.getFxImage(),1);
-        bombs.add(secBomb);
+        bombsofgirl.add(secBomb);
+        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
+        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
+        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
+        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
     }
 }

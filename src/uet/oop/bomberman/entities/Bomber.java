@@ -23,37 +23,41 @@ import static uet.oop.bomberman.entities.Management.*;
 
 public class Bomber extends Entity {
 
-    public static String statusman = "alive";
+    public static String status = "alive";
+
+    public static void setStatus(String status) {
+        Bomber.status = status;
+    }
+
     public static int numOfLives = 3;
-    private static int count = 0;
+    private static int count = 0; // count die
+    public int indexOfBombs = 0;
+    public int sizeOfFlame = 2; // cua chung 2 players
 
     public int speed = 2;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
 
-    char s;
-
-    int state = 1;
+  char s;
 
 
 
 
     public void update() {
-        if(bombs.get(indexOfBombs).settled)
-        {if (bomberman.indexOfBombs == bombs.size()-1) bomberman.indexOfBombs = 0;
+        if(bombsofman.get(indexOfBombs).settled)
+        {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
         else bomberman.indexOfBombs++;}
-        if (indexOfBombs >= bombs.size()) indexOfBombs = 0;
-        if (statusman.equals("alive"))
+        //if (status.equals("alive"))
         move();
-        else if (statusman.equals("die") && x < 1000) { ondie(); }
+        //else if (status.equals("die") && x < 1000) { ondie(); }
 
 
     }
 
     public void ondie() {
-                state++;
-                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, 15 + state, 3 + state).getFxImage();
+                animate += Sprite.DEFAULT_SIZE/10;
+                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate, Sprite.DEFAULT_SIZE).getFxImage();
                 count++;
                 if(count == 40) {
                     numOfLives--;
@@ -61,7 +65,7 @@ public class Bomber extends Entity {
                         img = Sprite.player_right.getFxImage();
                     this.x = 32;
                     this.y = 32;
-                    statusman = "alive";
+                    status = "alive";
                     count = 0; }
                     else {
                         this.x = 10000;
@@ -119,36 +123,30 @@ public class Bomber extends Entity {
             }
     }
 
-    public int indexOfBombs = 0;
+
     public void move() {
-        if(input.contains("SPACE") && !bombs.get(indexOfBombs).settled ) {
-            bombs.get(indexOfBombs).setX((int) (x+5)/32*32);
-            bombs.get(indexOfBombs).setY((int) (y+15)/32*32);
-            bombs.get(indexOfBombs).settled = true;
-            //Manage.putBomb
-        }
-        if(input.contains("LEFT")) {
+        if(input.contains("A")) {
             //x-=1;
             goLeft();
             animate += Sprite.DEFAULT_SIZE / 10;
             img = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'L';
         }
-        if(input.contains("RIGHT")) {
+        if(input.contains("D")) {
             //x+=1;
             goRight();
             animate += Sprite.DEFAULT_SIZE / 10;
             img = Sprite.movingSprite(Sprite.player_right_1,Sprite.player_right_2,animate,Sprite.DEFAULT_SIZE).getFxImage();
             s = 'R';
         }
-        if(input.contains("UP")) {
+        if(input.contains("W")) {
             //y-=1;
             goUp();
             animate += Sprite.DEFAULT_SIZE / 10;
             img = Sprite.movingSprite(Sprite.player_up_1,Sprite.player_up_2,animate,Sprite.DEFAULT_SIZE).getFxImage();
             s = 'U';
         }
-        if(input.contains("DOWN")) {
+        if(input.contains("S")) {
             //y+=1;
             goDown();
             animate += Sprite.DEFAULT_SIZE / 10;
@@ -161,19 +159,15 @@ public class Bomber extends Entity {
             switch (s) {
                 case 'L':
                     img = Sprite.player_left.getFxImage();
-                    state = 1;
                     break;
                 case 'R':
                     img = Sprite.player_right.getFxImage();
-                    state = 1;
                     break;
                 case 'U':
                     img = Sprite.player_up.getFxImage();
-                    state = 1;
                     break;
                 case 'D':
                     img = Sprite.player_down.getFxImage();
-                    state = 1;
                     break;
             }
         }

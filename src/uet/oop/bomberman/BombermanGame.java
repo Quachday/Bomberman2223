@@ -31,6 +31,7 @@ import java.util.List;
 
 import javafx.scene.paint.Color;
 
+import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
 import static uet.oop.bomberman.entities.Management.*;
 
 
@@ -73,7 +74,10 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-
+                if (numOfEnemy == 0 ) {
+                    System.out.println("you win");
+                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                }
                 render();
                 update();
             }
@@ -87,15 +91,22 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-                        if (e.getCode().toString().equals("SPACE") && !bombs.get(bomberman.indexOfBombs).settled ) { // HAM DAT BOM
-                            bombs.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
-                            bombs.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
-                            bombs.get(bomberman.indexOfBombs).settled = true;
-                            bombs.get(bomberman.indexOfBombs).setImg(Sprite.bomb.getFxImage());
-                            System.out.println("datbom");
+                        if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) { // HAM DAT BOM
+                            bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
+                            bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
+                            bombsofman.get(bomberman.indexOfBombs).settled = true;
+                            bombsofman.get(bomberman.indexOfBombs).setImg(Sprite.bomb.getFxImage());
+                            System.out.println("mandatbom");
+                        }
+                        if (e.getCode().toString().equals("ENTER") && !bombsofgirl.get(bombergirl.indexOfBombs).settled ) { // HAM DAT BOM
+                            bombsofgirl.get(bombergirl.indexOfBombs).setX((int)(bombergirl.getX()+5)/32*32);
+                            bombsofgirl.get(bombergirl.indexOfBombs).setY((int)(bombergirl.getY()+16)/32*32);
+                            bombsofgirl.get(bombergirl.indexOfBombs).settled = true;
+                            bombsofgirl.get(bombergirl.indexOfBombs).setImg(Sprite.bomb.getFxImage());
+                            System.out.println("girldatbom");
                         }
                         // only add once... prevent duplicates
-                        if (!input.contains(code) && !code.equals("SPACE"))
+                        if (!input.contains(code) && !code.equals("SPACE") && !code.equals("ENTER"))
                             input.add(code);
                     }
                 });
@@ -120,7 +131,7 @@ public class BombermanGame extends Application {
         public void handle(MouseEvent e) {
             if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
             {   gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                CreateMap.createMapByLevel(1,2);}
+                CreateMap.createMapByLevel(2,2);}
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
             {gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);}
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
@@ -131,8 +142,10 @@ public class BombermanGame extends Application {
     public void update() {
         Management.bombers.forEach(Entity::update);
         Management.enemy.forEach(Entity::update);
-        Management.bombs.forEach(Entity::update);
+        Management.bombsofman.forEach(Entity::update);
+        bombsofgirl.forEach(Entity::update);
         Management.items.forEach(Entity::update);
+        bricks.forEach(Entity::update);
         flamesvisual.forEach(Entity::update);
     }
 
@@ -154,8 +167,8 @@ public class BombermanGame extends Application {
         Management.bombers.forEach(g -> g.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
-        Management.bombs.forEach(g -> g.render(gc));
-
-         flamesvisual.forEach(g->g.render(gc));
+        Management.bombsofman.forEach(g -> g.render(gc));
+        bombsofgirl.forEach(g -> g.render(gc));
+        flamesvisual.forEach(g->g.render(gc));
     }
 }
