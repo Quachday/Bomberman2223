@@ -32,7 +32,7 @@ public class CreateMap {
         }
         try {
             String path = "res/levels/Level" + level + ".txt";
-            FileReader file = new FileReader ("res/levels/Level2.txt");
+            FileReader file = new FileReader (path);
                 Scanner sc = new Scanner(file);
                 level = sc.nextInt();
                 int rows = sc.nextInt();
@@ -115,9 +115,10 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:
-                               // if (j % 5 == 0 || i % 3 == 0 )
-                                //{Item coins = new Coins(j,i,Sprite.coin.getFxImage());
-                               // items.add(coins);}
+                               if (level == 2) {
+                                if (j % 5 == 0 || i % 3 == 0 )
+                                {Item coins = new Coins(j,i,Sprite.coin.getFxImage());
+                                items.add(coins);}}
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 break;
                         }
@@ -129,7 +130,8 @@ public class CreateMap {
                 fnfe.printStackTrace();
             }
         numOfEnemy = enemy.size() ;
-        System.out.println(numOfEnemy);
+        System.out.println(level);
+        System.out.println(numOfPlayer);
         Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
         bombsofman.add(firstBomb);
         Bomb secBomb = new Bomb(1001,1000,Sprite.bomb.getFxImage(),1);
