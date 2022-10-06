@@ -17,6 +17,7 @@ import static uet.oop.bomberman.entities.Management.*;
 
 public class CreateMap {
     public static int numOfEnemy = 1;
+    public static int numOfplayer = 1;
     /**
      * tao map theo cac level bang cach doc file txt.
      * @param level
@@ -30,6 +31,7 @@ public class CreateMap {
             bombergirl = new Bombergirl(1, 11, Sprite.spider_right.getFxImage());
             Management.bombers.add(bombergirl);
         }
+        numOfplayer = numOfPlayer;
         try {
             String path = "res/levels/Level" + level + ".txt";
             FileReader file = new FileReader (path);
@@ -115,10 +117,10 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:
-                               if (level == 2) {
-                                if (j % 5 == 0 || i % 3 == 0 )
-                                {Item coins = new Coins(j,i,Sprite.coin.getFxImage());
-                                items.add(coins);}}
+                               //if (level == 2) {
+                                //if (j % 5 == 0 || i % 3 == 0 )
+                                //{Item coins = new Coins(j,i,Sprite.coin.getFxImage());
+                                //items.add(coins);}}
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 break;
                         }

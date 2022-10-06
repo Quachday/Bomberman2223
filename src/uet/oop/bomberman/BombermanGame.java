@@ -32,6 +32,7 @@ import java.util.List;
 import javafx.scene.paint.Color;
 
 import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
 import static uet.oop.bomberman.entities.Management.*;
 
 
@@ -74,6 +75,8 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                if (bomberman.numOfLives == 0 && numOfplayer == 1) System.out.println("you lose");
+                else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
                 if (numOfEnemy == 0 ) {
                     System.out.println("you win");
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

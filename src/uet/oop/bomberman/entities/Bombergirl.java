@@ -32,9 +32,9 @@ public class Bombergirl extends Bomber {
         if(bombsofgirl.get(indexOfBombs).settled)
         {if (bombergirl.indexOfBombs == bombsofgirl.size()-1) bombergirl.indexOfBombs = 0;
         else bombergirl.indexOfBombs++;}
-       // if (status.equals("alive"))
+        if (status.equals("alive"))
             move();
-       // else if (status.equals("die") && x < 1000) {  ondie(); }
+        else if (status.equals("die") && x < 1000) {  ondie(); }
     }
     public void move() {
         if(input.contains("LEFT")) {
