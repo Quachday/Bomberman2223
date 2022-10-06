@@ -1,9 +1,6 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.entities.Enemies.Enemy1;
-import uet.oop.bomberman.entities.Enemies.Enemy2;
-import uet.oop.bomberman.entities.Enemies.Enemy3;
-import uet.oop.bomberman.entities.Enemies.Enemy4;
+import uet.oop.bomberman.entities.Enemies.*;
 import uet.oop.bomberman.entities.Items.*;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -76,6 +73,10 @@ public class CreateMap {
                             case '5' :
                                 Enemy2 enemy2 = new Enemy2(j,i,Sprite.oneal_right1.getFxImage());
                                 Management.enemy.add(enemy2);
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
+                            case '8' :
+                                Management.enemy.add(new Enemy5(j,i,Sprite.ghost_left1.getFxImage()));
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             case '6' :
