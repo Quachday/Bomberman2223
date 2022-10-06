@@ -89,6 +89,10 @@ public class CreateMap {
                                 Management.enemy.add(enemy4);
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
+                            case '9' :
+                                Management.enemy.add(new Enemy6(j,i,Sprite.doll_left1.getFxImage()));
+                                object = new Grass(j,i,Sprite.grass.getFxImage());
+                                break;
                             case 's' :
                                 Speedup speedup = new Speedup(j,i,Sprite.powerup_speed.getFxImage());
                                 Management.items.add(speedup);

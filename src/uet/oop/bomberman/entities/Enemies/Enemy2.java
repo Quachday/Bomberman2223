@@ -46,7 +46,7 @@ public class Enemy2 extends Enemy1 {
     @Override
     public void onDie() {
         if (this.count_die > 20) { img = Sprite.oneal_dead.getFxImage(); count_die--; }
-        else if (this.count_die > 0 )    super.onDie();
+        else super.onDie();
     }
 
     void move() {
