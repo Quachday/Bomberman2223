@@ -45,9 +45,6 @@ public class Bomber extends Entity {
 
 
     public void update() {
-        if(bombsofman.get(indexOfBombs).settled)
-        {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
-        else bomberman.indexOfBombs++;}
         if (status.equals("alive"))
         move();
         else if (status.equals("die") && x < 1000) { ondie(); }

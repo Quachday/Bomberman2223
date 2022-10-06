@@ -17,14 +17,13 @@ public class Bomb extends Wall {
     List<Flame> flameUp = new ArrayList<>();
     List<Flame> flameDown = new ArrayList<>();
 
-    private int countBOMB = 200;
+    private int countBOMB = 75;
     public boolean settled = false;
     private  int index;
     public Bomb(int x, int y, Image img, int index) {
         super(x, y, img);
         this.index = index;
         for (int i = 0; i < 5; i++) {
-
             flameLeft.add(new Flame(1000,1000,Sprite.explosion_horizontal.getFxImage(),0));
             flameRight.add(new Flame(1000,1000,Sprite.explosion_horizontal.getFxImage(),0));
             flameUp.add(new Flame(1000,1000,Sprite.explosion_vertical.getFxImage(),1));
@@ -87,6 +86,7 @@ public class Bomb extends Wall {
                 x = 1000 + index;
                 y = 1000;
                 countBOMB = 200;
+                img = Sprite.bomb.getFxImage();
                 settled = false;
                 for (int i = 0; i < bomberman.sizeOfFlame; i++) {
                     flameLeft.get(i).setX(1000);

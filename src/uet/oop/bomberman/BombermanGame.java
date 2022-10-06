@@ -95,18 +95,50 @@ public class BombermanGame extends Application {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
                         if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) { // HAM DAT BOM
+                           boolean checkduplicate = false;
                             bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
                             bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
-                            bombsofman.get(bomberman.indexOfBombs).settled = true;
-                            bombsofman.get(bomberman.indexOfBombs).setImg(Sprite.bomb.getFxImage());
-                            System.out.println("mandatbom");
+                            for (int i = 0; i < bombsofman.size() ; i++){
+                                if ( bomberman.indexOfBombs != i &&
+                                        bombsofman.get(bomberman.indexOfBombs).getX() == bombsofman.get(i).getX()
+                                        && bombsofman.get(bomberman.indexOfBombs).getY() == bombsofman.get(i).getY() ) {
+                                    checkduplicate = true; break;
+                                }
+                            }
+                            if (checkduplicate == true) {
+                                Random rand = new Random();
+                                int ranNum = rand.nextInt(2) + 1000;
+                                bombsofman.get(bomberman.indexOfBombs).setX(ranNum);
+                            }
+                            else if (checkduplicate == false) {
+                                bombsofman.get(bomberman.indexOfBombs).settled = true;
+                            }
+                            {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
+                            else bomberman.indexOfBombs++;}
                         }
+
+
                         if (e.getCode().toString().equals("ENTER") && !bombsofgirl.get(bombergirl.indexOfBombs).settled ) { // HAM DAT BOM
+                            boolean checkduplicate = false;
                             bombsofgirl.get(bombergirl.indexOfBombs).setX((int)(bombergirl.getX()+5)/32*32);
                             bombsofgirl.get(bombergirl.indexOfBombs).setY((int)(bombergirl.getY()+16)/32*32);
-                            bombsofgirl.get(bombergirl.indexOfBombs).settled = true;
-                            bombsofgirl.get(bombergirl.indexOfBombs).setImg(Sprite.bomb.getFxImage());
-                            System.out.println("girldatbom");
+                            for (int i = 0; i < bombsofgirl.size() ; i++){
+                                if ( bombergirl.indexOfBombs != i &&
+                                        bombsofgirl.get(bombergirl.indexOfBombs).getX() == bombsofgirl.get(i).getX()
+                                        && bombsofgirl.get(bombergirl.indexOfBombs).getY() == bombsofgirl.get(i).getY() ) {
+                                    checkduplicate = true; break;
+                                }
+                            }
+                            if (checkduplicate == true) {
+                                Random rand = new Random();
+                                int ranNum = rand.nextInt(2) + 1000;
+                                bombsofgirl.get(bombergirl.indexOfBombs).setX(ranNum);
+                            }
+                            else if (checkduplicate == false) {
+                                bombsofgirl.get(bombergirl.indexOfBombs).settled = true;
+                            }
+                            {if (bombergirl.indexOfBombs == bombsofgirl.size()-1) bombergirl.indexOfBombs = 0;
+                            else bombergirl.indexOfBombs++;}
                         }
                         // only add once... prevent duplicates
                         if (!input.contains(code) && !code.equals("SPACE") && !code.equals("ENTER"))

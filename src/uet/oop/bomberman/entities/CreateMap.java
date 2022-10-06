@@ -117,10 +117,10 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage());
                                 break;
                             default:
-                               //if (level == 2) {
-                                //if (j % 5 == 0 || i % 3 == 0 )
-                                //{Item coins = new Coins(j,i,Sprite.coin.getFxImage());
-                                //items.add(coins);}}
+                               if (level == 2) {
+                                if (j % 5 == 0 || i % 3 == 0 )
+                                {Item coins = new Coins(j,i,Sprite.coin.getFxImage());
+                                items.add(coins);}}
                                 object = new Grass(j, i, Sprite.grass.getFxImage());
                                 break;
                         }
@@ -136,6 +136,8 @@ public class CreateMap {
         System.out.println(numOfPlayer);
         Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
         bombsofman.add(firstBomb);
+        bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
+        bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
         Bomb secBomb = new Bomb(1001,1000,Sprite.bomb.getFxImage(),1);
         bombsofgirl.add(secBomb);
         bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
