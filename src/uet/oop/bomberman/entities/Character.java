@@ -12,8 +12,7 @@ public abstract class Character extends Entity{
     public abstract void update();
     public Character(int x, int y, Image image) {
         super(x,y,image);
-        rect = new Rectangle(x,y,32,32);
-        rect.setVisible(false);
+
     }
 
 

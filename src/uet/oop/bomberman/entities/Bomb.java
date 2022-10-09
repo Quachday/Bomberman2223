@@ -101,8 +101,6 @@ public class Bomb extends Wall {
                 }
             }
             countBOMB--;
-
-
         }
     }
         }

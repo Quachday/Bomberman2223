@@ -4,6 +4,7 @@ import com.sun.javafx.font.directwrite.RECT;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,11 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
-
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,21 +26,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 import java.util.List;
-
 import javafx.scene.paint.Color;
-
 import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
 import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
 import static uet.oop.bomberman.entities.Management.*;
 
 
 public class BombermanGame extends Application {
+    public boolean start = false;
     // day la file cua quach
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
     private GraphicsContext gc;
     private Canvas canvas;
+    public static Group root = new Group();
     public static List<Entity> entities = new ArrayList<>();
      public static List<Entity> stillObjects = new ArrayList<>();
 
@@ -56,10 +54,10 @@ public class BombermanGame extends Application {
     public void start(Stage stage) {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
-        Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -79,7 +77,7 @@ public class BombermanGame extends Application {
                 else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
                 if (numOfEnemy == 0 ) {
                     System.out.println("you win");
-                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    System.exit(0);
                 }
                 render();
                 update();
@@ -166,9 +164,13 @@ public class BombermanGame extends Application {
         public void handle(MouseEvent e) {
             if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
             {   gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                CreateMap.createMapByLevel(2,2);}
+                CreateMap.createMapByLevel(2,2);
+            start = true;
+            }
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
-            {gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);}
+            {gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);
+                start = true;
+            }
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
         }
@@ -182,19 +184,11 @@ public class BombermanGame extends Application {
         Management.items.forEach(Entity::update);
         bricks.forEach(Entity::update);
         flamesvisual.forEach(Entity::update);
+        grasses.forEach(Entity::update);
     }
 
     public void render() {
-       // gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        /*Management.grasses.forEach(grass -> grass.render(gc));
-
-        Management.grasses.forEach(grass -> grass.render(gc));
-        Management.walls.forEach(wall -> wall.render(gc));
-        Management.bricks.forEach(g -> g.render(gc));*/
-        //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        //stillObjects.forEach(g -> g.render(gc));
-        //entities.forEach(g -> g.render(gc));
+        if (start) gc.clearRect(0,0, canvas.getWidth(),canvas.getHeight());
         Management.grasses.forEach(grass -> grass.render(gc));
         Management.items.forEach(g->g.render(gc));
         Management.bricks.forEach(g -> g.render(gc));

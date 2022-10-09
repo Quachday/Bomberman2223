@@ -51,10 +51,7 @@ public class Flame extends Entity{
         if (this.checkWall()) x = 1000;
         for (Entity e : Management.enemy) {
             if (this.intersects(e)) {
-                if (e instanceof Enemy2) ((Enemy2) e).status = "die";
                 if (e instanceof Enemy1) ((Enemy1) e).status = "die";
-                if (e instanceof Enemy3) ((Enemy3) e).status = "die";
-                if (e instanceof Enemy4) ((Enemy4) e).status = "die";
             }
         }
         for (Entity e : Management.bricks) {
