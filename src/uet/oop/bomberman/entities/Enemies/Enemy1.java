@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.Enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -56,6 +57,7 @@ public class Enemy1 extends Entity {
                     Sprite.DEFAULT_SIZE).getFxImage();
             count_die--;
             if (count_die == 0) {
+                BombermanGame.enemyDie.play();
                 x = 1000;
                 numOfEnemy--;
                 status = "stop";

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileNotFoundException;
@@ -83,6 +84,7 @@ public class Bomb extends Wall {
                 }
             }
             if (countBOMB == 0) {
+                BombermanGame.boomExplosion.play();
                 x = 1000 + index;
                 y = 1000;
                 countBOMB = 200;

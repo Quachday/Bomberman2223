@@ -30,6 +30,8 @@ import java.util.*;
 import java.util.List;
 
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.sound.Sound;
+
 
 import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
 import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
@@ -47,6 +49,15 @@ public class BombermanGame extends Application {
      public static List<Entity> stillObjects = new ArrayList<>();
 
     public static Scene scene;
+    public Sound themeSong = new Sound("nhacnen");
+    public Sound gameStart = new Sound("gameStart");
+    public Sound boomSettle = new Sound("boomSettle");
+    public static Sound enemyDie = new Sound("enemydie");
+
+    public static Sound bomberDie = new Sound("bomberdie");
+    public static Sound boomExplosion = new Sound("boomExplosion");
+
+    public static Sound collectItem = new Sound("Item");
     public static ArrayList<String> input = new ArrayList<String>();
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -85,6 +96,8 @@ public class BombermanGame extends Application {
                 update();
             }
         };
+
+        themeSong.loop();
         timer.start();
 
         /**
@@ -94,8 +107,10 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-                        if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) { // HAM DAT BOM
-                           boolean checkduplicate = false;
+                        if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
+                            // HAM DAT BOM
+                            boomSettle.play();
+                            boolean checkduplicate = false;
                             bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
                             bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
                             for (int i = 0; i < bombsofman.size() ; i++){
@@ -119,6 +134,7 @@ public class BombermanGame extends Application {
 
 
                         if (e.getCode().toString().equals("ENTER") && !bombsofgirl.get(bombergirl.indexOfBombs).settled ) { // HAM DAT BOM
+                            boomSettle.play();
                             boolean checkduplicate = false;
                             bombsofgirl.get(bombergirl.indexOfBombs).setX((int)(bombergirl.getX()+5)/32*32);
                             bombsofgirl.get(bombergirl.indexOfBombs).setY((int)(bombergirl.getY()+16)/32*32);
@@ -156,9 +172,11 @@ public class BombermanGame extends Application {
     }
     public void welcomeGame(Scene scene) {
 
-        Image background = new Image("C:\\Users\\LTC\\Desktop\\Bomberman2223\\res\\background.jpg"); // luc chay thi doi dia chi nay
+        Image background = new Image("background.jpg"); // luc chay thi doi dia chi nay
         gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         scene.setOnMouseClicked(Mouseevent);
+
+        //Sound.play("gameStart");
     }
 
        EventHandler Mouseevent = new EventHandler<MouseEvent>() {
@@ -166,9 +184,16 @@ public class BombermanGame extends Application {
         public void handle(MouseEvent e) {
             if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
             {   gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                CreateMap.createMapByLevel(2,2);}
+                CreateMap.createMapByLevel(2,2);
+                themeSong.stop();
+                gameStart.play();
+            }
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
-            {gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);}
+            {
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);
+                themeSong.stop();
+                gameStart.play();
+            }
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
         }
