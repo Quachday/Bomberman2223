@@ -39,7 +39,7 @@ import static uet.oop.bomberman.entities.Management.*;
 
 
 public class BombermanGame extends Application {
-    // day la file cua dat
+    // day la file cua dat1
 
 
     public static int WIDTH = 31;
