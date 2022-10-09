@@ -21,6 +21,8 @@ public class Bomb extends Wall {
     private int countBOMB = 75;
     public boolean settled = false;
     private  int index;
+
+    public boolean passThrough = true;
     public Bomb(int x, int y, Image img, int index) {
         super(x, y, img);
         this.index = index;

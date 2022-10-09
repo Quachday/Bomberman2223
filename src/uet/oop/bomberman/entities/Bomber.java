@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -45,12 +46,12 @@ public class Bomber extends Entity {
 
 
     public void update() {
-        if (status.equals("alive"))
+        //if (status.equals("alive"))
         move();
-        else if (status.equals("die") && x < 1000) {
-            bomberDie.play();
-            ondie();
-        }
+        //else if (status.equals("die") && x < 1000) {
+            //bomberDie.play();
+           // ondie();
+      //  }
 
 
     }
@@ -93,7 +94,7 @@ public class Bomber extends Entity {
     }
     public void goLeft() {
             this.x -= speed;
-            if (checkBrick() || checkWall() ) {
+            if (checkBrick() || checkWall() || checkBomb()) {
                 this.x += speed;
                 supportRow();
              }
@@ -101,7 +102,7 @@ public class Bomber extends Entity {
 
     public void goRight() {
             this.x += speed;
-            if (checkBrick() || checkWall() ) {
+            if (checkBrick() || checkWall() || checkBomb())  {
                 this.x -= speed;
                 supportRow();
             }
@@ -109,7 +110,7 @@ public class Bomber extends Entity {
 
     public void goUp() {
             this.y -= speed;
-            if (checkBrick() || checkWall() ) {
+            if (checkBrick() || checkWall() || checkBomb())  {
                 this.y += speed;
                 supportColumn();
              }
@@ -117,7 +118,7 @@ public class Bomber extends Entity {
 
     public void goDown() {
             this.y += speed;
-            if (checkBrick() || checkWall() ) {
+            if (checkBrick() || checkWall() || checkBomb())  {
                 this.y -= speed;
                 supportColumn();
             }
@@ -171,6 +172,22 @@ public class Bomber extends Entity {
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean checkBomb() {
+        for (Bomb e : bombsofman) {
+            double diffX = this.getX() - e.getX();
+            double diffY = this.getY() - e.getY();
+            if (!(diffX > -1000 && diffX < 0 && diffY > -1000 && diffY < 0)) {
+                e.passThrough = false;
+            }
+            if (e.passThrough) return false;
+            if (this.intersects(e)) return true;
+            System.out.println(diffX + " "  + diffY);
+
+        }
+        return false;
     }
 
 }
