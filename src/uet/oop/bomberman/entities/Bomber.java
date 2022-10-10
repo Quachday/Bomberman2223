@@ -39,7 +39,7 @@ public class Bomber extends Entity {
     public int indexOfBombs = 0;
     public int sizeOfFlame = 2; // cua chung 2 players
 
-    public int numBombs = 1;
+    public int numBombs = 5;
 
     public int speed = 2;
     public Bomber(int x, int y, Image img) {

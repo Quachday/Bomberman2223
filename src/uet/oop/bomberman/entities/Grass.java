@@ -8,7 +8,6 @@ import java.awt.geom.Rectangle2D;
 
 import static java.awt.Color.RED;
 import static java.awt.SystemColor.window;
-import static uet.oop.bomberman.BombermanGame.root;
 import static uet.oop.bomberman.entities.Management.bomberman;
 
 

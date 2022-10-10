@@ -197,7 +197,8 @@ public class BombermanGame extends Application {
             }
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
             {
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); CreateMap.createMapByLevel(1,1);
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                CreateMap.createMapByLevel(1,1);
                 themeSong.stop();
                 gameStart.play();
             }
@@ -208,9 +209,12 @@ public class BombermanGame extends Application {
 
     public void update() {
         Management.bombers.forEach(Entity::update);
-        Management.bomberman.bombs.forEach(Bomb::update);
+        List<Bomb> another = new ArrayList<>();
+        for (int i = 0; i < bomberman.bombs.size(); i++) {
+            another.add(bomberman.bombs.get(i));
+        }
+        another.forEach(Bomb::update);
         Management.enemy.forEach(Entity::update);
-        Management.bombsofman.forEach(Entity::update);
         bombsofgirl.forEach(Entity::update);
         Management.items.forEach(Entity::update);
         bricks.forEach(Entity::update);

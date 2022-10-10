@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.root;
 
 
 public abstract class Entity {
@@ -82,7 +81,7 @@ public abstract class Entity {
      * check va cham voi bom.
      */
     public boolean checkBomb() {
-        for (Entity e : Management.bombsofman) {
+        for (Entity e : Management.bomberman.bombs) {
             if (this.intersects(e)) return true;
         }
         for (Entity e : Management.bombsofgirl) {
