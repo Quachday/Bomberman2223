@@ -15,6 +15,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,10 +31,15 @@ public class Bomber extends Entity {
         Bomber.status = status;
     }
 
+    public List<Bomb> bombs = new ArrayList<>();
+
+
     public static int numOfLives = 3;
     private static int count = 0; // count die
     public int indexOfBombs = 0;
     public int sizeOfFlame = 2; // cua chung 2 players
+
+    public int numBombs = 1;
 
     public int speed = 2;
     public Bomber(int x, int y, Image img) {
@@ -124,6 +130,36 @@ public class Bomber extends Entity {
             }
     }
 
+    private boolean duplicateBomb(Bomb bomb) {
+        for (Bomb b : this.bombs) {
+            if (b.getX() == bomb.getX() && b.getY() == bomb.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void putBomb() {
+        int xBomb, yBomb;
+        if (getX() % Sprite.SCALED_SIZE > Sprite.SCALED_SIZE / 3) {
+            xBomb = (int) ((getX() / Sprite.SCALED_SIZE) + 1);
+        } else {
+            xBomb = (int) (getX() / Sprite.SCALED_SIZE);
+        }
+        if (getY() % Sprite.SCALED_SIZE > Sprite.SCALED_SIZE / 3) {
+            yBomb = (int) ((getY() / Sprite.SCALED_SIZE) + 1);
+        } else {
+            yBomb = (int) (getY() / Sprite.SCALED_SIZE);
+        }
+        Bomb bomb = new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage());
+
+        if (!this.duplicateBomb(bomb)
+                && getNumBombs() >= this.bombs.size() + 1) {
+            this.bombs.add(bomb);
+        }
+    }
+
+
 
     public void move() {
         if(input.contains("A")) {
@@ -176,18 +212,20 @@ public class Bomber extends Entity {
 
     @Override
     public boolean checkBomb() {
-        for (Bomb e : bombsofman) {
+        for (Bomb e : bomberman.bombs) {
             double diffX = this.getX() - e.getX();
             double diffY = this.getY() - e.getY();
-            if (!(diffX > -1000 && diffX < 0 && diffY > -1000 && diffY < 0)) {
+            if (!(diffX > -32 && diffX < 32 && diffY > -32 && diffY < 32)) {
                 e.passThrough = false;
             }
             if (e.passThrough) return false;
             if (this.intersects(e)) return true;
-            System.out.println(diffX + " "  + diffY);
+            //System.out.println(diffX + " "  + diffY);
 
         }
         return false;
     }
-
+    public int getNumBombs() {
+        return numBombs;
+    };
 }

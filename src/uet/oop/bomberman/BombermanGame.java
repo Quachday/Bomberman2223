@@ -108,7 +108,8 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-                        if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
+                        /*if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
+
                             // HAM DAT BOM
                             boomSettle.play();
                             boolean checkduplicate = false;
@@ -131,8 +132,13 @@ public class BombermanGame extends Application {
                             }
                             {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
                             else bomberman.indexOfBombs++;}
-                        }
 
+                        }*/
+                        if (e.getCode().toString().equals("SPACE")  ){
+                            // HAM DAT BOM
+                            boomSettle.play();
+                            bomberman.putBomb();
+                        }
 
                         if (e.getCode().toString().equals("ENTER") && !bombsofgirl.get(bombergirl.indexOfBombs).settled ) { // HAM DAT BOM
                             boomSettle.play();
@@ -202,6 +208,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         Management.bombers.forEach(Entity::update);
+        Management.bomberman.bombs.forEach(Bomb::update);
         Management.enemy.forEach(Entity::update);
         Management.bombsofman.forEach(Entity::update);
         bombsofgirl.forEach(Entity::update);
@@ -229,6 +236,7 @@ public class BombermanGame extends Application {
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
         Management.bombsofman.forEach(g -> g.render(gc));
+        Management.bomberman.bombs.forEach(g -> g.render(gc));
         bombsofgirl.forEach(g -> g.render(gc));
         flamesvisual.forEach(g->g.render(gc));
     }

@@ -21,5 +21,13 @@ public class Management {
     public static Bomber bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
     public static Bombergirl bombergirl = new Bombergirl(1, 11, Sprite.player_right.getFxImage());
 
+    public static void removeBomb() {
+        try{
+            bomberman.bombs.removeIf(Bomb::isExploded);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }

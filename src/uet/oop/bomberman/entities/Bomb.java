@@ -19,11 +19,27 @@ public class Bomb extends Wall {
     List<Flame> flameDown = new ArrayList<>();
 
     private int countBOMB = 75;
-    public boolean settled = false;
+    public boolean settled = true;
     private  int index;
 
+    private boolean isExploded = false;
     public boolean passThrough = true;
-    public Bomb(int x, int y, Image img, int index) {
+
+    public Bomb(int x, int y, Image img){
+        super(x, y ,img);
+        for (int i = 0; i < 5; i++) {
+            flameLeft.add(new Flame(1000, 1000, Sprite.explosion_horizontal.getFxImage(), 0));
+            flameRight.add(new Flame(1000, 1000, Sprite.explosion_horizontal.getFxImage(), 0));
+            flameUp.add(new Flame(1000, 1000, Sprite.explosion_vertical.getFxImage(), 1));
+            flameDown.add(new Flame(1000, 1000, Sprite.explosion_vertical.getFxImage(), 1));
+            flamesvisual.add(flameLeft.get(i));
+            flamesvisual.add(flameRight.get(i));
+            flamesvisual.add(flameUp.get(i));
+            flamesvisual.add(flameDown.get(i));
+        }
+    }
+
+    /*public Bomb(int x, int y, Image img, int index) {
         super(x, y, img);
         this.index = index;
         for (int i = 0; i < 5; i++) {
@@ -37,7 +53,7 @@ public class Bomb extends Wall {
             flamesvisual.add(flameDown.get(i));
         }
 
-    }
+    }*/
     public void update() {
         if (settled) {
             if (countBOMB > 20) {
@@ -87,6 +103,20 @@ public class Bomb extends Wall {
             }
             if (countBOMB == 0) {
                 BombermanGame.boomExplosion.play();
+                setExploded(true);
+                Management.removeBomb();
+                countBOMB = 200;
+                img = Sprite.bomb.getFxImage();
+                settled = false;
+                for (int i = 0; i < bomberman.sizeOfFlame; i++) {
+                    flamesvisual.remove(flameLeft.get(i));
+                    flamesvisual.remove(flameRight.get(i));
+                    flamesvisual.remove(flameDown.get(i));
+                    flamesvisual.remove(flameUp.get(i));
+                }
+            }
+           /* if (countBOMB == 0) {
+                BombermanGame.boomExplosion.play();
                 x = 1000 + index;
                 y = 1000;
                 countBOMB = 200;
@@ -103,12 +133,17 @@ public class Bomb extends Wall {
                     flameUp.get(i).direction=1;
 
                 }
-            }
+            }*/
             countBOMB--;
-
-
         }
     }
-        }
+    public boolean isExploded() {
+        return isExploded;
+    }
+
+    public void setExploded(boolean exploded) {
+        isExploded = exploded;
+    }
+}
 
 

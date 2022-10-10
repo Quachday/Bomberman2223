@@ -139,7 +139,7 @@ public class CreateMap {
         numOfEnemy = enemy.size() ;
         System.out.println(level);
         System.out.println(numOfPlayer);
-        Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
+       /* Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
         bombsofman.add(firstBomb);
         bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
         bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
@@ -148,6 +148,6 @@ public class CreateMap {
         bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
         bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
         bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
-        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
+        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));*/
     }
 }
