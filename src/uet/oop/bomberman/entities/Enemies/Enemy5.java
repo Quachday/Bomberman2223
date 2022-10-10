@@ -46,62 +46,25 @@ public class Enemy5 extends Enemy3 {
     }
     void move() {
         if (getDirect()==1 ) { // di len ben trai
-            if(intersectsPlayer(bomberman) == true )
-            { if (x < bomberman.getX() ) ranNum = 2;
-                if (x != bomberman.getX())
-                    x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
-                if (y != bomberman.getY()) y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
-            if(intersectsPlayer(bombergirl) == true )
-            { if (x > bombergirl.getX()) ranNum = 2;
-                if (x != bombergirl.getX())x += 2*(this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
-                if (y != bombergirl.getY()) y += (this.y - bombergirl.getY())/Math.abs(this.y - bombergirl.getY()); }
             x -= 1;
             y -= 1;
             img = Sprite.ghost_left3.getFxImage();
         }
         if (getDirect()==3 ) { // di xuong ben phai
-            if(intersectsPlayer(bomberman) == true )
-            { if (x > bomberman.getX() ) ranNum = 1;
-            else if (x != bomberman.getX()) x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
-                if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
-            if(intersectsPlayer(bombergirl) == true )
-            {   if (x < bomberman.getX() ) ranNum = 1;
-                if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
-                if (y != bombergirl.getY()) y += (this.y - bombergirl.getY())/Math.abs(this.y - bombergirl.getY()); }
             x += 1;
             y += 1;
             img = Sprite.ghost_right3.getFxImage();
         }
 
         if (getDirect()==2 ) { // di len ben phai
-            if(intersectsPlayer(bomberman) == true )
-            { if (x > bomberman.getX() ) ranNum = 1;
-            else if (x != bomberman.getX()) x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
-                if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
-            if(intersectsPlayer(bombergirl) == true )
-            {   if (x < bomberman.getX() ) ranNum = 1;
-                if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
-                if (y != bombergirl.getY()) y += (this.y - bombergirl.getY())/Math.abs(this.y - bombergirl.getY()); }
             x += 1;
             y -= 1;
-            // animate += Sprite.DEFAULT_SIZE/10;
-            //img = Sprite.movingSprite(Sprite.ghost_right2,Sprite.ghost_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
             img = Sprite.ghost_right3.getFxImage();
         }
 
         if (getDirect()==4 ) { // di xuong ben trai
-           /* if(intersectsPlayer(bomberman) == true )
-            { if (x > bomberman.getX() ) ranNum = 1;
-            else if (x != bomberman.getX()) x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
-                if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
-            if(intersectsPlayer(bombergirl) == true )
-            {   if (x < bomberman.getX() ) ranNum = 1;
-                if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
-                if (y != bombergirl.getY()) y += (this.y - bombergirl.getY())/Math.abs(this.y - bombergirl.getY()); }*/
             x -= 1;
             y += 1;
-            // animate += Sprite.DEFAULT_SIZE/10;
-            //img = Sprite.movingSprite(Sprite.ghost_right2,Sprite.ghost_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
             img = Sprite.ghost_left3.getFxImage();
         }
         if (this.intersects(bomberman)) bomberman.status = "die";

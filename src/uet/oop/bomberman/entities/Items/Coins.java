@@ -14,10 +14,10 @@ public class Coins extends  Item {
 
     public void update() {
 
-        if (x < 10000) {
-            animate += Sprite.DEFAULT_SIZE / 11;
-            this.img = Sprite.movingSprite(Sprite.coin_left1, Sprite.coin_left2, Sprite.coin_left3, animate / 2, Sprite.DEFAULT_SIZE).getFxImage();
-            if (animate == 200) animate = 1;
+        //if (x < 10000) {
+            //animate += Sprite.DEFAULT_SIZE / 11;
+            //this.img = Sprite.movingSprite(Sprite.coin_left1, Sprite.coin_left2, Sprite.coin_left3, animate / 2, Sprite.DEFAULT_SIZE).getFxImage();
+           // if (animate == 200) animate = 1;
             if (this.intersects(bomberman)) {
                 BombermanGame.collectItem.play();
                 x = 10000;
@@ -26,7 +26,7 @@ public class Coins extends  Item {
                 BombermanGame.collectItem.play();
                 x = 10000;
             }
-        }
+        //}
     }
 }
 

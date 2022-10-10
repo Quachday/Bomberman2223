@@ -9,7 +9,6 @@ public class Wall extends Entity {
     public Wall(int x, int y, Image img) {
         super(x, y, img);
     }
-    Bounds bound = new BoundingBox(x,y,32,32);
     @Override
     public void update() {
 
