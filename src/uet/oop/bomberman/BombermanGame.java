@@ -203,7 +203,7 @@ public class BombermanGame extends Application {
             }
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
-        }
+        };
     };
 
     public void update() {
