@@ -26,6 +26,7 @@ public class Management {
     public static void removeBomb() {
         try{
             bomberman.bombs.removeIf(Bomb::isExploded);
+            bombergirl.bombs.removeIf(Bomb::isExploded);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

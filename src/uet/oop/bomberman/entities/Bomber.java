@@ -36,7 +36,6 @@ public class Bomber extends Entity {
 
     public static int numOfLives = 3;
     private static int count = 0; // count die
-    public int indexOfBombs = 0;
     public int sizeOfFlame = 2; // cua chung 2 players
 
     public int numBombs = 5;
@@ -220,8 +219,16 @@ public class Bomber extends Entity {
             }
             if (e.passThrough) return false;
             if (this.intersects(e)) return true;
-            //System.out.println(diffX + " "  + diffY);
 
+        }
+        for (Bomb e : bombergirl.bombs) {
+            double diffX = this.getX() - e.getX();
+            double diffY = this.getY() - e.getY();
+            if (!(diffX > -32 && diffX < 32 && diffY > -32 && diffY < 32)) {
+                e.passThrough = false;
+            }
+            if (e.passThrough) return false;
+            if (this.intersects(e)) return true;
         }
         return false;
     }

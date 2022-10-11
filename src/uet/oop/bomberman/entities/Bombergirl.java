@@ -29,9 +29,6 @@ public class Bombergirl extends Bomber {
 
 
     public void update() {
-        if(bombsofgirl.get(indexOfBombs).settled)
-        {if (bombergirl.indexOfBombs == bombsofgirl.size()-1) bombergirl.indexOfBombs = 0;
-        else bombergirl.indexOfBombs++;}
         if (status.equals("alive"))
             move();
         else if (status.equals("die") && x < 1000) {  ondie(); }

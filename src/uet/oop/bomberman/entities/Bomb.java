@@ -38,22 +38,6 @@ public class Bomb extends Wall {
             flamesvisual.add(flameDown.get(i));
         }
     }
-
-    /*public Bomb(int x, int y, Image img, int index) {
-        super(x, y, img);
-        this.index = index;
-        for (int i = 0; i < 5; i++) {
-            flameLeft.add(new Flame(1000,1000,Sprite.explosion_horizontal.getFxImage(),0));
-            flameRight.add(new Flame(1000,1000,Sprite.explosion_horizontal.getFxImage(),0));
-            flameUp.add(new Flame(1000,1000,Sprite.explosion_vertical.getFxImage(),1));
-            flameDown.add(new Flame(1000,1000,Sprite.explosion_vertical.getFxImage(),1));
-            flamesvisual.add(flameLeft.get(i));
-            flamesvisual.add(flameRight.get(i));
-            flamesvisual.add(flameUp.get(i));
-            flamesvisual.add(flameDown.get(i));
-        }
-
-    }*/
     public void update() {
         if (settled) {
             if (countBOMB > 20) {
@@ -115,25 +99,6 @@ public class Bomb extends Wall {
                     flamesvisual.remove(flameUp.get(i));
                 }
             }
-           /* if (countBOMB == 0) {
-                BombermanGame.boomExplosion.play();
-                x = 1000 + index;
-                y = 1000;
-                countBOMB = 200;
-                img = Sprite.bomb.getFxImage();
-                settled = false;
-                for (int i = 0; i < bomberman.sizeOfFlame; i++) {
-                    flameLeft.get(i).setX(1000);
-                    flameLeft.get(i).direction = 0;
-                    flameRight.get(i).setX(1000);
-                    flameRight.get(i).direction =0;
-                    flameDown.get(i).setX(1000);
-                    flameDown.get(i).direction=1;
-                    flameUp.get(i).setX(1000);
-                    flameUp.get(i).direction=1;
-
-                }
-            }*/
             countBOMB--;
         }
     }
