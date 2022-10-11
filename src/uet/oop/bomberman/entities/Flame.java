@@ -48,7 +48,14 @@ public class Flame extends Entity{
             img = Sprite.movingSprite(Sprite.explosion_vertical_down_last1,
                     Sprite.explosion_vertical_down_last2,animate,Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.checkWall()) x = 1000;
+        if (this.checkWall()){
+            x = 1000;
+            for (Entity e : Management.bricks) {
+                if (this.intersects(e)) {
+                    ((Brick) e).setStatus("destroy");
+                }
+            }
+        }
         for (Entity e : Management.enemy) {
             if (this.intersects(e)) {
                 if (e instanceof Enemy1) ((Enemy1) e).status = "die";
