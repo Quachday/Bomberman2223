@@ -26,7 +26,7 @@ public class CreateMap {
     public static Stack<Item> coinsStack = new Stack<>() ;
     public static void createMapByLevel(int level, int numOfPlayer) {
 
-        //Management.clear();
+        //Management.clear();1
         Management.bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         Management.bombers.add(Management.bomberman);
         if (numOfPlayer == 2) {
