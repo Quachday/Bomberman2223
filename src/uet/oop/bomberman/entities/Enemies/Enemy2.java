@@ -10,12 +10,13 @@ import static uet.oop.bomberman.entities.createGame.Management.*;
 
 // ONEAL : đặc điểm : nếu nó thấy bạn, nó đi về phía bạn.
 public class Enemy2 extends Enemy1 {
+    int countupdownspeed = 75;
     protected int speed = 1;
     public Enemy2(int x, int y, Image img) {
     super(x,y,img);
     }
 
-    int countupdownspeed = 75;
+
     public void update() {
         countupdownspeed--;
         if (countupdownspeed == 0) {

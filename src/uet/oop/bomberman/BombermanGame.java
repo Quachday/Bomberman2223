@@ -31,16 +31,20 @@ import uet.oop.bomberman.sound.Sound;
 
 import static uet.oop.bomberman.entities.createGame.CreateMap.*;
 import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.entities.players.Bombergirl.checkAI;
 
 
 public class BombermanGame extends Application {
     // day la file cua dat1
 
+    private Canvas canvas;
+    int levelnow;
+    boolean state = true;
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
     public static GraphicsContext gc;
-    private Canvas canvas;
+
     public static List<Entity> entities = new ArrayList<>();
 
     public static Scene scene;
@@ -54,10 +58,9 @@ public class BombermanGame extends Application {
 
     public static Sound collectItem = new Sound("Item");
     public static Group root = new Group();
-    boolean started = false;
+    static boolean started = false;
     public static ArrayList<String> input = new ArrayList<String>();
-    int levelnow;
-    boolean state = true;
+
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -101,7 +104,7 @@ public class BombermanGame extends Application {
                 else if ((levelnow == 1 || levelnow == 3) && numOfEnemy == 0 && bomberman.checkPortal() ) { // tao 1 portal de win
                     winningEndingScene(stage);
                                    }
-                else if (levelnow == 3 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
+                else if ((levelnow == 3 && started && coinsStack.size() == 0) || bomberman.numOfLives == 0) {
                     losingEndingScene(stage);
                 }
             }
@@ -158,15 +161,15 @@ public class BombermanGame extends Application {
        EventHandler Mouseevent = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
-            if (e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
+            if (started == false && e.getX() >= 515 && e.getX() <= 790 && e.getY() >= 315 && e.getY() <= 350)
             {   gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 CreateMap.createMapByLevel(2,2);
                 themeSong.stop();
                 gameStart.play();
                 started = true;
-                levelnow = 1;
+                levelnow = 2;
             }
-            if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
+            if (started == false && e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
             {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 CreateMap.createMapByLevel(1,1);
@@ -175,17 +178,17 @@ public class BombermanGame extends Application {
                 started = true;
                 levelnow = 1;
             }
-            if (e.getX() >= 408 && e.getX() <= 608 && e.getY() >= 375 && e.getY() <= 407)
+            if (started == false && e.getX() >= 408 && e.getX() <= 608 && e.getY() >= 375 && e.getY() <= 407)
             {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                bombergirl.checkAI = true;
-                CreateMap.createMapByLevel(2,2);
+                checkAI = true;
+                CreateMap.createMapByLevel(3,2);
                 themeSong.stop();
                 gameStart.play();
                 started = true;
                 levelnow = 3;
             }
-            if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
+            if (started == false && e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
         };
     };
@@ -269,6 +272,7 @@ public class BombermanGame extends Application {
         Management.bombers.forEach(g -> g.render(gc));
         Management.doors.forEach(doors -> doors.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
+        Management.bricks.forEach(g -> g.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
         Management.bomberman.bombs.forEach(g -> g.render(gc));
         Management.bombergirl.bombs.forEach(g -> g.render(gc));
@@ -276,14 +280,12 @@ public class BombermanGame extends Application {
     }
 
     public void restartGame(Stage stage) {
-        System.out.println( "state is " + state );
         playGame();
-        System.out.println( "state is " + state );
-
-        System.out.println( "Restarting app!" );
         stage.close();
         Management.clear();
         started = false;
+        levelnow = 0;
+        checkAI = false;
         Platform.runLater( () -> new BombermanGame().start( new Stage() ) );
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         GraphicsContext a = null;
@@ -291,7 +293,6 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
         Group root = new Group();
         root.getChildren().add(canvas);
-
         stage.setScene(new Scene(root));
     }
 

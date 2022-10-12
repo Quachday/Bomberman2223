@@ -60,7 +60,7 @@ public class Enemy1 extends Entity {
                 enemy.remove(this);
                 numOfEnemy--;
                 status = "stop";
-                System.out.println(numOfEnemy);
+                System.out.println("Number of Enemies: " + numOfEnemy);
             }
     }
     public void supportRow() {

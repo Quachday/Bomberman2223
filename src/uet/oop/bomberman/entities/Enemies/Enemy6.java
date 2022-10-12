@@ -3,13 +3,17 @@ package uet.oop.bomberman.entities.Enemies;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.ai.PathFinder;
+
 import uet.oop.bomberman.graphics.Sprite;
 
+
 import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
+import static uet.oop.bomberman.entities.createGame.Management.bomberman;
+
 
 public class Enemy6 extends Enemy1{
-    int speed = 1;
+    int speed = 2;
     boolean drawPath = true;
     public int direction;
     PathFinder finder = new PathFinder();
@@ -22,29 +26,29 @@ public class Enemy6 extends Enemy1{
         onPath = true;
     }
 
-        public void update() {
+    public void update() {
 
-        if(onPath == true && status == "alive" && bomberman.status == "alive"  ) {
+        if(onPath == true && status == "alive"   ) {
             int goalCol = (int)bomberman.getX() / 32 ;
             int goalRow = (int)bomberman.getY() / 32 ;
-           // int goalCol = coinsStack.peek().getX()/ 32 ;
-           // int goalRow = coinsStack.peek().getY() / 32 ; // ham an coin AI
+            // int goalCol = coinsStack.peek().getX()/ 32 ;
+            // int goalRow = coinsStack.peek().getY() / 32 ; // ham an coin AI
             searchPath(goalCol,goalRow);
             move();
         }
-            else if (this.status.equals("die")) onDie();
+        else if (this.status.equals("die")) onDie();
         //else move();
-            if(drawPath == true) {
-                for (int i = 0; i < finder.pathList.size();i++) {
-                    int worldX = finder.pathList.get(i).col * 32;
-                    int worldY = finder.pathList.get(i).row * 32;
-                    gc.strokeRect(worldX,worldY,32,32);
-                    //gc.fillRect(screenX,screenY,32,32);
-                }
+        if(drawPath == true) {
+            for (int i = 0; i < finder.pathList.size();i++) {
+                int worldX = finder.pathList.get(i).col * 32;
+                int worldY = finder.pathList.get(i).row * 32;
+                gc.strokeRect(worldX,worldY,32,32);
+                //gc.fillRect(screenX,screenY,32,32);
             }
-
         }
-        //Thuat toan tim duong
+
+    }
+    //Thuat toan tim duong
 
 
 
@@ -102,7 +106,7 @@ public class Enemy6 extends Enemy1{
             int enTopY = y+2;
             int enBottomY = y +30;
 
-           // thuat toan duoi theo dang co van de
+            // thuat toan duoi theo dang co van de
             if(enTopY > nextY && enLeftX >= nextX
                     && enRightX < nextX + 32) {
                 direction = 4;
@@ -123,7 +127,7 @@ public class Enemy6 extends Enemy1{
             else if (enTopY > nextY && enLeftX > nextX) {
                 // up or left
                 direction = 4;
-               if (this.checkWall() || checkBrick() || checkBomb()) {
+                if (this.checkWall() || checkBrick() || checkBomb()) {
                     direction = 1;
                 }
             }
@@ -156,7 +160,6 @@ public class Enemy6 extends Enemy1{
               //onPath = false;
                // items.remove(coinsStack.peek());
                 //coinsStack.pop();
-
             }*/
         }
 

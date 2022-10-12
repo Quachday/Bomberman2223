@@ -13,7 +13,6 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-
 import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class CreateMap {
@@ -40,6 +39,7 @@ public class CreateMap {
                 level = sc.nextInt();
                 int rows = sc.nextInt();
                 int columns = sc.nextInt();
+                String next = sc.nextLine();
                 for (int i = 0; i < rows; i++) {
                     String s = sc.nextLine();
                     for (int j = 0; j < columns; j++) {
@@ -50,7 +50,7 @@ public class CreateMap {
                                 Management.walls.add(object);
                                 break;
                             case '*':
-                                if(level == 1) {
+                                if(level == 1 || level == 2) {
                                 object = new Brick(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
                                 Management.bricks.add(object);}
                                 object = new Grass(j, i, Sprite.grass.getFxImage(),true);
@@ -123,18 +123,19 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage(),true);
                                 break;
                             case 'x' :
-                                Entity portal = new Grass(j,i,Sprite.portal.getFxImage(),true);
-                                object = new Grass(j, i, Sprite.grass.getFxImage(),true);
+                                Entity portal = new Grass(j,i,Sprite.realportal.getFxImage(),true);
                                 Management.portals.add(portal);
+                                object = new Brick(j,i,Sprite.brick.getFxImage());
+                                Management.bricks.add(object);
+                                object = new Grass(j, i, Sprite.grass.getFxImage(),true);
                                 break;
                             default:
-                               if (level == 2) {
+                                if (level == 3) {
                                    if (j % 5 == 0 || i % 3 == 0) {
                                        Item coins = new Coins(j, i, Sprite.coin.getFxImage());
                                        items.add(coins);
                                        coinsStack.add(coins);
-                                   }
-                               }
+                                   }}
                                 object = new Grass(j, i, Sprite.grass.getFxImage(),false);
                                 break;
                         }
@@ -146,7 +147,7 @@ public class CreateMap {
                 fnfe.printStackTrace();
             }
         numOfEnemy = enemy.size() ;
-        System.out.println(level);
-        System.out.println(numOfPlayer);
+        System.out.println("Level: " + level);
+        System.out.println("Number of player: " + numOfPlayer);
     }
 }

@@ -28,7 +28,7 @@ public class Enemy4 extends Enemy1 {
             lives_remain--;
             if (lives_remain > 0) {status = "alive"; count_die = 75; speed++;}
             else if (lives_remain == 0)  {x = 1000;
-                 numOfEnemy--; System.out.println(numOfEnemy);
+                 numOfEnemy--; System.out.println("Number of Enemies: " + numOfEnemy);
                  status = "stop";}
         }
     }

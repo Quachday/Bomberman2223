@@ -15,25 +15,19 @@ import static uet.oop.bomberman.entities.createGame.Management.*;
 
 
 public class Bomber extends Entity {
+    private static int count = 0; // count die
+    char s;
 
     public  String status = "alive";
     public List<Bomb> bombs = new ArrayList<>();
-
-
     public int numOfLives = 3;
-    private static int count = 0; // count die
     public int sizeOfFlame = 2; // cua chung 2 players
-
-    public int numBombs = 5;
-
+    public int numBombs = 2;
     public int speed = 2;
+
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
-
-
-
-    char s;
 
 
 
@@ -45,8 +39,6 @@ public class Bomber extends Entity {
         //    bomberDie.play();
        //     ondie();
       //  }
-
-
     }
 
     public void ondie() {

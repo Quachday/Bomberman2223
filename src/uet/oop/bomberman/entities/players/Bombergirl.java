@@ -19,7 +19,6 @@ public class Bombergirl extends Bomber {
     boolean drawPath = true;
     public int direction;
     PathFinder finder = new PathFinder();
-
     public boolean onPath = false;
     public javafx.geometry.Rectangle2D getBoundary() {
         return new Rectangle2D(x+2, y+2, 28, 30);
@@ -27,11 +26,8 @@ public class Bombergirl extends Bomber {
     public  String status = "alive";
 
     public static boolean checkAI = false;
-
-
-
     private static int count = 0;
-    public static int numOfLives = 3;
+    public int numOfLives = 3;
     public Bombergirl(int x, int y, Image img) {
 
         super( x, y, img);
@@ -41,7 +37,7 @@ public class Bombergirl extends Bomber {
     char s;
 
     int state = 1;
-    public int speed = 16;
+    public int speed = 4;
 
 
 
@@ -59,15 +55,14 @@ public class Bombergirl extends Bomber {
                   System.out.println("an het tien");
                   //System.exit(0);
               }
-              ;
-              if (drawPath == true) {
+              /*if (drawPath == true) {
                   for (int i = 0; i < finder.pathList.size(); i++) {
                       int worldX = finder.pathList.get(i).col * 32;
                       int worldY = finder.pathList.get(i).row * 32;
                       gc.setStroke(Color.DARKBLUE);
                       gc.strokeRect(worldX, worldY, 32, 32);
                   }
-              }
+              }*/
           }
           else
             move();

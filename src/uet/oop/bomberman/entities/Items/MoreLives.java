@@ -14,13 +14,13 @@ public class MoreLives extends Item{
         if(this.intersects(bomberman)) {
             BombermanGame.collectItem.play();
             bomberman.numOfLives ++;
-            System.out.println(bomberman.numOfLives);
+            System.out.println("Boy has " + bomberman.numOfLives + " heart");
             items.remove(this);
         }
         if(this.intersects(bombergirl)) {
             BombermanGame.collectItem.play();
             bombergirl.numOfLives ++;
-            System.out.println(bombergirl.numOfLives);
+            System.out.println("Girl has " + bombergirl.numOfLives + " heart");
             items.remove(this);
         }
     }

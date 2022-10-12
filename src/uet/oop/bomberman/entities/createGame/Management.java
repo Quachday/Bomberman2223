@@ -16,7 +16,6 @@ public class Management {
     public static List<Bomber> bombers = new ArrayList<>();
     public static List<Entity> grasses = new ArrayList<>();
     public static List<Entity> walls = new ArrayList<>();
-
     public static List<Entity> doors = new ArrayList<>();
     public static List<Entity> portals = new ArrayList<>();
     public static List<Entity> bricks = new ArrayList<>();
