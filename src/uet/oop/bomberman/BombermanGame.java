@@ -85,6 +85,7 @@ public class BombermanGame extends Application {
         welcomeGame(scene);
         stage.show();
         gc.fillRect(400,350,100,32);
+        //ok
 
 
 
