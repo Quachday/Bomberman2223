@@ -26,10 +26,8 @@ public class CreateMap {
     public static Stack<Item> coinsStack = new Stack<>() ;
     public static void createMapByLevel(int level, int numOfPlayer) {
 
-        //Management.clear();
         Management.bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         Management.bombers.add(Management.bomberman);
-        //enemy.add(doll);
         if (numOfPlayer == 2) {
             bombergirl = new Bombergirl(1, 11, Sprite.spider_right.getFxImage());
             Management.bombers.add(bombergirl);
@@ -42,8 +40,6 @@ public class CreateMap {
                 level = sc.nextInt();
                 int rows = sc.nextInt();
                 int columns = sc.nextInt();
-                String first = sc.nextLine();
-
                 for (int i = 0; i < rows; i++) {
                     String s = sc.nextLine();
                     for (int j = 0; j < columns; j++) {
@@ -152,15 +148,5 @@ public class CreateMap {
         numOfEnemy = enemy.size() ;
         System.out.println(level);
         System.out.println(numOfPlayer);
-       /* Bomb firstBomb = new Bomb(1000,1000,Sprite.bomb.getFxImage(),0);
-        bombsofman.add(firstBomb);
-        bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
-        bombsofman.add(new Bomb(1000,1000,Sprite.bomb.getFxImage(),0));
-        Bomb secBomb = new Bomb(1001,1000,Sprite.bomb.getFxImage(),1);
-        bombsofgirl.add(secBomb);
-        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
-        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
-        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));
-        bombsofgirl.add(new Bomb(1001,1000,Sprite.bomb.getFxImage(),1));*/
     }
 }

@@ -14,7 +14,6 @@ public class Coins extends  Item {
 
     public void update() {
 
-        //if (x < 10000) {
             animate += Sprite.DEFAULT_SIZE / 11;
             this.img = Sprite.movingSprite(Sprite.coin_left1, Sprite.coin_left2, Sprite.coin_left3, animate / 2, Sprite.DEFAULT_SIZE).getFxImage();
             if (animate == 200) animate = 1;
@@ -30,7 +29,6 @@ public class Coins extends  Item {
             if (!items.contains(coinsStack.peek()) )
                 coinsStack.pop();
         }
-        //}
     }
 }
 

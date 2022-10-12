@@ -25,7 +25,6 @@ public class Management {
     public static List <Flame> flamesvisual = new ArrayList<>();
     public static Bomber bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
     public static Bombergirl bombergirl = new Bombergirl(1, 11, Sprite.player_right.getFxImage());
-   // public static Enemy6 doll = new Enemy6(1, 10, Sprite.doll_left1.getFxImage());
 
     public static void removeBomb() {
         try{

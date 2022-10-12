@@ -6,12 +6,6 @@ import uet.oop.bomberman.entities.Entity;
 
 public class Grass extends Entity {
     public boolean isCovered = true;
-    public double gCost, hCost, fCost;
-
-
-
-
-
     public Grass(int x, int y, Image img, boolean isCovered) {
         super(x, y, img); this.isCovered = isCovered;
     }

@@ -42,7 +42,6 @@ public class BombermanGame extends Application {
     public static GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
-     public static List<Entity> stillObjects = new ArrayList<>();
 
     public static Scene scene;
     public Sound themeSong = new Sound("nhacnen");
@@ -60,7 +59,6 @@ public class BombermanGame extends Application {
     int levelnow;
     boolean state = true;
 
-    boolean checkRestart = false;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -95,80 +93,16 @@ public class BombermanGame extends Application {
                     update();
                 }
                 if (bomberman.numOfLives == 0 && numOfplayer == 1) {
-
-                    Image end = new Image("lose.jpg");
-                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-                    started = false;
-                    scene.setOnKeyPressed(
-                            new EventHandler<KeyEvent>() {
-                                public void handle(KeyEvent e) {
-                                    String code = e.getCode().toString();
-                                    if (e.getCode().toString().equals("R")  ){
-                                        restartGame(stage);
-                                    }
-
-                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
-                                        System.exit(0);
-                                    }
-                                }
-                            });
+                    losingEndingScene(stage);
                 }
                 else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0){
-                    Image end = new Image("lose.jpg");
-                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-                    started = false;
-                    scene.setOnKeyPressed(
-                            new EventHandler<KeyEvent>() {
-                                public void handle(KeyEvent e) {
-                                    String code = e.getCode().toString();
-                                    if (e.getCode().toString().equals("R")  ){
-                                        restartGame(stage);
-                                    }
-
-                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
-                                        System.exit(0);
-                                    }
-                                }
-                            });
+                    losingEndingScene(stage);
                 }
                 else if ((levelnow == 1 || levelnow == 3) && numOfEnemy == 0 && bomberman.checkPortal() ) { // tao 1 portal de win
-
-                    Image end = new Image("win.jpg");
-                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-                    started = false;
-                    scene.setOnKeyPressed(
-                            new EventHandler<KeyEvent>() {
-                                public void handle(KeyEvent e) {
-                                    String code = e.getCode().toString();
-                                    if (e.getCode().toString().equals("R")  ){
-                                        restartGame(stage);
-                                    }
-
-                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
-                                        System.exit(0);
-                                    }
-                                }
-                            });
-
-
-                }
+                    winningEndingScene(stage);
+                                   }
                 else if (levelnow == 3 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
-                    Image end = new Image("lose.jpg");
-                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-                    started = false;
-                    scene.setOnKeyPressed(
-                            new EventHandler<KeyEvent>() {
-                            public void handle(KeyEvent e) {
-                                String code = e.getCode().toString();
-                                if (e.getCode().toString().equals("R")  ){
-                                    restartGame(stage);
-                                }
-
-                                if (e.getCode().toString().equals("E")) { // HAM DAT BOM
-                                    System.exit(0);
-                                }
-                            }
-                        });
+                    losingEndingScene(stage);
                 }
             }
         };
@@ -189,7 +123,8 @@ public class BombermanGame extends Application {
                             bomberman.putBomb();
                         }
 
-                        if (e.getCode().toString().equals("ENTER")) { // HAM DAT BOM
+                        if (e.getCode().toString().equals("ENTER")) {
+                            // HAM dat bom
                             boomSettle.play();
                             bombergirl.putBomb();
                         }
@@ -218,9 +153,6 @@ public class BombermanGame extends Application {
         Image background = new Image("background.jpg"); // luc chay thi doi dia chi nay
         gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         scene.setOnMouseClicked(Mouseevent);
-
-
-        //Sound.play("gameStart");
     }
 
        EventHandler Mouseevent = new EventHandler<MouseEvent>() {
@@ -289,18 +221,45 @@ public class BombermanGame extends Application {
 
         flamesvisual.forEach(Entity::update);
     }
-    void displayApplication() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    start(new Stage());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    //hien thi ket thuc neu thang
+    public void winningEndingScene(Stage stage){
+        Image end = new Image("win.jpg");
+        gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        started = false;
+        scene.setOnKeyPressed(
+                new EventHandler<KeyEvent>() {
+                    public void handle(KeyEvent e) {
+                        String code = e.getCode().toString();
+                        if (e.getCode().toString().equals("R")  ){
+                            restartGame(stage);
+                        }
+
+                        if (e.getCode().toString().equals("E")) { // HAM DAT BOM
+                            System.exit(0);
+                        }
+                    }
+                });
     }
+    //hien thi ket thuc neu thua
+    public void losingEndingScene(Stage stage){
+        Image end = new Image("lose.jpg");
+        gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        started = false;
+        scene.setOnKeyPressed(
+                new EventHandler<KeyEvent>() {
+                    public void handle(KeyEvent e) {
+                        String code = e.getCode().toString();
+                        if (e.getCode().toString().equals("R")  ){
+                            restartGame(stage);
+                        }
+
+                        if (e.getCode().toString().equals("E")) {
+                            System.exit(0);
+                        }
+                    }
+                });
+    }
+
     public void render() {
 
         Management.grasses.forEach(grass -> grass.render(gc));
