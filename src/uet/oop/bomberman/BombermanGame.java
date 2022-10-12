@@ -84,6 +84,7 @@ public class BombermanGame extends Application {
         stage.setTitle("BOMBERMAN GAME");
         welcomeGame(scene);
         stage.show();
+        gc.fillRect(400,350,100,32);
 
 
 
