@@ -1,14 +1,12 @@
 package uet.oop.bomberman.entities.Enemies;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
+import static uet.oop.bomberman.entities.createGame.Management.bomberman;
 public class Enemy5 extends Enemy3 {
     int count = 500;
 

@@ -7,8 +7,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Enemy1 extends Entity {
 

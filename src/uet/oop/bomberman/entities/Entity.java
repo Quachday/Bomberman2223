@@ -1,18 +1,16 @@
 package uet.oop.bomberman.entities;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.ai.PathFinder;
+import uet.oop.bomberman.entities.createGame.Management;
 import uet.oop.bomberman.graphics.Sprite;
 
 
 
-public  class Entity {
+public abstract class Entity {
     public int direction;
     PathFinder finder = new PathFinder();
     //Tọa độ X tính từ góc trái trên trong Canvas
@@ -89,6 +87,13 @@ public  class Entity {
             if (this.intersects(e)) return true;
         }
         for (Entity e : Management.bombergirl.bombs) {
+            if (this.intersects(e)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkPortal() {
+        for (Entity e : Management.portals) {
             if (this.intersects(e)) return true;
         }
         return false;

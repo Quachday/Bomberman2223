@@ -1,16 +1,14 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.tiles;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.createGame.Management;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 
-import static uet.oop.bomberman.BombermanGame.input;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Bomb extends Wall {
     List<Flame> flameLeft = new ArrayList<>();

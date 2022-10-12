@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.Items;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Speedup extends Item{
     public Speedup(int x, int y, Image img) {

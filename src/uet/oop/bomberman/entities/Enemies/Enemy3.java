@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
+import static uet.oop.bomberman.entities.createGame.Management.bomberman;
 
 public class Enemy3 extends Enemy1 {
     public Enemy3(int x, int y, Image img) {

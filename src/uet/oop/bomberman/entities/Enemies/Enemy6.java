@@ -2,21 +2,11 @@ package uet.oop.bomberman.entities.Enemies;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.ai.PathFinder;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Items.Coins;
-import uet.oop.bomberman.entities.Items.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.entities.CreateMap.coinsStack;
-import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Enemy6 extends Enemy1{
     int speed = 1;

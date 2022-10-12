@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.players;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -8,9 +8,9 @@ import uet.oop.bomberman.ai.PathFinder;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.entities.CreateMap.coinsStack;
-import static uet.oop.bomberman.entities.Management.*;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.CreateMap.coinsStack;
+import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.bomberman;
 
 
 public class Bombergirl extends Bomber {

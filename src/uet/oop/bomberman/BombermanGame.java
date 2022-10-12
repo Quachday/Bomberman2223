@@ -1,42 +1,36 @@
 package uet.oop.bomberman;
 
-import com.sun.javafx.font.directwrite.RECT;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Items.Item;
+import uet.oop.bomberman.entities.createGame.CreateMap;
+import uet.oop.bomberman.entities.createGame.Management;
+import uet.oop.bomberman.entities.tiles.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 import java.util.List;
 
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.sound.Sound;
 
 
-import static uet.oop.bomberman.entities.CreateMap.*;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.CreateMap.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 
 public class BombermanGame extends Application {
@@ -64,12 +58,15 @@ public class BombermanGame extends Application {
     boolean started = false;
     public static ArrayList<String> input = new ArrayList<String>();
     int levelnow;
+    boolean state = true;
+
+    boolean checkRestart = false;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -78,6 +75,7 @@ public class BombermanGame extends Application {
         Group root = new Group();
         root.getChildren().add(canvas);
 
+
         // Tao scene
         scene = new Scene(root);
         // Them scene vao stage
@@ -85,7 +83,6 @@ public class BombermanGame extends Application {
         stage.setTitle("BOMBERMAN GAME");
         welcomeGame(scene);
         stage.show();
-        gc.fillRect(408,375,200,32);
         //ok
 
 
@@ -93,18 +90,85 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                //if (bomberman.numOfLives == 0 && numOfplayer == 1) System.out.println("you lose");
-               // else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
-                render();
-                update();
-                if (levelnow == 1 && numOfEnemy == 0 ) { // tao 1 portal de win
-                    System.out.println("boy win");
-                    System.exit(0);
-                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                if(started == true) {
+                    render();
+                    update();
                 }
-                if (levelnow == 3 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
-                    System.out.println("girl win");
-                    System.exit(0);
+                if (bomberman.numOfLives == 0 && numOfplayer == 1) {
+
+                    Image end = new Image("lose.jpg");
+                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+                    started = false;
+                    scene.setOnKeyPressed(
+                            new EventHandler<KeyEvent>() {
+                                public void handle(KeyEvent e) {
+                                    String code = e.getCode().toString();
+                                    if (e.getCode().toString().equals("R")  ){
+                                        restartGame(stage);
+                                    }
+
+                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
+                                        System.exit(0);
+                                    }
+                                }
+                            });
+                }
+                else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0){
+                    Image end = new Image("lose.jpg");
+                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+                    started = false;
+                    scene.setOnKeyPressed(
+                            new EventHandler<KeyEvent>() {
+                                public void handle(KeyEvent e) {
+                                    String code = e.getCode().toString();
+                                    if (e.getCode().toString().equals("R")  ){
+                                        restartGame(stage);
+                                    }
+
+                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
+                                        System.exit(0);
+                                    }
+                                }
+                            });
+                }
+                else if ((levelnow == 1 || levelnow == 3) && numOfEnemy == 0 && bomberman.checkPortal() ) { // tao 1 portal de win
+
+                    Image end = new Image("win.jpg");
+                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+                    started = false;
+                    scene.setOnKeyPressed(
+                            new EventHandler<KeyEvent>() {
+                                public void handle(KeyEvent e) {
+                                    String code = e.getCode().toString();
+                                    if (e.getCode().toString().equals("R")  ){
+                                        restartGame(stage);
+                                    }
+
+                                    if (e.getCode().toString().equals("E")) { // HAM DAT BOM
+                                        System.exit(0);
+                                    }
+                                }
+                            });
+
+
+                }
+                else if (levelnow == 3 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
+                    Image end = new Image("lose.jpg");
+                    gc.drawImage(end , 0, 0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+                    started = false;
+                    scene.setOnKeyPressed(
+                            new EventHandler<KeyEvent>() {
+                            public void handle(KeyEvent e) {
+                                String code = e.getCode().toString();
+                                if (e.getCode().toString().equals("R")  ){
+                                    restartGame(stage);
+                                }
+
+                                if (e.getCode().toString().equals("E")) { // HAM DAT BOM
+                                    System.exit(0);
+                                }
+                            }
+                        });
                 }
             }
         };
@@ -143,11 +207,18 @@ public class BombermanGame extends Application {
                 });
 
     }
+
+    private void playGame()
+    {
+        state = false;
+    }
+
     public void welcomeGame(Scene scene) {
 
         Image background = new Image("background.jpg"); // luc chay thi doi dia chi nay
         gc.drawImage(background,0,0,Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         scene.setOnMouseClicked(Mouseevent);
+
 
         //Sound.play("gameStart");
     }
@@ -218,7 +289,18 @@ public class BombermanGame extends Application {
 
         flamesvisual.forEach(Entity::update);
     }
-
+    void displayApplication() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    start(new Stage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     public void render() {
 
         Management.grasses.forEach(grass -> grass.render(gc));
@@ -226,12 +308,32 @@ public class BombermanGame extends Application {
         Management.bricks.forEach(g -> g.render(gc));
         Management.walls.forEach(wall -> wall.render(gc));
         Management.bombers.forEach(g -> g.render(gc));
+        Management.doors.forEach(doors -> doors.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
-        Management.bombsofman.forEach(g -> g.render(gc));
         Management.bomberman.bombs.forEach(g -> g.render(gc));
         Management.bombergirl.bombs.forEach(g -> g.render(gc));
-        bombsofgirl.forEach(g -> g.render(gc));
         flamesvisual.forEach(g->g.render(gc));
     }
+
+    public void restartGame(Stage stage) {
+        System.out.println( "state is " + state );
+        playGame();
+        System.out.println( "state is " + state );
+
+        System.out.println( "Restarting app!" );
+        stage.close();
+        Management.clear();
+        started = false;
+        Platform.runLater( () -> new BombermanGame().start( new Stage() ) );
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        GraphicsContext a = null;
+        gc = a;
+        gc = canvas.getGraphicsContext2D();
+        Group root = new Group();
+        root.getChildren().add(canvas);
+
+        stage.setScene(new Scene(root));
+    }
+
 }

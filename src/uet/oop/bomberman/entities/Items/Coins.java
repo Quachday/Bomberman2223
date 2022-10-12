@@ -2,11 +2,10 @@ package uet.oop.bomberman.entities.Items;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.CreateMap.coinsStack;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.CreateMap.coinsStack;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Coins extends  Item {
     public Coins(int x, int y, Image img) {

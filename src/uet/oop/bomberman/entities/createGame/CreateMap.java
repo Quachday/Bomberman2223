@@ -1,16 +1,20 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.createGame;
 
 import uet.oop.bomberman.entities.Enemies.*;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Items.*;
+import uet.oop.bomberman.entities.players.Bomber;
+import uet.oop.bomberman.entities.players.Bombergirl;
+import uet.oop.bomberman.entities.tiles.Brick;
+import uet.oop.bomberman.entities.tiles.Grass;
+import uet.oop.bomberman.entities.tiles.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-import static uet.oop.bomberman.BombermanGame.entities;
-import static uet.oop.bomberman.BombermanGame.stillObjects;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class CreateMap {
     public static int numOfEnemy = 1;
@@ -63,7 +67,7 @@ public class CreateMap {
                             case '2' :
                                 Entity moveGate = new Grass(j,i,Sprite.portal.getFxImage(),true);
                                 object = new Grass(j, i, Sprite.grass.getFxImage(),true);
-                                Management.portals.add(moveGate);
+                                Management.doors.add(moveGate);
                                 break;
                             case '3' :
                                 object = new Grass(j, i, Sprite.sign1.getFxImage(),false);
@@ -121,6 +125,11 @@ public class CreateMap {
                                 object = new Brick(j,i,Sprite.brick.getFxImage());
                                 Management.bricks.add(object);
                                 object = new Grass(j,i,Sprite.grass.getFxImage(),true);
+                                break;
+                            case 'x' :
+                                Entity portal = new Grass(j,i,Sprite.portal.getFxImage(),true);
+                                object = new Grass(j, i, Sprite.grass.getFxImage(),true);
+                                Management.portals.add(portal);
                                 break;
                             default:
                                if (level == 2) {

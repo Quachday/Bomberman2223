@@ -1,16 +1,15 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.tiles;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Enemies.Enemy1;
-import uet.oop.bomberman.entities.Enemies.Enemy2;
-import uet.oop.bomberman.entities.Enemies.Enemy3;
-import uet.oop.bomberman.entities.Enemies.Enemy4;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.createGame.Management;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 
-public class Flame extends Entity{
+public class Flame extends Entity {
     public int direction;
     int count_destroy = 30;
     public Flame(int x, int y, Image img,int direction) {

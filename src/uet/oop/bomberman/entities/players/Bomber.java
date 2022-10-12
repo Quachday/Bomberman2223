@@ -1,27 +1,17 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.players;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.tiles.Bomb;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.TimerTask;
 
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 
 public class Bomber extends Entity {
@@ -49,12 +39,12 @@ public class Bomber extends Entity {
 
 
     public void update() {
-        //if (status.equals("alive"))
+       // if (status.equals("alive"))
         move();
-        /*8else if (status.equals("die") && x < 1000) {
-            bomberDie.play();
-            ondie();
-        }*/
+        //else if (status.equals("die") && x < 1000) {
+        //    bomberDie.play();
+       //     ondie();
+      //  }
 
 
     }

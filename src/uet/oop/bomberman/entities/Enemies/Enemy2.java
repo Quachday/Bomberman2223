@@ -2,12 +2,10 @@ package uet.oop.bomberman.entities.Enemies;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Enemies.Enemy1;
-import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 
 // ONEAL : đặc điểm : nếu nó thấy bạn, nó đi về phía bạn.

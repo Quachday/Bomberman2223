@@ -1,14 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.tiles;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
-import static java.awt.Color.RED;
-import static java.awt.SystemColor.window;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import uet.oop.bomberman.entities.Entity;
 
 
 public class Grass extends Entity {

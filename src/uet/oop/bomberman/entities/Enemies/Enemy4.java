@@ -1,11 +1,10 @@
 package uet.oop.bomberman.entities.Enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Enemy4 extends Enemy1 {
     int lives_remain = 2;

@@ -1,11 +1,9 @@
 package uet.oop.bomberman.ai;
 
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Management;
+import uet.oop.bomberman.entities.createGame.Management;
 
 import java.util.ArrayList;
-
-import static uet.oop.bomberman.BombermanGame.gc;
 
 public class PathFinder {
     Node[][] node;
