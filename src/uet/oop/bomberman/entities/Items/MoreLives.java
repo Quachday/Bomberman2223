@@ -1,8 +1,9 @@
 package uet.oop.bomberman.entities.Items;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class MoreLives extends Item{
     public MoreLives(int x, int y, Image img) {
@@ -11,9 +12,16 @@ public class MoreLives extends Item{
 
     public void update() {
         if(this.intersects(bomberman)) {
+            BombermanGame.collectItem.play();
             bomberman.numOfLives ++;
-            System.out.println(bomberman.numOfLives);
-            x = 1000;
+            System.out.println("Boy has " + bomberman.numOfLives + " heart");
+            items.remove(this);
+        }
+        if(this.intersects(bombergirl)) {
+            BombermanGame.collectItem.play();
+            bombergirl.numOfLives ++;
+            System.out.println("Girl has " + bombergirl.numOfLives + " heart");
+            items.remove(this);
         }
     }
 }

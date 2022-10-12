@@ -5,15 +5,16 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
+import static uet.oop.bomberman.entities.createGame.Management.bomberman;
 
-public class Enemy3 extends Enemy2 {
+public class Enemy3 extends Enemy1 {
     public Enemy3(int x, int y, Image img) {
         super( x, y, img);
     }
     public void update() {
-        move();
+       if (this.status.equals("alive")) move();
+        else if (this.status.equals("die")) onDie();
     }
 
     public Rectangle2D getBoundaryBIG() {
@@ -21,6 +22,11 @@ public class Enemy3 extends Enemy2 {
     }
     public boolean intersectsPlayer(Entity s) {
         return this.getBoundaryBIG().intersects(s.getBoundary());
+    }
+    @Override
+    public void onDie() {
+        if (this.count_die > 50) { img = Sprite.kondoria_dead.getFxImage(); count_die--; }
+        else if (this.count_die > 0 )    super.onDie();
     }
     void move() {
         if (getDirect()==1 ) {
@@ -41,8 +47,8 @@ public class Enemy3 extends Enemy2 {
         if (getDirect()==2 ) {
             if(intersectsPlayer(bomberman) == true )
             { if (x > bomberman.getX() ) ranNum = 1;
-                if (x != bomberman.getX())x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
-                if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
+                else if (x != bomberman.getX()) x -= (this.x - bomberman.getX())/Math.abs(this.x - bomberman.getX());
+                        if (y != bomberman.getY())  y -= (this.y - bomberman.getY())/Math.abs(this.y - bomberman.getY()); }
             if(intersectsPlayer(bombergirl) == true )
             {   if (x < bomberman.getX() ) ranNum = 1;
                 if (x != bombergirl.getX()) x += (this.x - bombergirl.getX())/Math.abs(this.x - bombergirl.getX());
@@ -52,8 +58,8 @@ public class Enemy3 extends Enemy2 {
             img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2,Sprite.kondoria_right3, 10+state, 3 + state).getFxImage();
             if (state == 30) state = 1;
         }
-        if (this.intersects(bomberman)) bomberman.statusman = "die";
-        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
+        if (this.intersects(bomberman)) bomberman.status = "die";
+        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 
     @Override

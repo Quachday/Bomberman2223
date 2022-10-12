@@ -1,10 +1,11 @@
 package uet.oop.bomberman.entities.Items;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Bomb;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.tiles.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.Management.*;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class MoreBomb extends Item{
     public MoreBomb(int x, int y, Image img) {
@@ -12,9 +13,14 @@ public class MoreBomb extends Item{
     }
     public void update() {
         if(this.intersects(bomberman)) {
-            Bomb newBomb = new Bomb(1000,1000, Sprite.bomb.getFxImage(),1);
-            bombs.add(newBomb);
-            x = 1000;
+            BombermanGame.collectItem.play();
+            bomberman.numBombs++;
+            items.remove(this);
+        }
+        if(this.intersects(bombergirl)) {
+            BombermanGame.collectItem.play();
+            bombergirl.numBombs++;
+            items.remove(this);
         }
     }
 }

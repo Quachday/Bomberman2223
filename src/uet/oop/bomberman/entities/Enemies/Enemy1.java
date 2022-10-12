@@ -1,16 +1,19 @@
 package uet.oop.bomberman.entities.Enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.createGame.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.entities.createGame.Management.*;
 
 public class Enemy1 extends Entity {
 
+    int count_die = 100;
+    public String status = "alive";
     public Enemy1(int x, int y, Image img) {
         super( x, y, img);
     }
@@ -19,7 +22,8 @@ public class Enemy1 extends Entity {
     protected int state = 1;
 
     public void update() {
-        move();
+        if (this.status.equals("alive")) move();
+        else if (this.status.equals("die")) onDie();
     }
     void move() {
         if (getDirect()==1 ) {
@@ -42,8 +46,22 @@ public class Enemy1 extends Entity {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        //if (this.intersects(bomberman)) bomberman.statusman = "die";
-        if (this.intersects(bombergirl)) bombergirl.statusgirl = "die";
+        if (this.intersects(bomberman)) bomberman.status = "die";
+        if (this.intersects(bombergirl)) bombergirl.status = "die";
+    }
+
+    public void onDie() {
+            animate += Sprite.DEFAULT_SIZE/16;
+            img = Sprite.movingSprite(Sprite.mob_dead1,Sprite.mob_dead2,Sprite.mob_dead3,animate,
+                    Sprite.DEFAULT_SIZE).getFxImage();
+            count_die--;
+            if (count_die == 0) {
+                BombermanGame.enemyDie.play();
+                enemy.remove(this);
+                numOfEnemy--;
+                status = "stop";
+                System.out.println("Number of Enemies: " + numOfEnemy);
+            }
     }
     public void supportRow() {
         if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
@@ -61,7 +79,7 @@ public class Enemy1 extends Entity {
         }
     }
     protected int getDirect() {
-                if (this.checkWall())
+                if (this.checkWall() || this.checkBrick() || this.checkBomb())
                 {
                     switch (ranNum) {
                     case 1 : x += 1; supportRow(); break;

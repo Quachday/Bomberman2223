@@ -1,16 +1,18 @@
 package uet.oop.bomberman.entities;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import uet.oop.bomberman.ai.PathFinder;
+import uet.oop.bomberman.entities.createGame.Management;
 import uet.oop.bomberman.graphics.Sprite;
 
 
+
 public abstract class Entity {
+    public int direction;
+    PathFinder finder = new PathFinder();
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int x;
 
@@ -38,11 +40,11 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
@@ -50,10 +52,10 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
 
     }
-    public abstract void update();
+    public  void update() {};
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        return new Rectangle2D(x, y, Sprite.SCALED_SIZE-1, Sprite.SCALED_SIZE-1);
     }
 
     public boolean intersects(Entity s) {
@@ -80,7 +82,17 @@ public abstract class Entity {
      * check va cham voi bom.
      */
     public boolean checkBomb() {
-        for (Entity e : Management.bombs) {
+        for (Entity e : Management.bomberman.bombs) {
+            if (this.intersects(e)) return true;
+        }
+        for (Entity e : Management.bombergirl.bombs) {
+            if (this.intersects(e)) return true;
+        }
+        return false;
+    }
+
+    public boolean checkPortal() {
+        for (Entity e : Management.portals) {
             if (this.intersects(e)) return true;
         }
         return false;
@@ -93,10 +105,10 @@ public abstract class Entity {
         for (Entity e : Management.walls) {
             if (this.intersects(e)) return true;
         }
-        for (Entity e : Management.bricks) {
-            if (this.intersects(e)) return true;
-        }
         return false;
     }
 
+    protected int getDirect() {
+        return direction;
+    }
 }
