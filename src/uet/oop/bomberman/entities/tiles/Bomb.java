@@ -18,7 +18,6 @@ public class Bomb extends Wall {
 
     private int countBOMB = 75;
     public boolean settled = true;
-    private  int index;
 
     private boolean isExploded = false;
     public boolean passThrough = true;
@@ -47,7 +46,7 @@ public class Bomb extends Wall {
                 img = Sprite.movingSprite(Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate, Sprite.SCALED_SIZE).getFxImage();
 
                 for (int j = 0; j < bomberman.sizeOfFlame; j++)  {
-                    if (j == bomberman.sizeOfFlame-1) flameLeft.get(j).direction = 2;
+                    if (j == bomberman.sizeOfFlame-1) flameLeft.get(j).direction = 2; // duoi flame ngang
                     flameLeft.get(j).setX(x-32 * (j+1));
                     flameLeft.get(j).setY(y);
                     if (flameLeft.get(j).checkWall())
@@ -56,7 +55,7 @@ public class Bomb extends Wall {
                     }
                 }
                 for (int j = 0; j < bomberman.sizeOfFlame; j++)  {
-                    if (j == bomberman.sizeOfFlame-1) flameRight.get(j).direction = 3;
+                    if (j == bomberman.sizeOfFlame-1) flameRight.get(j).direction = 3; //doc
                     flameRight.get(j).setX(x+32 * (j+1));
                     flameRight.get(j).setY(y);
                     if (flameRight.get(j).checkWall())
