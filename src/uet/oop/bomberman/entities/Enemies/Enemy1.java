@@ -8,8 +8,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.util.Random;
 
 import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.Management.*;
 
 public class Enemy1 extends Entity {
 
@@ -58,7 +57,7 @@ public class Enemy1 extends Entity {
             count_die--;
             if (count_die == 0) {
                 BombermanGame.enemyDie.play();
-                x = 1000;
+                enemy.remove(this);
                 numOfEnemy--;
                 status = "stop";
                 System.out.println(numOfEnemy);

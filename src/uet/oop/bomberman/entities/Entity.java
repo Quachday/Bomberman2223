@@ -7,11 +7,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import uet.oop.bomberman.ai.PathFinder;
 import uet.oop.bomberman.graphics.Sprite;
 
 
 
-public abstract class Entity {
+public  class Entity {
+    public int direction;
+    PathFinder finder = new PathFinder();
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int x;
 
@@ -23,6 +26,7 @@ public abstract class Entity {
     public Rectangle rect;
 
     protected int animate;
+    public boolean onPath = false;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity( int xUnit, int yUnit, Image img) {
@@ -39,11 +43,11 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
@@ -51,10 +55,10 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
 
     }
-    public abstract void update();
+    public  void update() {};
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        return new Rectangle2D(x, y, Sprite.SCALED_SIZE-1, Sprite.SCALED_SIZE-1);
     }
 
     public boolean intersects(Entity s) {
@@ -100,4 +104,7 @@ public abstract class Entity {
         return false;
     }
 
+    protected int getDirect() {
+        return direction;
+    }
 }

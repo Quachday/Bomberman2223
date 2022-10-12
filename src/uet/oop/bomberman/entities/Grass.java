@@ -15,15 +15,9 @@ public class Grass extends Entity {
     public boolean isCovered = true;
     public double gCost, hCost, fCost;
 
-    @Override
-    public double getX() {
-        return super.getX();
-    }
 
-    @Override
-    public double getY() {
-        return super.getY();
-    }
+
+
 
     public Grass(int x, int y, Image img, boolean isCovered) {
         super(x, y, img); this.isCovered = isCovered;

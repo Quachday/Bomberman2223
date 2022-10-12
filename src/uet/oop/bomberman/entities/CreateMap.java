@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
+import java.util.*;
 
 import static uet.oop.bomberman.BombermanGame.entities;
 import static uet.oop.bomberman.BombermanGame.stillObjects;
@@ -19,6 +19,7 @@ public class CreateMap {
      * tao map theo cac level bang cach doc file txt.
      * @param level
      */
+    public static Stack<Item> coinsStack = new Stack<>() ;
     public static void createMapByLevel(int level, int numOfPlayer) {
 
         //Management.clear();
@@ -49,8 +50,9 @@ public class CreateMap {
                                 Management.walls.add(object);
                                 break;
                             case '*':
+                                if(level == 1) {
                                 object = new Brick(j, i, Sprite.brick.getFxImage()); // can tao lop Brick
-                                Management.bricks.add(object);
+                                Management.bricks.add(object);}
                                 object = new Grass(j, i, Sprite.grass.getFxImage(),true);
                                 break;
                             case '1':
@@ -121,10 +123,13 @@ public class CreateMap {
                                 object = new Grass(j,i,Sprite.grass.getFxImage(),true);
                                 break;
                             default:
-                               //if (level == 2) {
-                                //if (j % 5 == 0 || i % 3 == 0 )
-                                //{Item coins = new Coins(j,i,Sprite.coin.getFxImage());
-                                //items.add(coins);}}
+                               if (level == 2) {
+                                   if (j % 5 == 0 || i % 3 == 0) {
+                                       Item coins = new Coins(j, i, Sprite.coin.getFxImage());
+                                       items.add(coins);
+                                       coinsStack.add(coins);
+                                   }
+                               }
                                 object = new Grass(j, i, Sprite.grass.getFxImage(),false);
                                 break;
                         }

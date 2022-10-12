@@ -18,6 +18,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
+import uet.oop.bomberman.entities.Items.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
 
@@ -33,8 +35,7 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.sound.Sound;
 
 
-import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
+import static uet.oop.bomberman.entities.CreateMap.*;
 import static uet.oop.bomberman.entities.Management.*;
 
 
@@ -44,7 +45,7 @@ public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    private GraphicsContext gc;
+    public static GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
      public static List<Entity> stillObjects = new ArrayList<>();
@@ -59,7 +60,10 @@ public class BombermanGame extends Application {
     public static Sound boomExplosion = new Sound("boomExplosion");
 
     public static Sound collectItem = new Sound("Item");
+    public static Group root = new Group();
+    boolean started = false;
     public static ArrayList<String> input = new ArrayList<String>();
+    int levelnow;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -71,7 +75,6 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
-        Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -87,14 +90,19 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (bomberman.numOfLives == 0 && numOfplayer == 1) System.out.println("you lose");
-                else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
-                if (numOfEnemy == 0 ) {
-                    System.out.println("you win");
-                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                }
+                //if (bomberman.numOfLives == 0 && numOfplayer == 1) System.out.println("you lose");
+               // else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
                 render();
                 update();
+                if (numOfEnemy == 0 ) {
+                    System.out.println("boy win");
+                    System.exit(0);
+                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                }
+                if (levelnow == 2 && started && coinsStack.size() == 0) {
+                    System.out.println("girl win");
+                    System.exit(0);
+                }
             }
         };
 
@@ -108,32 +116,7 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-                        /*if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
 
-                            // HAM DAT BOM
-                            boomSettle.play();
-                            boolean checkduplicate = false;
-                            bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
-                            bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
-                            for (int i = 0; i < bombsofman.size() ; i++){
-                                if ( bomberman.indexOfBombs != i &&
-                                        bombsofman.get(bomberman.indexOfBombs).getX() == bombsofman.get(i).getX()
-                                        && bombsofman.get(bomberman.indexOfBombs).getY() == bombsofman.get(i).getY() ) {
-                                    checkduplicate = true; break;
-                                }
-                            }
-                            if (checkduplicate == true) {
-                                Random rand = new Random();
-                                int ranNum = rand.nextInt(2) + 1000;
-                                bombsofman.get(bomberman.indexOfBombs).setX(ranNum);
-                            }
-                            else if (checkduplicate == false) {
-                                bombsofman.get(bomberman.indexOfBombs).settled = true;
-                            }
-                            {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
-                            else bomberman.indexOfBombs++;}
-
-                        }*/
                         if (e.getCode().toString().equals("SPACE")  ){
                             // HAM DAT BOM
                             boomSettle.play();
@@ -194,6 +177,8 @@ public class BombermanGame extends Application {
                 CreateMap.createMapByLevel(2,2);
                 themeSong.stop();
                 gameStart.play();
+                started = true;
+                levelnow = 2;
             }
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
             {
@@ -201,6 +186,8 @@ public class BombermanGame extends Application {
                 CreateMap.createMapByLevel(1,1);
                 themeSong.stop();
                 gameStart.play();
+                started = true;
+                levelnow = 1;
             }
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
@@ -214,10 +201,23 @@ public class BombermanGame extends Application {
             another.add(bomberman.bombs.get(i));
         }
         another.forEach(Bomb::update);
-        Management.enemy.forEach(Entity::update);
+        List<Enemy1> oneother = new ArrayList<>();
+        for (int i = 0; i < enemy.size(); i++) {
+            oneother.add(enemy.get(i));
+        }
+        oneother.forEach(Enemy1::update);
         bombsofgirl.forEach(Entity::update);
-        Management.items.forEach(Entity::update);
-        bricks.forEach(Entity::update);
+        List<Item> other = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            other.add(items.get(i));
+        }
+        other.forEach(Item::update);
+        List<Entity> twoother = new ArrayList<>();
+        for (int i = 0; i < bricks.size(); i++) {
+            twoother.add(bricks.get(i));
+        }
+        twoother.forEach(Entity::update);
+
         flamesvisual.forEach(Entity::update);
     }
 

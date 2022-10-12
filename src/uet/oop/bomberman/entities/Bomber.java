@@ -14,9 +14,10 @@ import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
+import java.util.Random;
 import java.util.TimerTask;
 
 import static uet.oop.bomberman.BombermanGame.*;
@@ -25,12 +26,7 @@ import static uet.oop.bomberman.entities.Management.*;
 
 public class Bomber extends Entity {
 
-    public static String status = "alive";
-
-    public static void setStatus(String status) {
-        Bomber.status = status;
-    }
-
+    public  String status = "alive";
     public List<Bomb> bombs = new ArrayList<>();
 
 
@@ -46,18 +42,20 @@ public class Bomber extends Entity {
         super( x, y, img);
     }
 
-  char s;
+
+
+    char s;
 
 
 
 
     public void update() {
-        //if (status.equals("alive"))
+        if (status.equals("alive"))
         move();
-        //else if (status.equals("die") && x < 1000) {
-            //bomberDie.play();
-           // ondie();
-      //  }
+        else if (status.equals("die") && x < 1000) {
+            bomberDie.play();
+            ondie();
+        }
 
 
     }

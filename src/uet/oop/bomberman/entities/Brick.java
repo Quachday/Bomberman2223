@@ -5,6 +5,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.entities.Management.bricks;
+
 public class Brick extends Wall{
     private String status = "remain";
 
@@ -26,7 +28,7 @@ public class Brick extends Wall{
                         Sprite.DEFAULT_SIZE).getFxImage();
             }
             count_destroy--;
-            if (count_destroy == 0) x = 1000;
+            if (count_destroy == 0) bricks.remove(this);
         }
     }
 }

@@ -3,8 +3,7 @@ package uet.oop.bomberman.entities.Items;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 
-import static uet.oop.bomberman.entities.Management.bombergirl;
-import static uet.oop.bomberman.entities.Management.bomberman;
+import static uet.oop.bomberman.entities.Management.*;
 
 public class Power_up extends Item {
     public Power_up(int x, int y, Image img) {
@@ -15,12 +14,12 @@ public class Power_up extends Item {
         if(this.intersects(bomberman)) {
             BombermanGame.collectItem.play();
             bomberman.sizeOfFlame++;
-            x = 1000;
+            items.remove(this);
         }
         if(this.intersects(bombergirl)) {
             BombermanGame.collectItem.play();
             bomberman.sizeOfFlame++;
-            x = 1000;
+            items.remove(this);
         }
     }
 }

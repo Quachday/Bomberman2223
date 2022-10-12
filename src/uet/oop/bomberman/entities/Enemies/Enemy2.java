@@ -17,8 +17,13 @@ public class Enemy2 extends Enemy1 {
     super(x,y,img);
     }
 
-
+    int countupdownspeed = 75;
     public void update() {
+        countupdownspeed--;
+        if (countupdownspeed == 0) {
+            speed = speed == 1 ? 3 : 1;
+            countupdownspeed = 75;
+        }
         if (this.status.equals("alive")) move();
         else if (this.status.equals("die")) onDie();
     }
@@ -61,7 +66,6 @@ public class Enemy2 extends Enemy1 {
                 if (bombergirl.getX() < this.x) { ranNum = 1;  }
                 else { ranNum = 2;  }
             }
-        else speed = 1;
 
         if (getDirect()==1) {
             x -= speed;
