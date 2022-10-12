@@ -35,8 +35,7 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.sound.Sound;
 
 
-import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
+import static uet.oop.bomberman.entities.CreateMap.*;
 import static uet.oop.bomberman.entities.Management.*;
 
 
@@ -46,7 +45,7 @@ public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    private GraphicsContext gc;
+    public static GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
      public static List<Entity> stillObjects = new ArrayList<>();
@@ -86,7 +85,7 @@ public class BombermanGame extends Application {
         stage.setTitle("BOMBERMAN GAME");
         welcomeGame(scene);
         stage.show();
-        gc.fillRect(400,350,100,32);
+        gc.fillRect(408,375,200,32);
         //ok
 
 
@@ -98,12 +97,12 @@ public class BombermanGame extends Application {
                // else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0) System.out.println("you lose");
                 render();
                 update();
-                if (numOfEnemy == 0 ) {
+                if (levelnow == 1 && numOfEnemy == 0 ) { // tao 1 portal de win
                     System.out.println("boy win");
                     System.exit(0);
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 }
-                if (levelnow == 2 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
+                if (levelnow == 3 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
                     System.out.println("girl win");
                     System.exit(0);
                 }
@@ -120,32 +119,6 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
-                        /*if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
-
-                            // HAM DAT BOM
-                            boomSettle.play();
-                            boolean checkduplicate = false;
-                            bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
-                            bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
-                            for (int i = 0; i < bombsofman.size() ; i++){
-                                if ( bomberman.indexOfBombs != i &&
-                                        bombsofman.get(bomberman.indexOfBombs).getX() == bombsofman.get(i).getX()
-                                        && bombsofman.get(bomberman.indexOfBombs).getY() == bombsofman.get(i).getY() ) {
-                                    checkduplicate = true; break;
-                                }
-                            }
-                            if (checkduplicate == true) {
-                                Random rand = new Random();
-                                int ranNum = rand.nextInt(2) + 1000;
-                                bombsofman.get(bomberman.indexOfBombs).setX(ranNum);
-                            }
-                            else if (checkduplicate == false) {
-                                bombsofman.get(bomberman.indexOfBombs).settled = true;
-                            }
-                            {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
-                            else bomberman.indexOfBombs++;}
-
-                        }*/
                         if (e.getCode().toString().equals("SPACE")  ){
                             // HAM DAT BOM
                             boomSettle.play();
@@ -188,7 +161,7 @@ public class BombermanGame extends Application {
                 themeSong.stop();
                 gameStart.play();
                 started = true;
-                levelnow = 2;
+                levelnow = 1;
             }
             if (e.getX() >= 175 && e.getX() <= 475 && e.getY() >= 315 && e.getY() <= 350)
             {
@@ -198,6 +171,16 @@ public class BombermanGame extends Application {
                 gameStart.play();
                 started = true;
                 levelnow = 1;
+            }
+            if (e.getX() >= 408 && e.getX() <= 608 && e.getY() >= 375 && e.getY() <= 407)
+            {
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                bombergirl.checkAI = true;
+                CreateMap.createMapByLevel(2,2);
+                themeSong.stop();
+                gameStart.play();
+                started = true;
+                levelnow = 3;
             }
             if (e.getX() >= 875 && e.getX() <= 975 && e.getY() >= 338 && e.getY() <= 413)
                 System.exit(0);
@@ -216,16 +199,12 @@ public class BombermanGame extends Application {
         }
         another.forEach(Bomb::update);
         another1.forEach(Bomb::update);
-        Management.enemy.forEach(Entity::update);
 
-        Management.items.forEach(Entity::update);
-        bricks.forEach(Entity::update);
         List<Enemy1> oneother = new ArrayList<>();
         for (int i = 0; i < enemy.size(); i++) {
             oneother.add(enemy.get(i));
         }
         oneother.forEach(Enemy1::update);
-        bombsofgirl.forEach(Entity::update);
         List<Item> other = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             other.add(items.get(i));
@@ -241,16 +220,7 @@ public class BombermanGame extends Application {
     }
 
     public void render() {
-       // gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        /*Management.grasses.forEach(grass -> grass.render(gc));
 
-        Management.grasses.forEach(grass -> grass.render(gc));
-        Management.walls.forEach(wall -> wall.render(gc));
-        Management.bricks.forEach(g -> g.render(gc));*/
-        //gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        //stillObjects.forEach(g -> g.render(gc));
-        //entities.forEach(g -> g.render(gc));
         Management.grasses.forEach(grass -> grass.render(gc));
         Management.items.forEach(g->g.render(gc));
         Management.bricks.forEach(g -> g.render(gc));

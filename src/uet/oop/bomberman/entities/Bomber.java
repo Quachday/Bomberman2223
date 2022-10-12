@@ -49,12 +49,12 @@ public class Bomber extends Entity {
 
 
     public void update() {
-        if (status.equals("alive"))
+        //if (status.equals("alive"))
         move();
-        else if (status.equals("die") && x < 1000) {
+        /*8else if (status.equals("die") && x < 1000) {
             bomberDie.play();
             ondie();
-        }
+        }*/
 
 
     }

@@ -88,7 +88,7 @@ public  class Entity {
         for (Entity e : Management.bomberman.bombs) {
             if (this.intersects(e)) return true;
         }
-        for (Entity e : Management.bombsofgirl) {
+        for (Entity e : Management.bombergirl.bombs) {
             if (this.intersects(e)) return true;
         }
         return false;
