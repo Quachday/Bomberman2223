@@ -30,7 +30,7 @@ public class Bomber extends Entity {
     public List<Bomb> bombs = new ArrayList<>();
 
 
-    public static int numOfLives = 3;
+    public int numOfLives = 3;
     private static int count = 0; // count die
     public int indexOfBombs = 0;
     public int sizeOfFlame = 2; // cua chung 2 players

@@ -99,7 +99,7 @@ public class BombermanGame extends Application {
                     System.exit(0);
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 }
-                if (levelnow == 2 && started && coinsStack.size() == 0) {
+                if (levelnow == 2 && started && coinsStack.size() == 0 || bomberman.numOfLives == 0) {
                     System.out.println("girl win");
                     System.exit(0);
                 }

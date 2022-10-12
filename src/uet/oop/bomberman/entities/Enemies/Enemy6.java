@@ -34,7 +34,7 @@ public class Enemy6 extends Enemy1{
 
         public void update() {
 
-        if(onPath == true && status == "alive"  ) {
+        if(onPath == true && status == "alive" && bomberman.status == "alive"  ) {
             int goalCol = (int)bomberman.getX() / 32 ;
             int goalRow = (int)bomberman.getY() / 32 ;
            // int goalCol = coinsStack.peek().getX()/ 32 ;
@@ -42,7 +42,6 @@ public class Enemy6 extends Enemy1{
             searchPath(goalCol,goalRow);
             move();
         }
-
             else if (this.status.equals("die")) onDie();
         //else move();
             if(drawPath == true) {

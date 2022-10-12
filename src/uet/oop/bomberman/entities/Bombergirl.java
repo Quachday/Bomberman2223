@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import uet.oop.bomberman.ai.PathFinder;
 import uet.oop.bomberman.entities.Items.Coins;
 import uet.oop.bomberman.graphics.Sprite;
@@ -51,26 +52,22 @@ public class Bombergirl extends Bomber {
              int goalCol = coinsStack.peek().getX()/ 32 ;
              int goalRow = coinsStack.peek().getY() / 32 ; // ham an coin AI
             searchPath(goalCol,goalRow);
-            move();
+            automove();
         }
         else {
             System.out.println("an het tien");
             //System.exit(0);
         };
-
-
-        //else if (this.status.equals("die")) ondie();
-        //else move();
         if(drawPath == true) {
             for (int i = 0; i < finder.pathList.size();i++) {
                 int worldX = finder.pathList.get(i).col * 32;
                 int worldY = finder.pathList.get(i).row * 32;
+                gc.setStroke(Color.DARKBLUE);
                 gc.strokeRect(worldX,worldY,32,32);
-                //gc.fillRect(screenX,screenY,32,32);
             }
         }
     }
-    //Thuat toan tim duong ?
+    //Thuat toan tim duong
 
     public void searchPath(int goalCol, int goalRow) {
         int startCol = (int)(this.x+5)/32;
@@ -220,8 +217,7 @@ public class Bombergirl extends Bomber {
             }
         }
     }*/
-    public void move() {  // duoi day la di chuyen random
-
+    public void automove() {  // duoi day la di chuyen random
         if (direction==1 ) { // left
             x -= speed;
             animate += Sprite.DEFAULT_SIZE/10;
