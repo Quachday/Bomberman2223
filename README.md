@@ -58,11 +58,11 @@ Xem comment ở starter project
 6. Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal +1đ DONE
 
 - Gói tùy chọn (tối đa +4đ)
-0. Thiết kế cây thừa kế cho các đối tượng game +max1đ
-1. Nâng cấp thuật toán tìm đường cho Enemy +0.5đ DONE
-   Cài đặt thêm các loại Enemy khác: +0.25đ cho mỗi loại enemy DONE
-2. Cài đặt thuật toán AI cho Bomber (tự chơi) +1đ DONE
-3. Xử lý hiệu ứng âm thanh (thêm music & sound effects) +0,5 DONE
-4. Phát triển hệ thống server-client để nhiều người có thể cùng chơi qua mạng LAN hoặc Internet +1đ
-5. Những ý tưởng khác sẽ được đánh giá và cộng điểm theo mức tương ứng
-6. Điểm làm git +max1đ
+1. Thiết kế cây thừa kế cho các đối tượng game +max1đ
+2. Nâng cấp thuật toán tìm đường cho Enemy +0.5đ DONE
+3.  Cài đặt thêm các loại Enemy khác: +0.25đ cho mỗi loại enemy 1đ DONE
+4. Cài đặt thuật toán AI cho Bomber (tự chơi) +1đ DONE
+5. Xử lý hiệu ứng âm thanh (thêm music & sound effects) +0,5 DONE
+6. Phát triển hệ thống server-client để nhiều người có thể cùng chơi qua mạng LAN hoặc Internet +1đ
+7. Những ý tưởng khác sẽ được đánh giá và cộng điểm theo mức tương ứng
+8. Điểm làm git +max1đ
