@@ -35,7 +35,8 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.sound.Sound;
 
 
-import static uet.oop.bomberman.entities.CreateMap.*;
+import static uet.oop.bomberman.entities.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.entities.CreateMap.numOfplayer;
 import static uet.oop.bomberman.entities.Management.*;
 
 
@@ -45,7 +46,7 @@ public class BombermanGame extends Application {
 
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static GraphicsContext gc;
+    private GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
      public static List<Entity> stillObjects = new ArrayList<>();
@@ -75,6 +76,7 @@ public class BombermanGame extends Application {
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
+        Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -118,35 +120,41 @@ public class BombermanGame extends Application {
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e) {
                         String code = e.getCode().toString();
+                        /*if (e.getCode().toString().equals("SPACE") && !bombsofman.get(bomberman.indexOfBombs).settled ) {
 
-                        if (e.getCode().toString().equals("SPACE")  ){
                             // HAM DAT BOM
                             boomSettle.play();
-                            bomberman.putBomb();
-                        }
-
-                        if (e.getCode().toString().equals("ENTER") && !bombsofgirl.get(bombergirl.indexOfBombs).settled ) { // HAM DAT BOM
-                            boomSettle.play();
                             boolean checkduplicate = false;
-                            bombsofgirl.get(bombergirl.indexOfBombs).setX((int)(bombergirl.getX()+5)/32*32);
-                            bombsofgirl.get(bombergirl.indexOfBombs).setY((int)(bombergirl.getY()+16)/32*32);
-                            for (int i = 0; i < bombsofgirl.size() ; i++){
-                                if ( bombergirl.indexOfBombs != i &&
-                                        bombsofgirl.get(bombergirl.indexOfBombs).getX() == bombsofgirl.get(i).getX()
-                                        && bombsofgirl.get(bombergirl.indexOfBombs).getY() == bombsofgirl.get(i).getY() ) {
+                            bombsofman.get(bomberman.indexOfBombs).setX((int)(bomberman.getX()+5)/32*32);
+                            bombsofman.get(bomberman.indexOfBombs).setY((int)(bomberman.getY()+16)/32*32);
+                            for (int i = 0; i < bombsofman.size() ; i++){
+                                if ( bomberman.indexOfBombs != i &&
+                                        bombsofman.get(bomberman.indexOfBombs).getX() == bombsofman.get(i).getX()
+                                        && bombsofman.get(bomberman.indexOfBombs).getY() == bombsofman.get(i).getY() ) {
                                     checkduplicate = true; break;
                                 }
                             }
                             if (checkduplicate == true) {
                                 Random rand = new Random();
                                 int ranNum = rand.nextInt(2) + 1000;
-                                bombsofgirl.get(bombergirl.indexOfBombs).setX(ranNum);
+                                bombsofman.get(bomberman.indexOfBombs).setX(ranNum);
                             }
                             else if (checkduplicate == false) {
-                                bombsofgirl.get(bombergirl.indexOfBombs).settled = true;
+                                bombsofman.get(bomberman.indexOfBombs).settled = true;
                             }
-                            {if (bombergirl.indexOfBombs == bombsofgirl.size()-1) bombergirl.indexOfBombs = 0;
-                            else bombergirl.indexOfBombs++;}
+                            {if (bomberman.indexOfBombs == bombsofman.size()-1) bomberman.indexOfBombs = 0;
+                            else bomberman.indexOfBombs++;}
+
+                        }*/
+                        if (e.getCode().toString().equals("SPACE")  ){
+                            // HAM DAT BOM
+                            boomSettle.play();
+                            bomberman.putBomb();
+                        }
+
+                        if (e.getCode().toString().equals("ENTER")) { // HAM DAT BOM
+                            boomSettle.play();
+                            bombergirl.putBomb();
                         }
                         // only add once... prevent duplicates
                         if (!input.contains(code) && !code.equals("SPACE") && !code.equals("ENTER"))
@@ -199,10 +207,19 @@ public class BombermanGame extends Application {
     public void update() {
         Management.bombers.forEach(Entity::update);
         List<Bomb> another = new ArrayList<>();
+        List<Bomb> another1 = new ArrayList<>();
         for (int i = 0; i < bomberman.bombs.size(); i++) {
             another.add(bomberman.bombs.get(i));
         }
+        for (int i = 0; i < bombergirl.bombs.size(); i++) {
+            another1.add(bombergirl.bombs.get(i));
+        }
         another.forEach(Bomb::update);
+        another1.forEach(Bomb::update);
+        Management.enemy.forEach(Entity::update);
+
+        Management.items.forEach(Entity::update);
+        bricks.forEach(Entity::update);
         List<Enemy1> oneother = new ArrayList<>();
         for (int i = 0; i < enemy.size(); i++) {
             oneother.add(enemy.get(i));
@@ -243,6 +260,7 @@ public class BombermanGame extends Application {
         Management.enemy.forEach(g -> g.render(gc));
         Management.bombsofman.forEach(g -> g.render(gc));
         Management.bomberman.bombs.forEach(g -> g.render(gc));
+        Management.bombergirl.bombs.forEach(g -> g.render(gc));
         bombsofgirl.forEach(g -> g.render(gc));
         flamesvisual.forEach(g->g.render(gc));
     }

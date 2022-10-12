@@ -1,15 +1,9 @@
 package uet.oop.bomberman.entities;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import uet.oop.bomberman.ai.PathFinder;
-import uet.oop.bomberman.entities.Items.Coins;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.gc;
 import static uet.oop.bomberman.BombermanGame.input;
-import static uet.oop.bomberman.entities.CreateMap.coinsStack;
 import static uet.oop.bomberman.entities.Management.*;
 import static uet.oop.bomberman.entities.Management.bomberman;
 
@@ -241,4 +235,5 @@ public class Bombergirl extends Bomber {
         if (this.intersects(bomberman)) bomberman.status = "die";
         if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
+
 }
