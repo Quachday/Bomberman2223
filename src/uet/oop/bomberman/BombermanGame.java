@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Items.Item;
-import uet.oop.bomberman.entities.createGame.CreateMap;
-import uet.oop.bomberman.entities.createGame.Management;
+import uet.oop.bomberman.createGame.CreateMap;
+import uet.oop.bomberman.createGame.Management;
 import uet.oop.bomberman.entities.tiles.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -29,8 +29,8 @@ import java.util.List;
 import uet.oop.bomberman.sound.Sound;
 
 
-import static uet.oop.bomberman.entities.createGame.CreateMap.*;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.CreateMap.*;
+import static uet.oop.bomberman.createGame.Management.*;
 import static uet.oop.bomberman.entities.players.Bombergirl.checkAI;
 
 
@@ -101,11 +101,17 @@ public class BombermanGame extends Application {
                 else if (bomberman.numOfLives == 0 && numOfplayer == 2 && bombergirl.numOfLives == 0){
                     losingEndingScene(stage);
                 }
-                else if ((levelnow == 1 || levelnow == 3) && numOfEnemy == 0 && bomberman.checkPortal() ) { // tao 1 portal de win
+                else if (levelnow == 1  && numOfEnemy == 0 && bomberman.checkPortal() ) { // tao 1 portal de win
                     winningEndingScene(stage);
                                    }
+                else if ((levelnow == 2) && numOfEnemy == 0 && bomberman.checkPortal() && bombergirl.checkPortal() ) { // tao 1 portal de win
+                    winningEndingScene(stage);
+                }
                 else if ((levelnow == 3 && started && coinsStack.size() == 0) || bomberman.numOfLives == 0) {
                     losingEndingScene(stage);
+                }
+                else if (levelnow == 3 && started && bombergirl.numOfLives == 0) {
+                    winningEndingScene(stage);
                 }
             }
         };

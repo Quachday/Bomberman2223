@@ -7,8 +7,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-import static uet.oop.bomberman.entities.createGame.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.createGame.Management.*;
 
 public class Enemy1 extends Entity {
 
@@ -46,8 +46,6 @@ public class Enemy1 extends Entity {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2,Sprite.balloom_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 
     public void onDie() {
@@ -91,3 +89,4 @@ public class Enemy1 extends Entity {
                return ranNum;
     }
 }
+

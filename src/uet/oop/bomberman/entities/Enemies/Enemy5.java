@@ -5,8 +5,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
-import static uet.oop.bomberman.entities.createGame.Management.bomberman;
+import static uet.oop.bomberman.createGame.Management.bombergirl;
+import static uet.oop.bomberman.createGame.Management.bomberman;
 public class Enemy5 extends Enemy3 {
     int count = 500;
 
@@ -65,8 +65,6 @@ public class Enemy5 extends Enemy3 {
             y += 1;
             img = Sprite.ghost_left3.getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
     @Override
     protected int getDirect() {

@@ -5,18 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.ai.PathFinder;
+import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.entities.createGame.CreateMap.coinsStack;
-import static uet.oop.bomberman.entities.createGame.Management.*;
-import static uet.oop.bomberman.entities.createGame.Management.bomberman;
+import static uet.oop.bomberman.createGame.CreateMap.coinsStack;
+import static uet.oop.bomberman.createGame.Management.*;
+import static uet.oop.bomberman.createGame.Management.bomberman;
 
 
 public class Bombergirl extends Bomber {
 
 
     boolean drawPath = true;
+    char s;
+    int state = 1;
     public int direction;
     PathFinder finder = new PathFinder();
     public boolean onPath = false;
@@ -32,16 +35,19 @@ public class Bombergirl extends Bomber {
 
         super( x, y, img);
         onPath = true;
+        finder.whofind = "girl";
+       // System.out.println(this.status);
     }
 
-    char s;
 
-    int state = 1;
-    public int speed = 4;
+    public int speed = 2;
 
 
 
     public void update() {
+        for (Enemy1 e : enemy) {
+            if (e.intersects(bombergirl)) this.status = "die";
+        }
           if(checkAI) {
               if (this.intersects(bomberman)) bomberman.status = "die";
               if (onPath == true && coinsStack.size() != 0) {
@@ -55,17 +61,19 @@ public class Bombergirl extends Bomber {
                   System.out.println("an het tien");
                   //System.exit(0);
               }
-              /*if (drawPath == true) {
+              if (drawPath == true) {
                   for (int i = 0; i < finder.pathList.size(); i++) {
                       int worldX = finder.pathList.get(i).col * 32;
                       int worldY = finder.pathList.get(i).row * 32;
                       gc.setStroke(Color.DARKBLUE);
                       gc.strokeRect(worldX, worldY, 32, 32);
                   }
-              }*/
+              }
           }
           else
             move();
+        //System.out.println(this.status);
+         //if (status.equals("die")) ondie();
     }
     //Thuat toan tim duong
 
@@ -73,7 +81,6 @@ public class Bombergirl extends Bomber {
         int startCol = (int)(this.x+5)/32;
         int startRow = (int)(this.y+10)/32;
         finder.setNodes(startCol,startRow,goalCol,goalRow,this);
-
         if (finder.search() == true) {
             // Next x and y
             int nextX = finder.pathList.get(0).col * 32;
@@ -148,33 +155,29 @@ public class Bombergirl extends Bomber {
         if(BombermanGame.input.contains("LEFT")) {
             //x-=1;
             goLeft();
-            state++;
-            img = Sprite.movingSprite(Sprite.spider_left_1, Sprite.spider_left_2, 15+state, 3 + state).getFxImage();
-            if (state == 20) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.spider_left_1, Sprite.spider_left_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'L';
         }
         if(BombermanGame.input.contains("RIGHT")) {
             //x+=1;
             goRight();
-            state++;
-            if (state == 20) state = 1;
-            img = Sprite.movingSprite(Sprite.spider_right_1,Sprite.spider_right_2,15+state,3+state).getFxImage();
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.spider_right_1, Sprite.spider_right_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'R';
         }
         if(BombermanGame.input.contains("UP")) {
             //y-=1;
             goUp();
-            state++;
-            if (state == 15) state = 1;
-            img = Sprite.movingSprite(Sprite.spider_up_1,Sprite.spider_up_2,15+state,3+state).getFxImage();
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.spider_up_1, Sprite.spider_up_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'U';
         }
         if(BombermanGame.input.contains("DOWN")) {
             //y+=1;
             goDown();
-            state++;
-            img = Sprite.movingSprite(Sprite.spider_down_1,Sprite.spider_down_2,15+state,3+state).getFxImage();
-            if (state == 15) state = 1;
+            animate += Sprite.DEFAULT_SIZE/10;
+            img = Sprite.movingSprite(Sprite.spider_down_1, Sprite.spider_down_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
             s = 'D';
         }
         if ( x <= 80 && x >=64 && y >= 96 && y <= 112) { x = 850; y = 352; }
@@ -238,8 +241,6 @@ public class Bombergirl extends Bomber {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.spider_up_1, Sprite.spider_up_2, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 
 }

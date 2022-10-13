@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.createGame;
+package uet.oop.bomberman.createGame;
 
 import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.Entity;
@@ -46,6 +46,8 @@ public class Management {
         doors.clear();
         bomberman.numOfLives = 3;
         bombergirl.numOfLives = 3;
+        bomberman.speed = 2;
+        bombergirl.speed = 2;
     }
 
 

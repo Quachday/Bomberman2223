@@ -1,11 +1,12 @@
 package uet.oop.bomberman.ai;
 
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.createGame.Management;
+import uet.oop.bomberman.createGame.Management;
 
 import java.util.ArrayList;
 
 public class PathFinder {
+    public String whofind = "";
     Node[][] node;
     ArrayList<Node> openList = new ArrayList<>();
     public ArrayList<Node> pathList = new ArrayList<>();
@@ -61,6 +62,16 @@ public class PathFinder {
         for(Entity e : Management.walls) {
            node[(int)e.getX()/32][(int)e.getY()/32].solid = true;
         }
+        for(Entity e : Management.enemy) {
+            if(whofind.equals("doll") ) {
+                if (currentNode.col != (int) e.getX() / 32 && currentNode.row != (int) e.getY() / 32
+                )
+                    node[(int) e.getX() / 32][(int) e.getY() / 32].solid = true;
+            }
+            else if (whofind.equals("girl")) {
+                node[(int) e.getX() / 32][(int) e.getY() / 32].solid = true;
+            }
+            }
         for(Entity e : Management.bricks) {
             node[(int)e.getX()/32][(int)e.getY()/32].solid = true;
         }

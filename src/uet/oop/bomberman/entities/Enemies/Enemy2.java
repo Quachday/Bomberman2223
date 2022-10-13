@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.Management.*;
 
 
 // ONEAL : đặc điểm : nếu nó thấy bạn, nó đi về phía bạn.
@@ -43,9 +43,7 @@ public class Enemy2 extends Enemy1 {
     public Rectangle2D getBoundarybyColumn() {
         return new Rectangle2D(x+1 , y-32 , Sprite.SCALED_SIZE -2 , Sprite.SCALED_SIZE + 64);
     }
-    public boolean intersectsPlayerbyColumn(Entity s) {
-        return this.getBoundarybyColumn().intersects(s.getBoundary());
-    }
+
 
     @Override
     public void onDie() {
@@ -86,7 +84,5 @@ public class Enemy2 extends Enemy1 {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2,Sprite.oneal_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 }

@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import uet.oop.bomberman.ai.PathFinder;
-import uet.oop.bomberman.entities.createGame.Management;
+import uet.oop.bomberman.createGame.Management;
 import uet.oop.bomberman.graphics.Sprite;
 
 

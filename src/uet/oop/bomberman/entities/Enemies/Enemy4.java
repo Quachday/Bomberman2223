@@ -3,8 +3,8 @@ package uet.oop.bomberman.entities.Enemies;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.createGame.CreateMap.numOfEnemy;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.CreateMap.numOfEnemy;
+import static uet.oop.bomberman.createGame.Management.*;
 
 public class Enemy4 extends Enemy1 {
     int lives_remain = 2;
@@ -53,7 +53,5 @@ public class Enemy4 extends Enemy1 {
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2,Sprite.minvo_left3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 }

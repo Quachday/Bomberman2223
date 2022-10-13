@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.players;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 
+import uet.oop.bomberman.entities.Enemies.Enemy1;
 import uet.oop.bomberman.entities.tiles.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static uet.oop.bomberman.BombermanGame.*;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.Management.*;
 
 
 public class Bomber extends Entity {
@@ -33,6 +34,9 @@ public class Bomber extends Entity {
 
 
     public void update() {
+        for (Enemy1 e : enemy) {
+            if (e.intersects(bombergirl)) this.status = "die";
+        }
        // if (status.equals("alive"))
         move();
         //else if (status.equals("die") && x < 1000) {
