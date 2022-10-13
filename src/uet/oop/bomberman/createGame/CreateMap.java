@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.createGame;
+package uet.oop.bomberman.createGame;
 
 import uet.oop.bomberman.entities.Enemies.*;
 import uet.oop.bomberman.entities.Entity;
@@ -13,7 +13,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.Management.*;
 
 public class CreateMap {
     public static int numOfEnemy = 1;

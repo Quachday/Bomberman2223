@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.Items;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 
-import static uet.oop.bomberman.entities.createGame.Management.*;
+import static uet.oop.bomberman.createGame.Management.*;
 
 public class Power_up extends Item {
     public Power_up(int x, int y, Image img) {

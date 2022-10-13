@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
-import static uet.oop.bomberman.entities.createGame.Management.bomberman;
+import static uet.oop.bomberman.createGame.Management.bombergirl;
+import static uet.oop.bomberman.createGame.Management.bomberman;
 
 public class Enemy3 extends Enemy1 {
     public Enemy3(int x, int y, Image img) {
@@ -58,8 +58,6 @@ public class Enemy3 extends Enemy1 {
             img = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2,Sprite.kondoria_right3, 10+state, 3 + state).getFxImage();
             if (state == 30) state = 1;
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
     }
 
     @Override

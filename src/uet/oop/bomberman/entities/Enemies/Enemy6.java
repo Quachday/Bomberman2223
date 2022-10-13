@@ -8,8 +8,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.entities.createGame.Management.bombergirl;
-import static uet.oop.bomberman.entities.createGame.Management.bomberman;
+import static uet.oop.bomberman.createGame.Management.bombergirl;
+import static uet.oop.bomberman.createGame.Management.bomberman;
 
 
 public class Enemy6 extends Enemy1{
@@ -24,20 +24,21 @@ public class Enemy6 extends Enemy1{
     public Enemy6(int x, int y, Image img) {
         super(x, y, img);
         onPath = true;
+        finder.whofind = "doll";
     }
 
     public void update() {
 
-        if(onPath == true && status == "alive"   ) {
+        if(onPath == true && this.status == "alive"   ) {
             int goalCol = (int)bomberman.getX() / 32 ;
             int goalRow = (int)bomberman.getY() / 32 ;
             // int goalCol = coinsStack.peek().getX()/ 32 ;
             // int goalRow = coinsStack.peek().getY() / 32 ; // ham an coin AI
             searchPath(goalCol,goalRow);
-            move();
+            automove();
         }
         else if (this.status.equals("die")) onDie();
-        //else move();
+        else move();
         if(drawPath == true) {
             for (int i = 0; i < finder.pathList.size();i++) {
                 int worldX = finder.pathList.get(i).col * 32;
@@ -58,7 +59,7 @@ public class Enemy6 extends Enemy1{
         {img = Sprite.doll_dead.getFxImage(); count_die--;}
         else super.onDie();
     }
-    void move() {  // duoi day la di chuyen random
+    void automove() {  // duoi day la di chuyen random
 
         if (direction==1 ) { // left
             x -= speed;
@@ -80,8 +81,7 @@ public class Enemy6 extends Enemy1{
             animate += Sprite.DEFAULT_SIZE/10;
             img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2,Sprite.doll_right3, animate, Sprite.DEFAULT_SIZE).getFxImage();
         }
-        if (this.intersects(bomberman)) bomberman.status = "die";
-        if (this.intersects(bombergirl)) bombergirl.status = "die";
+
         /*for (int i = 0; i < items.size(); i++) { // ham an coin AI
             if (items.get(i) instanceof Coins && this.intersects(items.get(i)))
             {   items.remove(items.get(i));
@@ -162,7 +162,17 @@ public class Enemy6 extends Enemy1{
                 //coinsStack.pop();
             }*/
         }
-
-
+    }
+    protected int getDirect() {
+        if (this.checkWall() || this.checkBrick() || this.checkBomb())
+        {
+            switch (direction) {
+                case 1 : x += speed; supportRow(); break;
+                case 2 : x -= speed ; supportRow(); break;
+                case 3 : y -= speed;supportColumn(); break;
+                case 4 : y += speed;supportColumn(); break;
+            }
+            direction = rand.nextInt(4)+1;}
+        return direction;
     }
 }

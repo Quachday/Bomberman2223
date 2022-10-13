@@ -5,7 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.entities.createGame.Management.bricks;
+import static uet.oop.bomberman.createGame.Management.bricks;
 
 public class Brick extends Wall{
     private String status = "remain";
