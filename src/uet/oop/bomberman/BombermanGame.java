@@ -270,16 +270,14 @@ public class BombermanGame extends Application {
     }
 
     public void render() {
-
         Management.grasses.forEach(grass -> grass.render(gc));
         Management.items.forEach(g->g.render(gc));
-        Management.bricks.forEach(g -> g.render(gc));
         Management.walls.forEach(wall -> wall.render(gc));
-        Management.bombers.forEach(g -> g.render(gc));
         Management.doors.forEach(doors -> doors.render(gc));
         Management.portals.forEach(portal -> portal.render(gc));
         Management.bricks.forEach(g -> g.render(gc));
         Management.enemy.forEach(g -> g.render(gc));
+        Management.bombers.forEach(g -> g.render(gc));
         Management.bomberman.bombs.forEach(g -> g.render(gc));
         Management.bombergirl.bombs.forEach(g -> g.render(gc));
         flamesvisual.forEach(g->g.render(gc));
