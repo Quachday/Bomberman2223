@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.tiles;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.createGame.Management;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
 
 import static uet.oop.bomberman.createGame.Management.*;
 
-public class Bomb extends Wall {
+public class Bomb extends Entity {
     List<Flame> flameLeft = new ArrayList<>();
     List<Flame> flameRight = new ArrayList<>();
     List<Flame> flameUp = new ArrayList<>();

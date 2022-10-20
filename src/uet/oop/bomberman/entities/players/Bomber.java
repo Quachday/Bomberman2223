@@ -66,26 +66,26 @@ public class Bomber extends Entity {
     public Rectangle2D getBoundary() {
         return new Rectangle2D(x, y, Sprite.SCALED_SIZE-10, Sprite.SCALED_SIZE);
     }
-    public void supportRow() {
-        if (this.y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
-            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
-        } else if (this.y % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
-            this.y = Sprite.SCALED_SIZE * (this.y / Sprite.SCALED_SIZE);
+    public void setRow() {
+        if (y % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            y = Sprite.SCALED_SIZE * (y / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+        } else if (y % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
+            y = Sprite.SCALED_SIZE * (y / Sprite.SCALED_SIZE);
         }
     }
 
-    public void supportColumn() {
-        if (this.x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
-            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
+    public void setColumn() {
+        if (x % Sprite.SCALED_SIZE >= 2 * Sprite.SCALED_SIZE / 3) {
+            x = Sprite.SCALED_SIZE * (x / Sprite.SCALED_SIZE) + Sprite.SCALED_SIZE;
         } else if (this.x % Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 3) {
-            this.x = Sprite.SCALED_SIZE * (this.x / Sprite.SCALED_SIZE);
+            x = Sprite.SCALED_SIZE * (x / Sprite.SCALED_SIZE);
         }
     }
     public void goLeft() {
             this.x -= speed;
             if (checkBrick() || checkWall() || checkBomb()) {
                 this.x += speed;
-                supportRow();
+                setRow();
              }
     }
 
@@ -93,7 +93,7 @@ public class Bomber extends Entity {
             this.x += speed;
             if (checkBrick() || checkWall() || checkBomb())  {
                 this.x -= speed;
-                supportRow();
+                setRow();
             }
     }
 
@@ -101,7 +101,7 @@ public class Bomber extends Entity {
             this.y -= speed;
             if (checkBrick() || checkWall() || checkBomb())  {
                 this.y += speed;
-                supportColumn();
+                setColumn();
              }
     }
 
@@ -109,7 +109,7 @@ public class Bomber extends Entity {
             this.y += speed;
             if (checkBrick() || checkWall() || checkBomb())  {
                 this.y -= speed;
-                supportColumn();
+                setColumn();
             }
     }
 
