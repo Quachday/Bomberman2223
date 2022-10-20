@@ -113,7 +113,7 @@ public class Bomber extends Entity {
             }
     }
 
-    private boolean duplicateBomb(Bomb bomb) {
+    private boolean checkDuplicateBomb(Bomb bomb) {
         for (Bomb b : this.bombs) {
             if (b.getX() == bomb.getX() && b.getY() == bomb.getY()) {
                 return true;
@@ -136,7 +136,7 @@ public class Bomber extends Entity {
         }
         Bomb bomb = new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage());
 
-        if (!this.duplicateBomb(bomb)
+        if (!this.checkDuplicateBomb(bomb)
                 && getNumBombs() >= this.bombs.size() + 1) {
             this.bombs.add(bomb);
         }
